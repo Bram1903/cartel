@@ -5,7 +5,6 @@ load_dotenv()
 import discord
 import traceback
 import sys
-from discord.ext import commands
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
 from discord.ext.commands import Bot, MissingPermissions, CommandNotFound, has_permissions, cooldown, BucketType, \
     CommandOnCooldown, check, CheckFailure
