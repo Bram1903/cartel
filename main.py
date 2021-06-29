@@ -45,6 +45,7 @@ async def reload(ctx, extension):
                     colour=0x36393F)
     await ctx.send(embed=moduleReloaded)
 
+
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
