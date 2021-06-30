@@ -3,6 +3,18 @@ from discord.ext import commands
 from discord import Embed
 
 
+# This prevents staff members from being punished
+class Sinner(commands.Converter):
+    async def convert(self, ctx, argument):
+        argument = await commands.MemberConverter().convert(ctx, argument)
+        permission = argument.guild_permissions.manage_messages
+        if not permission:
+            return argument
+        else:
+            raise commands.BadArgument(
+                "You cannot punish other staff members")
+
+
 class Kick(commands.Cog):
 
     def __init__(self, client):
@@ -14,27 +26,30 @@ class Kick(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason="Not specified"):
+    async def kick(self, ctx, user: Sinner = None, reason="Not specified"):
         await ctx.message.delete()
-        dmUser = Embed(title="CartelPvP | Moderation",
+        if not user:  # checks if there is a user
+            return await ctx.send("You must specify a user")
+        userDM = Embed(title="CartelPvP | Moderation",
                        description=f"You have been kicked from CartelPvP",
                        colour=0xAE0808)
 
-        dmUser.set_thumbnail(
+        userDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        dmUser.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)
-        dmUser.add_field(name="Reason", value=f"{reason}", inline=True)
-
-        if member:
+        userDM.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)
+        userDM.add_field(name="Reason", value=f"{reason}", inline=True)
+        if user:
             try:
-                await member.send(embed=dmUser)
+                await user.send(embed=userDM)
             except discord.Forbidden:
                 pass
-
-        await member.kick(reason=reason)
+        try:
+            await user.kick(reason=reason)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to kick someone higher than the bot")
         embedKick = Embed(title="CartelPvP | Moderation",
-                          description=f"{member} has been kicked from CartelPvP.",
-                          colour=0xAE0808)
+                         description=f"{user} has been kicked from CartelPvP.",
+                         colour=0xAE0808)
         embedKick.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         embedKick.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)

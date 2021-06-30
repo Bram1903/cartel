@@ -37,15 +37,15 @@ class Ban(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         userDM.add_field(name="Banned by", value=f"{ctx.author}", inline=True)
         userDM.add_field(name="Reason", value=f"{reason}", inline=True)
-        try:
-            await user.ban(reason=reason)
-        except discord.Forbidden:
-            return await ctx.send("Are you trying to ban someone higher than the bot")
         if user:
             try:
                 await user.send(embed=userDM)
             except discord.Forbidden:
                 pass
+        try:
+            await user.ban(reason=reason)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to ban someone higher than the bot")
         embedBan = Embed(title="CartelPvP | Moderation",
                          description=f"{user} has been banned from CartelPvP.",
                          colour=0xAE0808)
