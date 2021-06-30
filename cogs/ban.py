@@ -15,6 +15,7 @@ class Ban(commands.Cog):
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
+        await ctx.message.delete()
         userdm = Embed(title="CartelPvP | Moderation",
                        description=f"You have been banned from CartelPvP",
                        colour=0xAE0808)

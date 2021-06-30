@@ -10,11 +10,12 @@ class Kick(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Kick module has succesfully been initialized.')
+        print('Kick module has successfully been initialized.')
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason="Not specified"):
+        await ctx.message.delete()
         dmUser = Embed(title="CartelPvP | Moderation",
                        description=f"You have been kicked from CartelPvP",
                        colour=0xAE0808)
