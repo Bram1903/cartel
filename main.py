@@ -193,7 +193,8 @@ async def appeal(ctx):
     ticket_appeal.set_thumbnail(
         url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
     ticket_appeal.add_field(name="Use the following format",
-                            value="Once you fill out your appeal using the following format please be patient while we look into your punishment.",
+                            value="Once you fill out your appeal using the following format please be patient while we "
+                                  "look into your punishment.",
                             inline=False)
     ticket_appeal.add_field(name="• IGN", value="Your in-game username.", inline=False)
     ticket_appeal.add_field(name="• Ban Reason", value="The reason you got banned.", inline=False)
@@ -208,22 +209,22 @@ async def appeal(ctx):
 @client.command()
 @cooldown(1, 5, BucketType.channel)  # Used in VOID; prevents 2 people closing ticket at once
 @only_tickets()  # This check/line is important. Do not change otherwise members might end up deleting channels
-async def close(ctx, *, reason="Not specified", pass_context=True):
+async def close(ctx, *, reason="Not specified"):
     ticket_closing = Embed(title="Closing this ticket in 5 seconds",
                            description="You can now forget this ticket ever existed",
                            colour=0xAE0808)
     await ctx.send(embed=ticket_closing)
     await sleep(4.7)
 
-    filename = f"{ctx.channel.name}.txt"
-    with open(filename, "w") as file:
+    fileName = f"{ctx.channel.name}.txt"
+    with open(fileName, "w") as file:
         async for msg in ctx.channel.history(limit=None):
             file.write(f"{msg.created_at} - {msg.author.display_name}: {msg.clean_content}\n")
 
     await ctx.channel.delete(reason=f"Closed by {ctx.author}, reason: {reason}")
     channel = ctx.channel
     user = await client.fetch_user(channel.topic)
-    file = discord.File(filename)
+    file = discord.File(fileName)
     ticket_dm = Embed(title=f"CartelPvP | Tickets",
                       description="Your ticket in CartelPvP has been closed.",
                       colour=0xAE0808)
@@ -248,10 +249,10 @@ async def close(ctx, *, reason="Not specified", pass_context=True):
 
     channel = client.get_channel(859442000255123476)
     await channel.send(embed=ticket_staff)
-    file = discord.File(filename)
+    file = discord.File(fileName)
     await channel.send(file=file)
 
-    os.remove(filename)
+    os.remove(fileName)
 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
