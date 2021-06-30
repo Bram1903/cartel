@@ -56,6 +56,7 @@ class Ban(commands.Cog):
         await ctx.send(embed=embedBan)
 
     @commands.command()
+    @commands.has_permissions(ban_members=True)
     async def softban(self, ctx, user: Sinner = None, reason="Not specified"):
         if not user:  # checks if there is a user
             return await ctx.send("You must specify a user")
