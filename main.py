@@ -1,22 +1,21 @@
-from asyncio import sleep
-import os
-from dotenv import load_dotenv
-load_dotenv()
 import discord
-import traceback
-import sys
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
 from discord.ext.commands import Bot, MissingPermissions, CommandNotFound, has_permissions, cooldown, BucketType, \
     CommandOnCooldown, check, CheckFailure
+from asyncio import sleep
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 load_dotenv()
 
 client = Bot(command_prefix="?",
-            help_command=None,
-            case_insensitive=True,
-            max_messages=100,
-            activity=Activity(type=ActivityType.watching,
-            name=f"over Cartel."))
+             help_command=None,
+             case_insensitive=True,
+             max_messages=100,
+             activity=Activity(type=ActivityType.watching,
+                               name=f"over Cartel."))
 
 
 @client.command()
@@ -24,7 +23,7 @@ client = Bot(command_prefix="?",
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
     moduleLoaded = Embed(title=f" ✅ Module {extension} has succesfully been loaded.",
-                    colour=0x36393F)
+                         colour=0x36393F)
     await ctx.send(embed=moduleLoaded)
 
 
@@ -33,7 +32,7 @@ async def load(ctx, extension):
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     moduleUnloaded = Embed(title=f" ❌ Module {extension} has succesfully been unloaded.",
-                    colour=0x36393F)
+                           colour=0x36393F)
     await ctx.send(embed=moduleUnloaded)
 
 
@@ -43,7 +42,7 @@ async def reload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
     moduleReloaded = Embed(title=f" 🔁 Module {extension} has succesfully been reloaded.",
-                    colour=0x36393F)
+                           colour=0x36393F)
     await ctx.send(embed=moduleReloaded)
 
 
@@ -54,23 +53,23 @@ for filename in os.listdir('./cogs'):
 #  Adjust to your likings
 GENERIC_ELEVATED_ROLES = ("cold support", "platform-admin", "senior-admin", "admin", "manager")
 ROLES1 = ("cold support", "manager", "platform-admin")
-ROLES2 = ("cold support", "trial-mod", "mod","senior-mod", "support team")
+ROLES2 = ("cold support", "trial-mod", "mod", "senior-mod", "support team")
 ROLES3 = ("cold support", "platform-admin", "senior-admin", "admin", "manager", "support team")
 ROLES4 = ("senior-mod", "platform-admin", "senior-admin", "admin", "manager")
 TICKET_CATEGORY = 859442055867793438
 
 #  Ticket reactions, (inherit, description, roles)
 REACTIONS = {
-    "✉️":  {"inherit": False, "description": "Player report",
-            "roles": ROLES2},
-    "🛒":  {"inherit": False, "description": "Buycraft issue or question",
-            "roles": ROLES1},
-    "🚓":  {"inherit": False, "description": "Admin support",
-            "roles": GENERIC_ELEVATED_ROLES},
-    "✍️":  {"inherit": False, "description": "Appeal a ban",
-            "roles": ROLES4},
-    "❓":   {"inherit": False, "description": "Other issue/not specified",
-            "roles": ROLES3}
+    "✉️": {"inherit": False, "description": "Player report",
+           "roles": ROLES2},
+    "🛒": {"inherit": False, "description": "Buycraft issue or question",
+           "roles": ROLES1},
+    "🚓": {"inherit": False, "description": "Admin support",
+           "roles": GENERIC_ELEVATED_ROLES},
+    "✍️": {"inherit": False, "description": "Appeal a ban",
+           "roles": ROLES4},
+    "❓": {"inherit": False, "description": "Other issue/not specified",
+          "roles": ROLES3}
 }
 
 OVERWRITE_ALLOW = PermissionOverwrite(read_messages=True, send_messages=True)
@@ -80,6 +79,7 @@ def only_tickets():
     async def predicate(ctx):  # AND AND AND!!!
         channel = ctx.channel
         return channel.topic and channel.topic.isdigit() and channel.category and channel.category.id == TICKET_CATEGORY
+
     return check(predicate)
 
 
@@ -178,7 +178,8 @@ async def setup(ctx):
                                                  "🚓 | Admin-only support\n"
                                                  "✍️ | Appeal a ban\n"
                                                  "❓  | Other / unspecified support")
-    ticket_panel.set_image(url="https://cdn.discordapp.com/attachments/785967499153113089/855027002721173524/create_a_ticket.png")
+    ticket_panel.set_image(
+        url="https://cdn.discordapp.com/attachments/785967499153113089/855027002721173524/create_a_ticket.png")
     ticket_panel.set_footer(text="CartelPvP Ticket System")
 
     message = await ctx.send(embed=ticket_panel)
@@ -189,10 +190,13 @@ async def setup(ctx):
 @only_tickets()  # This check/line is important, because otherwise they can type >appeal in an other chat.
 async def appeal(ctx):
     ticket_appeal = Embed(title="CartelPvP | Appeals",
-                        colour=0xAE0808)
-    
-    ticket_appeal.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-    ticket_appeal.add_field(name="Use the following format", value="Once you fill out your appeal using the following format please be patient while we look into your punishment.", inline=False)
+                          colour=0xAE0808)
+
+    ticket_appeal.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+    ticket_appeal.add_field(name="Use the following format",
+                            value="Once you fill out your appeal using the following format please be patient while we look into your punishment.",
+                            inline=False)
     ticket_appeal.add_field(name="• IGN", value="Your in-game username.", inline=False)
     ticket_appeal.add_field(name="• Ban Reason", value="The reason you got banned.", inline=False)
     ticket_appeal.add_field(name="• Guilty", value="Do you plead guilty?", inline=False)
@@ -207,7 +211,6 @@ async def appeal(ctx):
 @cooldown(1, 5, BucketType.channel)  # Used in VOID; prevents 2 people closing ticket at once
 @only_tickets()  # This check/line is important. Do not change otherwise members might end up deleting channels
 async def close(ctx, *, reason="Not specified", pass_context=True):
-
     ticket_closing = Embed(title="Closing this ticket in 5 seconds",
                            description="You can now forget this ticket ever existed",
                            colour=0xAE0808)
@@ -224,9 +227,9 @@ async def close(ctx, *, reason="Not specified", pass_context=True):
     user = await client.fetch_user(channel.topic)
     file = discord.File(filename)
     ticket_dm = Embed(title=f"CartelPvP | Tickets",
-                    description="Your ticket in CartelPvP has been closed.",
-                    colour=0xAE0808)
-                    
+                      description="Your ticket in CartelPvP has been closed.",
+                      colour=0xAE0808)
+
     ticket_dm.set_thumbnail(url=user.avatar_url)
     ticket_dm.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
     ticket_dm.add_field(name="Reason", value=f"{reason}", inline=True)
@@ -236,21 +239,22 @@ async def close(ctx, *, reason="Not specified", pass_context=True):
             await user.send(file=file)
         except discord.Forbidden:
             pass
-    
+
     ticket_staff = Embed(title=f"CartelPvP | Tickets",
-                        description=f"{user} his ticket has been closed.",
-                        colour=0xAE0808)
+                         description=f"{user} his ticket has been closed.",
+                         colour=0xAE0808)
 
     ticket_staff.set_thumbnail(url=ctx.author.avatar_url)
     ticket_staff.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
     ticket_staff.add_field(name="Reason", value=f"{reason}", inline=True)
-    
+
     channel = client.get_channel(859442000255123476)
     await channel.send(embed=ticket_staff)
     file = discord.File(filename)
     await channel.send(file=file)
 
     os.remove(filename)
+
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)
