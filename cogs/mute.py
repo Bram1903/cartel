@@ -37,29 +37,8 @@ async def mute(ctx, user, reason):
         except discord.Forbidden:
             return await ctx.send("I have no permissions to make a muted role")
         await user.add_roles(muted)
-        MutedDM = Embed(title="CartelPvP | Moderation",
-                       description=f"You have been muted in CartelPvP",
-                       colour=0xAE0808)
-        MutedDM.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        MutedDM.add_field(name="Banned by", value=f"{ctx.author}", inline=True)
-        MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
-        if user:
-            try:
-                await user.send(embed=MutedDM)
-            except discord.Forbidden:
-                pass
-        await ctx.send(embed=MutedDM)
     else:
         await user.add_roles(role)
-        MutedEmbed = Embed(title="CartelPvP | Moderation",
-                        description=f"You have been muted in CartelPvP",
-                        colour=0xAE0808)
-        MutedEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        MutedEmbed.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
-        MutedEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
-        await ctx.send(embed=MutedEmbed)
 
 
 class Mute(commands.Cog):
@@ -73,10 +52,32 @@ class Mute(commands.Cog):
 
     @commands.command()
     async def mute(self, ctx, user: Sinner, reason=None):
+        await ctx.message.delete()
         await mute(ctx, user, reason or "Not specified")
+        MutedDM = Embed(title="CartelPvP | Moderation",
+                        description=f"You have been muted in CartelPvP",
+                        colour=0xAE0808)
+        MutedDM.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        MutedDM.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
+        MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
+        MutedEmbed = Embed(title="CartelPvP | Moderation",
+                           description=f"{user} has been muted in CartelPvP",
+                           colour=0xAE0808)
+        MutedEmbed.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        MutedEmbed.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
+        MutedEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
+        if user:
+            try:
+                await user.send(embed=MutedDM)
+            except discord.Forbidden:
+                pass
+            await ctx.send(embed=MutedEmbed)
 
     @commands.command()
     async def unmute(self, ctx, user: Redeemed):
+        await ctx.message.delete()
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
         UnmutedEmbed = Embed(title="CartelPvP | Moderation",
                            description=f"{user} has been unmuted in CartelPvP",
@@ -85,7 +86,19 @@ class Mute(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         UnmutedEmbed.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
         UnmutedEmbed.add_field(name="Reason", value="Expired", inline=True)
-        await ctx.send(embed=UnmutedEmbed)
+        UnmutedDM = Embed(title="CartelPvP | Moderation",
+                             description="You have been unmuted in CartelPvP",
+                             colour=0xAE0808)
+        UnmutedDM.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        UnmutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
+        UnmutedDM.add_field(name="Reason", value="Expired", inline=True)
+        if user:
+            try:
+                await user.send(embed=UnmutedDM)
+            except discord.Forbidden:
+                pass
+            await ctx.send(embed=UnmutedEmbed)
 
 
 def setup(client):
