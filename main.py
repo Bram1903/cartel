@@ -1,12 +1,10 @@
 import discord
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
-from discord.ext.commands import Bot, MissingPermissions, CommandNotFound, has_permissions, cooldown, BucketType, \
-    CommandOnCooldown, check, CheckFailure
+from discord.ext.commands import Bot, has_permissions, cooldown, BucketType, \
+    check
 from asyncio import sleep
 import os
 from dotenv import load_dotenv
-
-load_dotenv()
 
 load_dotenv()
 
@@ -22,7 +20,7 @@ client = Bot(command_prefix="?",
 @has_permissions(administrator=True)
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
-    moduleLoaded = Embed(title=f" ✅ Module {extension} has succesfully been loaded.",
+    moduleLoaded = Embed(title=f" ✅ Module {extension} has successfully been loaded.",
                          colour=0x36393F)
     await ctx.send(embed=moduleLoaded)
 
@@ -31,7 +29,7 @@ async def load(ctx, extension):
 @has_permissions(administrator=True)
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
-    moduleUnloaded = Embed(title=f" ❌ Module {extension} has succesfully been unloaded.",
+    moduleUnloaded = Embed(title=f" ❌ Module {extension} has successfully been unloaded.",
                            colour=0x36393F)
     await ctx.send(embed=moduleUnloaded)
 
@@ -41,7 +39,7 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
-    moduleReloaded = Embed(title=f" 🔁 Module {extension} has succesfully been reloaded.",
+    moduleReloaded = Embed(title=f" 🔁 Module {extension} has successfully been reloaded.",
                            colour=0x36393F)
     await ctx.send(embed=moduleReloaded)
 

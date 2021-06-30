@@ -10,7 +10,7 @@ class Lockdown(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Lockdown module has succesfully been initialized.')
+        print('Lockdown module has successfully been initialized.')
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
@@ -28,7 +28,7 @@ class Lockdown(commands.Cog):
             else:
                 await ctx.message.delete()
             embed1 = Embed(title="This channel is now under lockdown",
-                        colour=0xAE0808)
+                           colour=0xAE0808)
             await channel.send(embed=embed1)
         elif channel.overwrites[role].send_messages is True or \
                 channel.overwrites[role].send_messages is None:
@@ -40,7 +40,7 @@ class Lockdown(commands.Cog):
             else:
                 await ctx.message.delete()
             embed2 = Embed(title="This channel is now under lockdown.",
-                        colour=0xAE0808)
+                           colour=0xAE0808)
             await channel.send(embed=embed2)
         else:
             overwrites = channel.overwrites[role]
@@ -51,7 +51,7 @@ class Lockdown(commands.Cog):
             else:
                 await ctx.message.delete()
             embed3 = Embed(title="This channel is no longer under lockdown.",
-                        colour=0xAE0808)
+                           colour=0xAE0808)
             await channel.send(embed=embed3)
 
 
