@@ -51,7 +51,7 @@ class Mute(commands.Cog):
         print('Mute module has successfully been initialized.')
 
     @commands.command()
-    @commands.has_permissions(mute_members=True)
+    @commands.has_permissions(administrator=True)
     async def mute(self, ctx, user: Sinner, reason=None):
         await ctx.message.delete()
         await mute(ctx, user, reason or "Not specified")
@@ -77,7 +77,7 @@ class Mute(commands.Cog):
             await ctx.send(embed=MutedEmbed)
 
     @commands.command()
-    @commands.has_permissions(mute_members=True)
+    @commands.has_permissions(administrator=True)
     async def unmute(self, ctx, user: Redeemed):
         await ctx.message.delete()
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
