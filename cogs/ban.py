@@ -3,6 +3,17 @@ from discord.ext import commands
 from discord import Embed
 
 
+class Sinner(commands.Converter):
+    async def convert(self, ctx, argument):
+        argument = await commands.MemberConverter().convert(ctx, argument)
+        permission = argument.guild_permissions.manage_messages
+        if not permission:
+            return argument
+        else:
+            raise commands.BadArgument(
+                "You cannot punish other staff members")
+
+
 class Ban(commands.Cog):
 
     def __init__(self, client):
@@ -14,8 +25,10 @@ class Ban(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason=None):
+    async def ban(self, ctx, user: Sinner = None, reason="Not specified"):
         await ctx.message.delete()
+        if not user:  # checks if there is a user
+            return await ctx.send("You must specify a user")
         userDM = Embed(title="CartelPvP | Moderation",
                        description=f"You have been banned from CartelPvP",
                        colour=0xAE0808)
@@ -24,16 +37,17 @@ class Ban(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         userDM.add_field(name="Banned by", value=f"{ctx.author}", inline=True)
         userDM.add_field(name="Reason", value=f"{reason}", inline=True)
-
-        if member:
+        try:
+            await user.ban(reason=reason)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to ban someone higher than the bot")
+        if user:
             try:
-                await member.send(embed=userDM)
+                await user.send(embed=userDM)
             except discord.Forbidden:
                 pass
-
-        await member.ban(reason=reason)
         embedBan = Embed(title="CartelPvP | Moderation",
-                         description=f"{member} has been banned from CartelPvP.",
+                         description=f"{user} has been banned from CartelPvP.",
                          colour=0xAE0808)
         embedBan.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
