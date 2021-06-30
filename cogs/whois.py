@@ -13,7 +13,6 @@ class Whois(commands.Cog):
 
     @commands.command()
     async def whois(self, ctx, member: discord.Member = None):
-        await ctx.message.delete()
         if not member:  # if member is not mentioned
             member = ctx.message.author  # set member as the author
         roles = [role for role in member.roles]
