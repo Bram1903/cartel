@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord import Embed
 
+
 class Kick(commands.Cog):
 
     def __init__(self, client):
@@ -38,5 +39,5 @@ class Kick(commands.Cog):
         await ctx.send(embed=embedkick)
         
 
-def setup (client):
+def setup(client):
     client.add_cog(Kick(client))

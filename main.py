@@ -27,6 +27,7 @@ async def load(ctx, extension):
                     colour=0x36393F)
     await ctx.send(embed=moduleLoaded)
 
+
 @client.command()
 @has_permissions(administrator=True)
 async def unload(ctx, extension):
@@ -34,6 +35,7 @@ async def unload(ctx, extension):
     moduleUnloaded = Embed(title=f" ❌ Module {extension} has succesfully been unloaded.",
                     colour=0x36393F)
     await ctx.send(embed=moduleUnloaded)
+
 
 @client.command()
 @has_permissions(administrator=True)
@@ -73,18 +75,22 @@ REACTIONS = {
 
 OVERWRITE_ALLOW = PermissionOverwrite(read_messages=True, send_messages=True)
 
+
 def only_tickets():
     async def predicate(ctx):  # AND AND AND!!!
         channel = ctx.channel
         return channel.topic and channel.topic.isdigit() and channel.category and channel.category.id == TICKET_CATEGORY
     return check(predicate)
 
+
 def has_too_many_tickets(query, category_channels) -> bool:  # This is sort of how VOID checks for duplicate tickets
     return any(channel.topic and query in channel.topic for channel in category_channels)
+
 
 async def recreate_reactions(message):
     for reaction in REACTIONS:
         await message.add_reaction(reaction)
+
 
 async def handle_reaction_overflow(message):
     if len(message.reactions) != 5:
@@ -93,6 +99,7 @@ async def handle_reaction_overflow(message):
 
     elif any(reaction.count > 2 for reaction in message.reactions):
         await recreate_reactions(message)
+
 
 @client.event
 async def on_ready():
@@ -176,6 +183,7 @@ async def setup(ctx):
 
     message = await ctx.send(embed=ticket_panel)
     await recreate_reactions(message)
+
 
 @client.command()
 @only_tickets()  # This check/line is important, because otherwise they can type >appeal in an other chat.

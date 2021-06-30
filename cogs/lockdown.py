@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord import Embed
 
+
 class Lockdown(commands.Cog):
 
     def __init__(self, client):
@@ -10,7 +11,6 @@ class Lockdown(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Lockdown module has succesfully been initialized.')
-
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
