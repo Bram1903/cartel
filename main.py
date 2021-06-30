@@ -12,11 +12,11 @@ from discord.ext.commands import Bot, MissingPermissions, CommandNotFound, has_p
 load_dotenv()
 
 client = Bot(command_prefix="?",
-             help_command=None,
-             case_insensitive=True,
-             max_messages=100,
-             activity=Activity(type=ActivityType.watching,
-                               name=f"over Cartel."))
+            help_command=None,
+            case_insensitive=True,
+            max_messages=100,
+            activity=Activity(type=ActivityType.watching,
+            name=f"over Cartel."))
 
 
 @client.command()
