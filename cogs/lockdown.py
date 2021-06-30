@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import Embed
+from discord.utils import get
 
 
 class Lockdown(commands.Cog):
@@ -16,7 +17,8 @@ class Lockdown(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
         channel = channel or ctx.channel
-        role = ctx.guild.default_role
+        role_id = 859724691643039774
+        role = get(ctx.guild.roles, id=role_id)
 
         if role not in channel.overwrites:
             overwrites = {
