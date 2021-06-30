@@ -23,7 +23,7 @@ client = Bot(command_prefix="?",
 @has_permissions(administrator=True)
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
-    moduleLoaded = Embed(title=f"Module {extension} has succesfully been loaded.",
+    moduleLoaded = Embed(title=f" ✅ Module {extension} has succesfully been loaded.",
                     colour=0x36393F)
     await ctx.send(embed=moduleLoaded)
 
@@ -31,7 +31,7 @@ async def load(ctx, extension):
 @has_permissions(administrator=True)
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
-    moduleUnloaded = Embed(title=f"Module {extension} has succesfully been unloaded.",
+    moduleUnloaded = Embed(title=f" ❌ Module {extension} has succesfully been unloaded.",
                     colour=0x36393F)
     await ctx.send(embed=moduleUnloaded)
 
@@ -40,7 +40,7 @@ async def unload(ctx, extension):
 async def reload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
-    moduleReloaded = Embed(title=f"Module {extension} has succesfully been reloaded.",
+    moduleReloaded = Embed(title=f" 🔃 Module {extension} has succesfully been reloaded.",
                     colour=0x36393F)
     await ctx.send(embed=moduleReloaded)
 
