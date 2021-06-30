@@ -9,7 +9,7 @@ class Ban(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Ban module is ready.')
+        print('Ban module has succesfully been loaded.')
 
     @commands.command()
     @commands.has_permissions(ban_members=True)

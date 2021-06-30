@@ -9,7 +9,7 @@ class Kick(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Kick module is ready.')
+        print('Kick module has succesfully been loaded.')
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
