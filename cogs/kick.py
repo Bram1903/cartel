@@ -28,7 +28,7 @@ class Kick(commands.Cog):
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, user: Sinner = None, reason="Not specified"):
         await ctx.message.delete()
-        if not user:  # checks if there is a user
+        if not user:
             return await ctx.send("You must specify a user")
         userDM = Embed(title="CartelPvP | Moderation",
                        description=f"You have been kicked from CartelPvP",

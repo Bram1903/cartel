@@ -24,7 +24,7 @@ class Purge(commands.Cog):
         purgeEmbed.add_field(name="Purged by", value=f"{ctx.author}", inline=True)
         purgeEmbed.add_field(name="Amount", value=f"{limit}", inline=True)
         await ctx.send(embed=purgeEmbed)
-
+        
 
 def setup(client):
     client.add_cog(Purge(client))
