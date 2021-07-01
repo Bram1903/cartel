@@ -14,6 +14,8 @@ with open('config.json') as configFile:
     data = json.load(configFile)
     for value in data["server_details"]:
         staff_logs = value['staff_logs_id']
+        TICKET_CATEGORY_ID = value['ticket_category_id']
+        TICKET_CHANNEL_ID = value['ticket_channel_id']
 
 client = Bot(command_prefix="?",
              help_command=None,
@@ -61,7 +63,6 @@ ROLES1 = ("cold support", "manager", "platform-admin")
 ROLES2 = ("cold support", "trial-mod", "mod", "senior-mod", "support team")
 ROLES3 = ("cold support", "platform-admin", "senior-admin", "admin", "manager", "support team")
 ROLES4 = ("senior-mod", "platform-admin", "senior-admin", "admin", "manager")
-TICKET_CATEGORY = 859442055867793438
 
 #  Ticket reactions, (inherit, description, roles)
 REACTIONS = {
@@ -76,6 +77,7 @@ REACTIONS = {
     "❓": {"inherit": False, "description": "Other issue/not specified",
           "roles": ROLES3}
 }
+TICKET_CATEGORY = (int(TICKET_CATEGORY_ID))
 
 OVERWRITE_ALLOW = PermissionOverwrite(read_messages=True, send_messages=True)
 
@@ -120,7 +122,8 @@ async def on_raw_reaction_add(payload):
     channel = guild.get_channel(payload.channel_id)
     author = payload.member
 
-    if channel.id != 859486071871111189 or not author or author.bot:
+    TICKET_CHANNEL = (int(TICKET_CHANNEL_ID))
+    if channel.id != TICKET_CHANNEL or not author or author.bot:
         return
 
     ticket_category = None

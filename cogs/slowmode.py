@@ -1,6 +1,6 @@
-import discord
 from discord.ext import commands
 from discord import Embed
+
 
 class Slowmode(commands.Cog):
 

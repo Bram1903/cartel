@@ -2,6 +2,12 @@ import discord
 from discord.ext import commands
 from discord import Embed
 from discord.utils import get
+import json
+
+with open('./config.json') as configFile:
+    data = json.load(configFile)
+    for value in data["server_details"]:
+        lockdown_mute_role = value['verified_role_id']
 
 
 class Lockdown(commands.Cog):
@@ -17,7 +23,7 @@ class Lockdown(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
         channel = channel or ctx.channel
-        role_id = 859724691643039774
+        role_id = (int(lockdown_mute_role))
         role = get(ctx.guild.roles, id=role_id)
 
         if role not in channel.overwrites:
