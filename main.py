@@ -5,8 +5,15 @@ from discord.ext.commands import Bot, has_permissions, cooldown, BucketType, \
 from asyncio import sleep
 import os
 from dotenv import load_dotenv
+import json
+
 
 load_dotenv()
+
+with open('config.json') as configFile:
+    data = json.load(configFile)
+    for value in data["server_details"]:
+        staff_logs = value['staff_logs_id']
 
 client = Bot(command_prefix="?",
              help_command=None,
@@ -247,7 +254,7 @@ async def close(ctx, *, reason="Not specified"):
     ticket_staff.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
     ticket_staff.add_field(name="Reason", value=f"{reason}", inline=True)
 
-    channel = client.get_channel(859442000255123476)
+    channel = client.get_channel(int(staff_logs))
     await channel.send(embed=ticket_staff)
     file = discord.File(fileName)
     await channel.send(file=file)
