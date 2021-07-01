@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from discord import Embed, member
+from discord import Embed
 
 
 # This prevents staff members from being punished
