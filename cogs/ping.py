@@ -19,7 +19,7 @@ class Ping(commands.Cog):
         PingEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         PingEmbed.add_field(name="Requested by", value=f"{ctx.author}", inline=True)
-        PingEmbed.add_field(name="Ping", value=f"{round(self.client.latency * 1000)}ms", inline=True)
+        PingEmbed.add_field(name="Latency", value=f"{round(self.client.latency * 1000)}ms", inline=True)
         await ctx.send(embed=PingEmbed)
 
 
