@@ -14,6 +14,18 @@ load_dotenv()
 
 if not os.path.isfile("config.json"):
     sys.exit("'config.json' not found! Please add it and try again.")
+# Create a file called config.json in the root of your bot, and put the following details in it:
+# {
+#   "server_details": [
+#     {
+#       "announcements_id": "id of you announcement channel",
+#       "staff_logs_id": "The id of the channel you wish your ticket logs go to",
+#       "ticket_category_id": "The id of the channel where the tickets will be created",
+#       "ticket_channel_id": "The channel where the create ticket embed will be created",
+#       "verified_role_id": "The default role all your members have. (This can be @everyone)"
+#     }
+#   ]
+# }
 else:
     with open("config.json") as configFile:
         data = json.load(configFile)
