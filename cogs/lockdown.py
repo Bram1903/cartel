@@ -4,7 +4,8 @@ from discord import Embed
 from discord.utils import get
 import json
 
-with open('./config.json') as configFile:
+
+with open("./config.json") as configFile:
     data = json.load(configFile)
     for value in data["server_details"]:
         lockdown_mute_role = value['verified_role_id']

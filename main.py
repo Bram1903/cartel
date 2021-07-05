@@ -1,3 +1,5 @@
+import sys
+
 import discord
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
 from discord.ext.commands import Bot, has_permissions, cooldown, BucketType, \
@@ -10,12 +12,16 @@ import json
 
 load_dotenv()
 
-with open('config.json') as configFile:
-    data = json.load(configFile)
-    for value in data["server_details"]:
-        staff_logs = value['staff_logs_id']
-        TICKET_CATEGORY_ID = value['ticket_category_id']
-        TICKET_CHANNEL_ID = value['ticket_channel_id']
+if not os.path.isfile("config.json"):
+    sys.exit("'config.json' not found! Please add it and try again.")
+else:
+    with open("config.json") as configFile:
+        data = json.load(configFile)
+        for value in data["server_details"]:
+            staff_logs = value['staff_logs_id']
+            TICKET_CATEGORY_ID = value['ticket_category_id']
+            TICKET_CHANNEL_ID = value['ticket_channel_id']
+
 
 client = Bot(command_prefix="?",
              help_command=None,

@@ -3,7 +3,8 @@ from discord.ext import commands
 from discord import Embed
 import json
 
-with open('./config.json') as configFile:
+
+with open("./config.json") as configFile:
     data = json.load(configFile)
     for value in data["server_details"]:
         announce_id = value['announcements_id']
