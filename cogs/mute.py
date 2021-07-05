@@ -11,6 +11,7 @@ class Sinner(commands.Converter):
         if not permission:
             return argument
         else:
+            await ctx.send("You cannot punish other staff members.")
             raise commands.BadArgument(
                 "You cannot punish other staff members")
 
