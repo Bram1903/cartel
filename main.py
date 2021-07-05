@@ -9,7 +9,6 @@ import os
 from dotenv import load_dotenv
 import json
 
-
 load_dotenv()
 
 if not os.path.isfile("config.json"):
@@ -34,7 +33,6 @@ else:
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
 
-
 client = Bot(command_prefix="?",
              help_command=None,
              case_insensitive=True,
@@ -46,19 +44,25 @@ client = Bot(command_prefix="?",
 @client.command()
 @has_permissions(administrator=True)
 async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
-    moduleLoaded = Embed(title=f" ✅ Module {extension} has successfully been loaded.",
-                         colour=0x36393F)
-    await ctx.send(embed=moduleLoaded)
+    try:
+        client.load_extension(f'cogs.{extension}')
+        moduleLoaded = Embed(title=f" ✅ Module {extension} has successfully been loaded.",
+                             colour=0x36393F)
+        await ctx.send(embed=moduleLoaded)
+    except Exception as e:
+        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
 
 
 @client.command()
 @has_permissions(administrator=True)
 async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    moduleUnloaded = Embed(title=f" ❌ Module {extension} has successfully been unloaded.",
-                           colour=0x36393F)
-    await ctx.send(embed=moduleUnloaded)
+    try:
+        client.unload_extension(f'cogs.{extension}')
+        moduleUnloaded = Embed(title=f" ❌ Module {extension} has successfully been unloaded.",
+                               colour=0x36393F)
+        await ctx.send(embed=moduleUnloaded)
+    except Exception as e:
+        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
 
 
 @client.command()
@@ -78,6 +82,7 @@ async def list(ctx):
     for filenames in os.listdir('./cogs'):
         if filenames.endswith('.py'):
             await ctx.send(f"Modules: {filenames[:-3]}")
+
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
