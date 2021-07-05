@@ -71,6 +71,14 @@ async def reload(ctx, extension):
     await ctx.send(embed=moduleReloaded)
 
 
+# noinspection PyShadowingBuiltins
+@client.command()
+@has_permissions(administrator=True)
+async def list(ctx):
+    for filenames in os.listdir('./cogs'):
+        if filenames.endswith('.py'):
+            await ctx.send(f"Modules: {filenames[:-3]}")
+
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
