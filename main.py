@@ -68,11 +68,14 @@ async def unload(ctx, extension):
 @client.command()
 @has_permissions(administrator=True)
 async def reload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
-    moduleReloaded = Embed(title=f" 🔁 Module {extension} has successfully been reloaded.",
-                           colour=0x36393F)
-    await ctx.send(embed=moduleReloaded)
+    try:
+        client.unload_extension(f'cogs.{extension}')
+        client.load_extension(f'cogs.{extension}')
+        moduleReloaded = Embed(title=f" 🔁 Module {extension} has successfully been reloaded.",
+                               colour=0x36393F)
+        await ctx.send(embed=moduleReloaded)
+    except Exception as e:
+        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
 
 
 # noinspection PyShadowingBuiltins
