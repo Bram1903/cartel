@@ -26,14 +26,8 @@ class link(commands.Cog):
     @commands.command()
     async def test(self, ctx, *, token):
         payload = {'token': token, 'userId': ctx.author}
-        Status = Embed(title="CartelPvP | Linking",
-                       description=f"Trying to link you accounts",
-                       colour=0xAE0808)
-
-        Status.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        Status.add_field(name="User", value=f"{ctx.author}", inline=True)
-        Status.add_field(name="Token", value=f"{token}", inline=True)
+        Status = Embed(colour=0xAE0808)
+        Status.add_field(name="CartelPvP | Linking", value="Successfully linked your account to SearchForMe", inline=False)
         await ctx.send(embed=Status)
 
 
