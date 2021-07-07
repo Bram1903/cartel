@@ -27,7 +27,8 @@ class link(commands.Cog):
     async def test(self, ctx, *, token):
         payload = {'token': token, 'userId': ctx.author}
         Status = Embed(colour=0xAE0808)
-        Status.add_field(name="CartelPvP | Linking", value="Successfully linked your account to SearchForMe", inline=False)
+        Status.add_field(name="CartelPvP | Linking", value="Successfully linked your account to SearchForMe",
+                         inline=False)
         await ctx.send(embed=Status)
 
 
