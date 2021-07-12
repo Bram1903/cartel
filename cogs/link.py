@@ -1,5 +1,4 @@
 import discord
-import requests
 from discord.ext import commands
 from discord import Embed
 import json
@@ -17,11 +16,6 @@ class link(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Linking module has successfully been initialized.')
-
-    @commands.command()
-    async def link(self, ctx, *, token):
-        payload = {'token': token, 'userId': ctx.author}
-        r = requests.post(configured_ip, data=payload)
 
     @commands.command()
     async def test(self, ctx, *, token):
