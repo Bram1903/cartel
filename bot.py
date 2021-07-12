@@ -8,6 +8,7 @@ from asyncio import sleep
 import os
 from dotenv import load_dotenv
 import json
+from discord_components import DiscordComponents, Button, Select, SelectOption
 
 load_dotenv()
 
@@ -214,7 +215,6 @@ async def create_ticket(guild, author, category, colour, message, inherit_overwr
 async def setup(ctx):
     ticket_panel = Embed(title="Cartel | Tickets", description="Please open a ticket depending on your issue",
                          colour=0xAE0808)  # We bri'ish use colour, init
-
     ticket_panel.add_field(name="Options", value="✉️ | Report a player for abuse\n"
                                                  "🛒 | Buycraft support\n"
                                                  "🚓 | Admin-only support\n"
@@ -223,7 +223,6 @@ async def setup(ctx):
     ticket_panel.set_image(
         url="https://cdn.discordapp.com/attachments/785967499153113089/855027002721173524/create_a_ticket.png")
     ticket_panel.set_footer(text="CartelPvP Ticket System")
-
     message = await ctx.send(embed=ticket_panel)
     await recreate_reactions(message)
 
