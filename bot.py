@@ -8,7 +8,6 @@ from asyncio import sleep
 import os
 from dotenv import load_dotenv
 import json
-from discord_components import DiscordComponents, Button, Select, SelectOption
 
 load_dotenv()
 
