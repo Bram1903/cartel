@@ -192,7 +192,8 @@ async def create_ticket(guild, author, category, colour, message, inherit_overwr
     guild_roles = guild.roles
 
     ticket_created = Embed(title=f"{author} has created a new ticket",
-                           description="Please state your issue and do not ping staff\nUse >close to close the ticket",
+                           description="Please state your issue and do not ping staff\nUse ?close (reason) "
+                                       "to close the ticket",
                            colour=colour)
 
     if inherit_overwrites:
