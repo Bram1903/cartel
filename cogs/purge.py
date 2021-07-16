@@ -13,7 +13,9 @@ class Purge(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, limit: int):
+    async def purge(self, ctx, limit: int = None):
+        if not limit:
+            return await ctx.send("You must specify an amount.")
         await ctx.message.delete()
         await ctx.channel.purge(limit=limit)
         purgeEmbed = Embed(title="CartelPvP | Moderation",
