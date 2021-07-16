@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import sys
 import time
 
@@ -150,24 +151,6 @@ async def on_ready():
     print("Main system is operational.")
 
 
-async def update_stats():
-    await client.wait_until_ready()
-    global messages, joined
-
-    while not client.is_closed():
-        try:
-            with open("message_logs.txt", "a") as f:
-                f.write(f"Time: {int(time.time())}, Messages: {messages}, Members Joined: {joined}\n")
-
-                messages = 0
-                joined = 0
-
-                await asyncio.sleep(5)
-        except Exception as e:
-            print(e)
-            await asyncio.sleep(5)
-
-
 @client.event
 async def on_raw_reaction_add(payload):
     if "ADD" not in payload.event_type or payload.emoji.name not in REACTIONS:
@@ -317,6 +300,5 @@ async def close(ctx, *, reason="Not specified"):
 
     os.remove(fileName)
 
-client.loop.create_task(update_stats())
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)
