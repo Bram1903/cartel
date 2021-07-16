@@ -18,7 +18,7 @@ if not os.path.isfile("config.json"):
 #   "server_details": [
 #     {
 #       "announcements_id": "id of you announcement channel",
-#       "staff_logs_id": "The id of the channel you wish your ticket logs go to",
+#       "ticket_logs_id": "The id of the channel you wish your ticket logs go to",
 #       "ticket_category_id": "The id of the channel where the tickets will be created",
 #       "ticket_channel_id": "The channel where the create ticket embed will be created",
 #       "verified_role_id": "The default role all your members have. (This can be @everyone)"
@@ -29,7 +29,7 @@ else:
     with open("config.json") as configFile:
         data = json.load(configFile)
         for value in data["server_details"]:
-            staff_logs = value['staff_logs_id']
+            ticket_logs = value['ticket_logs_id']
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
 
@@ -289,7 +289,7 @@ async def close(ctx, *, reason="Not specified"):
     ticket_staff.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
     ticket_staff.add_field(name="Reason", value=f"{reason}", inline=True)
 
-    channel = client.get_channel(int(staff_logs))
+    channel = client.get_channel(int(ticket_logs))
     await channel.send(embed=ticket_staff)
     file = discord.File(fileName)
     await channel.send(file=file)

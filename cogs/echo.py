@@ -14,7 +14,9 @@ class Echo(commands.Cog):
 
     @commands.command(aliases=['mimic', 'paste', 'say'])
     @has_permissions(administrator=True)
-    async def echo(self, ctx, *, sentence):
+    async def echo(self, ctx, *, sentence=None):
+        if not sentence:
+            return await ctx.send("You must provide a word or sentence.")
         await ctx.send(await commands.clean_content().convert(ctx=ctx, argument=sentence))
         await ctx.message.delete()
 
