@@ -43,7 +43,9 @@ client = Bot(command_prefix="?",
 
 @client.command()
 @has_permissions(administrator=True)
-async def load(ctx, extension):
+async def load(ctx, extension=None):
+    if not extension:
+        return await ctx.send("You must provide a module")
     try:
         client.load_extension(f'cogs.{extension}')
         moduleLoaded = Embed(title=f" ✅ Module {extension} has successfully been loaded.",
@@ -55,7 +57,9 @@ async def load(ctx, extension):
 
 @client.command()
 @has_permissions(administrator=True)
-async def unload(ctx, extension):
+async def unload(ctx, extension=None):
+    if not extension:
+        return await ctx.send("You must provide a module")
     try:
         client.unload_extension(f'cogs.{extension}')
         moduleUnloaded = Embed(title=f" ❌ Module {extension} has successfully been unloaded.",
@@ -67,7 +71,9 @@ async def unload(ctx, extension):
 
 @client.command()
 @has_permissions(administrator=True)
-async def reload(ctx, extension):
+async def reload(ctx, extension=None):
+    if not extension:
+        return await ctx.send("You must provide a module")
     try:
         client.unload_extension(f'cogs.{extension}')
         client.load_extension(f'cogs.{extension}')
@@ -295,6 +301,7 @@ async def close(ctx, *, reason="Not specified"):
     await channel.send(file=file)
 
     os.remove(fileName)
+
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)

@@ -17,12 +17,7 @@ class Echo(commands.Cog):
     async def echo(self, ctx, *, sentence=None):
         if not sentence:
             return await ctx.send("You must provide a word or sentence.")
-        fileName = "command_logs.txt"
-        with open(fileName, "w") as file:
-            async for msg in ctx.channel.history(limit=1):
-                file.write(f"{msg.created_at} - {msg.author.display_name}: has executed the echo command. Text: {sentence}\n")
         await ctx.send(await commands.clean_content().convert(ctx=ctx, argument=sentence))
-        await ctx.message.delete()
 
 
 def setup(client):
