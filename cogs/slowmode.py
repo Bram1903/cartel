@@ -13,7 +13,9 @@ class Slowmode(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.has_permissions(manage_channels=True)
-    async def slowmode(self, ctx, amount):
+    async def slowmode(self, ctx, amount=None):
+        if not amount:
+            return await ctx.send("You must enter an amount.")
         await ctx.message.delete()
         await ctx.channel.edit(slowmode_delay=int(amount))
         SlowEmbed = Embed(title="CartePvP | Moderation",

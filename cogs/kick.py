@@ -49,8 +49,8 @@ class Kick(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot")
         embedKick = Embed(title="CartelPvP | Moderation",
-                         description=f"{user} has been kicked from CartelPvP.",
-                         colour=0xAE0808)
+                          description=f"{user} has been kicked from CartelPvP.",
+                          colour=0xAE0808)
         embedKick.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         embedKick.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)

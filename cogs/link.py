@@ -18,7 +18,9 @@ class link(commands.Cog):
         print('Linking module has successfully been initialized.')
 
     @commands.command()
-    async def test(self, ctx, *, token):
+    async def test(self, ctx, *, token=None):
+        if not token:
+            return await ctx.send("You must enter a token.")
         payload = {'token': token, 'userId': ctx.author}
         Status = Embed(colour=0xAE0808)
         Status.add_field(name="CartelPvP | Linking", value="Successfully linked your account to SearchForMe",
