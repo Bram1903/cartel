@@ -1,4 +1,6 @@
+import asyncio
 import sys
+import time
 
 import discord
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
@@ -10,6 +12,7 @@ from dotenv import load_dotenv
 import json
 
 load_dotenv()
+messages = joined = 0
 
 if not os.path.isfile("config.json"):
     sys.exit("'config.json' not found! Please add it and try again.")
@@ -145,6 +148,24 @@ async def handle_reaction_overflow(message):
 @client.event
 async def on_ready():
     print("Main system is operational.")
+
+
+async def update_stats():
+    await client.wait_until_ready()
+    global messages, joined
+
+    while not client.is_closed():
+        try:
+            with open("message_logs.txt", "a") as f:
+                f.write(f"Time: {int(time.time())}, Messages: {messages}, Members Joined: {joined}\n")
+
+                messages = 0
+                joined = 0
+
+                await asyncio.sleep(5)
+        except Exception as e:
+            print(e)
+            await asyncio.sleep(5)
 
 
 @client.event
@@ -296,6 +317,6 @@ async def close(ctx, *, reason="Not specified"):
 
     os.remove(fileName)
 
-
+client.loop.create_task(update_stats())
 TOKEN = os.getenv("DISCORD_TOKEN")
 client.run(TOKEN)

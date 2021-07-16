@@ -6,7 +6,8 @@
       "ticket_category_id": "859442055867793438",
       "ticket_channel_id": "859486071871111189",
       "verified_role_id": "859724691643039774",
-      "configured_ip": "IP_configured"
+      "configured_ip": "IP_configured",
+      "welcome_channel_id": "859725386576953364"
     }
   ]
 }
