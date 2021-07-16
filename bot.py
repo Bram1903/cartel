@@ -1,10 +1,6 @@
-import asyncio
-import datetime
 import sys
-import time
 
 import discord
-import logging
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
 from discord.ext.commands import Bot, has_permissions, cooldown, BucketType, \
     check
@@ -14,11 +10,6 @@ from dotenv import load_dotenv
 import json
 
 load_dotenv()
-logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
 
 if not os.path.isfile("config.json"):
     sys.exit("'config.json' not found! Please add it and try again.")
