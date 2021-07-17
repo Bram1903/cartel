@@ -48,8 +48,8 @@ async def load(ctx, extension=None):
         return await ctx.send("You must provide a module")
     try:
         client.load_extension(f'cogs.{extension}')
-        moduleLoaded = Embed(title=f" ✅ Module {extension} has successfully been loaded.",
-                             colour=0x36393F)
+        moduleLoaded = Embed(title=f" <:terminal:865853042472386561> Module {extension} has successfully been loaded.",
+                             colour=0x2F3136)
         await ctx.send(embed=moduleLoaded)
     except Exception as e:
         await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
@@ -62,8 +62,9 @@ async def unload(ctx, extension=None):
         return await ctx.send("You must provide a module")
     try:
         client.unload_extension(f'cogs.{extension}')
-        moduleUnloaded = Embed(title=f" ❌ Module {extension} has successfully been unloaded.",
-                               colour=0x36393F)
+        moduleUnloaded = Embed(title=f" <:terminal:865853042472386561> Module"
+                                     f" {extension} has successfully been unloaded.",
+                               colour=0x2F3136)
         await ctx.send(embed=moduleUnloaded)
     except Exception as e:
         await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
@@ -77,8 +78,9 @@ async def reload(ctx, extension=None):
     try:
         client.unload_extension(f'cogs.{extension}')
         client.load_extension(f'cogs.{extension}')
-        moduleReloaded = Embed(title=f" 🔁 Module {extension} has successfully been reloaded.",
-                               colour=0x36393F)
+        moduleReloaded = Embed(title=f" <:terminal:865853042472386561> Module "
+                                     f"{extension} has successfully been reloaded.",
+                               colour=0x2F3136)
         await ctx.send(embed=moduleReloaded)
     except Exception as e:
         await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
