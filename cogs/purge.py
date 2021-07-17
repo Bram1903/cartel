@@ -12,11 +12,11 @@ class Purge(commands.Cog):
         print('Purge module has successfully been initialized.')
 
     @commands.command()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(manage_messages=True)  # Checks for the permission.
     async def purge(self, ctx, limit: int = None):
-        if not limit:
-            return await ctx.send("You must specify an amount.")
-        await ctx.channel.purge(limit=limit)
+        if not limit:  # Checks if a limit is given.
+            return await ctx.send("You must specify an amount.")  # Asks for a limit.
+        await ctx.channel.purge(limit=limit)  # Starts purging the channel with the given limit.
         purgeEmbed = Embed(title="CartelPvP | Moderation",
                            description="This chat has been purged",
                            colour=0xAE0808)

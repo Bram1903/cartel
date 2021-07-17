@@ -13,9 +13,9 @@ class Whois(commands.Cog):
 
     @commands.command()
     async def whois(self, ctx, member: discord.Member = None):
-        if not member:  # if member is not mentioned
-            member = ctx.message.author  # set member as the author
-        roles = [role for role in member.roles]
+        if not member:  # Checks if a member is given.
+            member = ctx.message.author  # If member is not given set the ctx.author as member.
+        roles = [role for role in member.roles]  # Loops through all the roles of the given member.
 
         whoisEmbed = Embed(title=str(member),
                            timestamp=ctx.message.created_at,

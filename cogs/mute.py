@@ -4,24 +4,26 @@ from discord import Embed
 
 
 # This prevents staff members from being punished
-class Sinner(commands.Converter):
+class Sinner(commands.Converter):  # Creates the class
     async def convert(self, ctx, argument):
         argument = await commands.MemberConverter().convert(ctx, argument)
-        permission = argument.guild_permissions.manage_messages
-        if not permission:
-            return argument
-        else:
-            await ctx.send("You cannot punish other staff members.")
-            raise commands.BadArgument(
+        permission = argument.guild_permissions.manage_messages  # Given permission in this cage manage messages.
+        if not permission:  # Checks if the member doesn't have manage messages permissions.
+            return argument  # When the member doesn't have the permission it will go on with the argument (command).
+        else:  # Else if the member does have manage messages as permission it will give a return.
+            await ctx.send("You cannot punish other staff members.")  # Sends a message in the channel of the command
+            # given.
+            raise commands.BadArgument(  # Raises an error otherwise the console gets flood and mister pizza in your ass
+                # gets angry
                 "You cannot punish other staff members")
 
 
-class Redeemed(commands.Converter):
+class Redeemed(commands.Converter):  # Creates the class
     async def convert(self, ctx, argument):
-        argument = await commands.MemberConverter().convert(ctx, argument)
-        muted = discord.utils.get(ctx.guild.roles, name="Muted")
-        if muted in argument.roles:
-            return argument
+        argument = await commands.MemberConverter().convert(ctx, argument)  # Basically the given command.
+        muted = discord.utils.get(ctx.guild.roles, name="Muted")  # Defines the muted role.
+        if muted in argument.roles:  # Checks for the muted role.
+            return argument  # Goes back to the argument (command)
         else:
             raise commands.BadArgument("The user was not muted.")
 
