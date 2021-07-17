@@ -42,9 +42,15 @@ client = Bot(command_prefix="?",
                                name=f"over Cartel."))
 
 
-@client.command()
+@client.group(name='system', invoke_without_command=True)
 @has_permissions(administrator=True)
-async def load(ctx, extension=None):
+async def system(ctx):
+    pass
+
+
+@system.command(name='load')
+@has_permissions(administrator=True)
+async def load_subcommand(ctx, extension=None):
     if not extension:
         return await ctx.send("You must provide a module")
     try:
@@ -56,9 +62,9 @@ async def load(ctx, extension=None):
         await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
 
 
-@client.command()
+@system.command(name='unload')
 @has_permissions(administrator=True)
-async def unload(ctx, extension=None):
+async def unload_subcommand(ctx, extension=None):
     if not extension:
         return await ctx.send("You must provide a module")
     try:
@@ -71,9 +77,9 @@ async def unload(ctx, extension=None):
         await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
 
 
-@client.command()
+@system.command(name='reload')
 @has_permissions(administrator=True)
-async def reload(ctx, extension=None):
+async def reload_subcommand(ctx, extension=None):
     if not extension:
         return await ctx.send("You must provide a module")
     try:
@@ -88,14 +94,14 @@ async def reload(ctx, extension=None):
 
 
 # noinspection PyShadowingBuiltins
-@client.command()
+@system.command(name='list')
 @has_permissions(administrator=True)
-async def list(ctx):
+async def list_subcommand(ctx):
     Module_List = ""
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
             Module_List += file + "\n"
-    await ctx.send(f"Modules: {Module_List}")
+    await ctx.send(f"Modules: \n{Module_List}")
 
 
 for filename in os.listdir('./cogs'):

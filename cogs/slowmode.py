@@ -12,7 +12,7 @@ class Slowmode(commands.Cog):
         print('Slowmode module has successfully been initialized.')
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(manage_message=True)  # Permission check
+    @commands.has_permissions(manage_messages=True)  # Permission check
     async def slowmode(self, ctx, amount=None):
         if not amount:  # Checks if an amount is given.
             return await ctx.send("You must enter an amount.")  # Says to give an amount.
