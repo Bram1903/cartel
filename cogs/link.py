@@ -1,4 +1,5 @@
 import discord
+import requests
 from discord.ext import commands
 from discord import Embed
 import json
@@ -9,24 +10,29 @@ with open("./config.json") as configFile:
         configured_ip = value['configured_ip']
 
 
-class link(commands.Cog):
-    def __init__(self, clientValue):
-        self.client = clientValue
+class Link(commands.Cog):
+    def __init__(self, client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
         print('Linking module has successfully been initialized.')
 
     @commands.command()
-    async def test(self, ctx, *, token=None):
-        if not token:
-            return await ctx.send("You must enter a token.")
-        payload = {'token': token, 'userId': ctx.author}
-        Status = Embed(colour=0xAE0808)
-        Status.add_field(name="CartelPvP | Linking", value="Successfully linked your account to SearchForMe",
-                         inline=False)
-        await ctx.send(embed=Status)
+    async def link(self, ctx, *, token):
+        payload = {'token': token, 'userId': ctx.author.id}
+        r = requests.post(configured_ip, json=payload)
+        if r.status_code == 200:
+            embed = Embed(colour=0x38ff6d)
+            embed.add_field(name="CartelPvP | Linking", value="Successfully linked your account to " + r.text + ".",
+                            inline=False)
+            await ctx.send(embed=embed)
+        else:
+            embed = Embed(colour=0xAE0808)
+            embed.add_field(name="CartelPvP | Linking", value="Failed to find that token.",
+                            inline=False)
+            await ctx.send(embed=embed)
 
 
 def setup(client):
-    client.add_cog(link(client))
+    client.add_cog(Link(client))
