@@ -100,8 +100,13 @@ async def list_subcommand(ctx):
     Module_List = ""
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
-            Module_List += file + "\n"
-    await ctx.send(f"Modules: \n{Module_List}")
+            Module_List += file[:-3] + "\n"
+    module_list = Embed(title="CartelPvP | System",
+                        colour=0xAE0808)
+    module_list.set_thumbnail(
+        url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+    module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
+    await ctx.send(embed=module_list)
 
 
 for filename in os.listdir('./cogs'):
