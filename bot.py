@@ -90,9 +90,11 @@ async def reload(ctx, extension=None):
 @client.command()
 @has_permissions(administrator=True)
 async def list(ctx):
-    for filenames in os.listdir('./cogs'):
-        if filenames.endswith('.py'):
-            await ctx.send(f"Modules: {filenames[:-3]}")
+    Module_List = ""
+    for file in os.listdir("./cogs"):
+        if file.endswith(".py"):
+            Module_List += file + "\n"
+    await ctx.send(f"Modules: {Module_List}")
 
 
 for filename in os.listdir('./cogs'):
