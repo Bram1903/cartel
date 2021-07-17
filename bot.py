@@ -33,6 +33,7 @@ else:
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
 
+
 client = Bot(command_prefix="?",
              help_command=None,
              case_insensitive=True,
