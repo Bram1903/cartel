@@ -56,37 +56,6 @@ class Ban(commands.Cog):
         embedBan.add_field(name="Reason", value=f"{reason}", inline=True)
         await ctx.send(embed=embedBan)
 
-    @commands.command()
-    @commands.has_permissions(ban_members=True)
-    async def softban(self, ctx, user: Sinner = None, reason="Not specified"):
-        if not user:  # checks if there is a user
-            return await ctx.send("You must specify a user")
-        SoftbanDM = Embed(title="CartelPvP | Moderation",
-                          description="You have been softbanned from CartelPvP",
-                          colour=0xAE0808)
-        SoftbanDM.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        SoftbanDM.add_field(name="Softbanned by", value=f"{ctx.author}", inline=True)
-        SoftbanDM.add_field(name="Reason", value=f"{reason}", inline=True)
-        if user:
-            try:
-                await user.send(embed=SoftbanDM)
-            except discord.Forbidden:
-                pass
-        SoftbanEmbed = Embed(title="CartelPvP | Moderation",
-                             description=f"{user} has been softbanned from CartelPvP",
-                             colour=0xAE0808)
-        SoftbanEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        SoftbanEmbed.add_field(name="Softbanned by", value=f"{ctx.author}", inline=True)
-        SoftbanEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
-        await ctx.send(embed=SoftbanEmbed)
-        try:
-            await ctx.guild.ban(user, reason=reason)
-            await ctx.guild.unban(user, reason=reason)
-        except discord.Forbidden:
-            return await ctx.send("Are you trying to soft-ban someone higher than the bot?")
-
 
 def setup(client):
     client.add_cog(Ban(client))
