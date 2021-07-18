@@ -14,8 +14,8 @@ class Ping(commands.Cog):
     @commands.command()
     async def ping(self, ctx):
         PingEmbed = Embed(title="CartePvP | Info",
-                      description="Ping request",
-                      colour=0xAE0808)
+                          description="Ping request",
+                          colour=0xAE0808)
         PingEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         PingEmbed.add_field(name="Requested by", value=f"{ctx.author}", inline=True)

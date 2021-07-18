@@ -85,15 +85,15 @@ class Mute(commands.Cog):
         await ctx.message.delete()
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
         UnmutedEmbed = Embed(title="CartelPvP | Moderation",
-                           description=f"{user} has been unmuted in CartelPvP",
-                           colour=0xAE0808)
+                             description=f"{user} has been unmuted in CartelPvP",
+                             colour=0xAE0808)
         UnmutedEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         UnmutedEmbed.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
         UnmutedEmbed.add_field(name="Reason", value="Expired", inline=True)
         UnmutedDM = Embed(title="CartelPvP | Moderation",
-                             description="You have been unmuted in CartelPvP",
-                             colour=0xAE0808)
+                          description="You have been unmuted in CartelPvP",
+                          colour=0xAE0808)
         UnmutedDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         UnmutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
