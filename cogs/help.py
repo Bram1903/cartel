@@ -55,7 +55,7 @@ class Invites(commands.Cog):
                                    "Kick      | ?kick (user) (reason)\n"
                                    "Mute      | ?mute (user) (reason)\n"
                                    "Unmute    | ?unmute (user)\n"
-                                   "Lockdown  | ?lockdown (channel_id\n)"
+                                   "Lockdown  | ?lockdown (channel_id)\n"
                                    "Purge     | ?purge (amount)\n"
                                    "Slowmode  | ?slowmode (time)\n"
                                    "Unslow    | ?unslow```")
