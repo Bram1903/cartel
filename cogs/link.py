@@ -33,5 +33,6 @@ class link(commands.Cog):
                             inline=False)
             await ctx.send(embed=embed)
 
+
 def setup(client):
     client.add_cog(link(client))
