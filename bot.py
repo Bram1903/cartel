@@ -33,7 +33,6 @@ else:
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
 
-
 client = Bot(command_prefix="?",
              help_command=None,
              case_insensitive=True,
@@ -107,6 +106,16 @@ async def list_subcommand(ctx):
         url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
     module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
     await ctx.send(embed=module_list)
+
+
+@system.command(name='logs')
+@has_permissions(administrator=True)
+async def logs_subcommand(ctx):
+    try:
+        await ctx.send("Full logs")
+        await ctx.send(file=discord.File(r'./commandlogger.txt'))
+    except discord.Forbidden:
+        pass
 
 
 for filename in os.listdir('./cogs'):
