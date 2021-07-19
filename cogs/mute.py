@@ -33,11 +33,11 @@ async def mute(ctx, user, reason):
     if not role:
         try:
             muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
-            for channel in ctx.guild.channels:
+            for channel in ctx.guild.channels:  # For loop to get all channels within the guild.
                 await channel.set_permissions(muted, send_messages=False,
                                               read_message_history=True,
                                               read_messages=True)
-        except discord.Forbidden:
+        except discord.Forbidden:  # Basic discord handler for not having the permission.
             return await ctx.send("I have no permissions to make a muted role")
         await user.add_roles(muted)
     else:
@@ -56,7 +56,7 @@ class Mute(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def mute(self, ctx, user: Sinner, reason=None):
-        await ctx.message.delete()
+        await ctx.message.delete()  # Removes the executed command
         await mute(ctx, user, reason or "Not specified")
         MutedDM = Embed(title="CartelPvP | Moderation",
                         description=f"You have been muted in CartelPvP",
@@ -72,18 +72,19 @@ class Mute(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         MutedEmbed.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
         MutedEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
-        if user:
-            try:
+        if user:  # Check again if a user is given.
+            try:  # Tries to send the user an embed.
                 await user.send(embed=MutedDM)
-            except discord.Forbidden:
+            except discord.Forbidden:  # If the member has dm's disabled it will skip this part.
                 pass
-            await ctx.send(embed=MutedEmbed)
+            await ctx.send(embed=MutedEmbed)  # Sends the muted embed in the chat.
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unmute(self, ctx, user: Redeemed):
-        await ctx.message.delete()
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
+        await ctx.message.delete()  # Removes the executed command.
+        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))  # Unmutes the mentioned user, and
+        # fetch the muted role.
         UnmutedEmbed = Embed(title="CartelPvP | Moderation",
                              description=f"{user} has been unmuted in CartelPvP",
                              colour=0xAE0808)
@@ -98,11 +99,11 @@ class Mute(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         UnmutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
         UnmutedDM.add_field(name="Reason", value="Expired", inline=True)
-        if user:
-            try:
+        if user:  # Is user is mentioned
+            try:  # Try to send the embed in DM
                 await user.send(embed=UnmutedDM)
-            except discord.Forbidden:
-                pass
+            except discord.Forbidden:  # Else if the user has dm's disabled
+                pass  # Pass
             await ctx.send(embed=UnmutedEmbed)
 
 

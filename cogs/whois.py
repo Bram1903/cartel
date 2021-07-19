@@ -1,15 +1,16 @@
 import discord
 from discord import Embed
 from discord.ext import commands
+# Imports
 
 
 class Whois(commands.Cog):
     def __init__(self, client):
-        self.client = client
+        self.client = client  # Set up parts of the cog.
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Whois module has successfully been initialized.')
+        print('Whois module has successfully been initialized.')  # Basic on_ready event, but designed to work in a cog.
 
     @commands.command()
     async def whois(self, ctx, member: discord.Member = None):
@@ -34,4 +35,4 @@ class Whois(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Whois(client))
+    client.add_cog(Whois(client))  # Other part of setting up the cog.
