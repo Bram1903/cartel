@@ -94,19 +94,22 @@ async def reload_subcommand(ctx, extension=None):
 
 @system.command(name='reloadall')
 @has_permissions(administrator=True)
-async def reloadall(ctx, extension=None):
+async def reloadall(ctx):
     reloadList = ""
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
             name = file[:-3]
             reloadList += file[:-3] + "\n"
+        try:
+            client.reload_extension(f"cogs.{name}")
+        except Exception as e:
+            print(e)
     try:
-        client.reload_extension(f"cogs.{name}")
         reload_List = Embed(title="CartelPvP | System",
-                                    colour=0xAE0808)
+                            colour=0xAE0808)
         reload_List.set_thumbnail(
-                    url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        reload_List.add_field(name="Reload List", value=f"```\n{reloadList}```")
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        reload_List.add_field(name="Reloaded modules", value=f"```\n{reloadList}```")
         await ctx.send(embed=reload_List)
     except Exception as e:
         print(e)
