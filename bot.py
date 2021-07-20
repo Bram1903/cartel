@@ -100,9 +100,9 @@ async def reloadall(ctx):
     for file in os.listdir("./cogs"):
         if file.endswith(".py"):
             name = file[:-3]
-            loadedModules += file[:-3] + "\n"
             try:
                 client.reload_extension(f"cogs.{name}")
+                loadedModules += file[:-3] + "\n"
             except:
                 failedModules += file[:-3] + "\n"
     try:
