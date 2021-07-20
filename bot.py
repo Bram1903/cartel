@@ -94,7 +94,7 @@ async def reload_subcommand(ctx, extension=None):
 
 @system.command(name='reloadall')
 @has_permissions(administrator=True)
-async def reloadall(ctx):
+async def reloadall_subcommand(ctx):
     loadedModules = ""
     failedModules = ""
     for file in os.listdir("./cogs"):
