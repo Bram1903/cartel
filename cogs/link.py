@@ -10,9 +10,9 @@ with open("./config.json") as configFile:
         configured_ip = value['configured_ip']
 
 
-class link(commands.Cog):
-    def __init__(self, clientValue):
-        self.client = clientValue
+class Link(commands.Cog):
+    def __init__(self, client):
+        self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -35,4 +35,4 @@ class link(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(link(client))
+    client.add_cog(Link(client))
