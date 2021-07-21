@@ -33,12 +33,14 @@ else:
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
 
+intents = discord.Intents(members=True)
 client = Bot(command_prefix="?",
              help_command=None,
              case_insensitive=True,
              max_messages=100,
              activity=Activity(type=ActivityType.watching,
-                               name=f"over Cartel."))
+                               name=f"over Cartel."),
+             intents=intents)
 
 
 @client.group(name='system', invoke_without_command=True)
