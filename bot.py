@@ -4,6 +4,7 @@ import sys
 from asyncio import sleep
 
 import discord
+import psutil
 from discord import Activity, ActivityType, Embed, PermissionOverwrite
 from discord.ext.commands import Bot, has_permissions, cooldown, BucketType, \
     check
@@ -141,6 +142,21 @@ async def logs_subcommand(ctx):
         await ctx.send(file=discord.File(r'./commandlogger.txt'))
     except discord.Forbidden:
         pass
+
+
+@system.command(name='usage')
+@has_permissions(administrator=True)
+async def usage_subcommand(ctx):
+    cpu = psutil.cpu_percent()
+    memoryUsed = psutil.virtual_memory().percent
+    usageEmbed = Embed(title="CartelPvP | System",
+                       description="System usage",
+                       colour=0xAE0808)
+    usageEmbed.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+    usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=False)
+    usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=False)
+    await ctx.send(embed=usageEmbed)
 
 
 for filename in os.listdir('./cogs'):
