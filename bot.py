@@ -144,9 +144,9 @@ async def logs_subcommand(ctx):
         pass
 
 
-@system.command(name='usage')
+@system.command(name='info')
 @has_permissions(administrator=True)
-async def usage_subcommand(ctx):
+async def info_subcommand(ctx):
     cpu = psutil.cpu_percent()
     memoryUsed = psutil.virtual_memory().percent
     cores = psutil.cpu_count(logical=False)
