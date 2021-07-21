@@ -147,7 +147,6 @@ async def logs_subcommand(ctx):
 @system.command(name='usage')
 @has_permissions(administrator=True)
 async def usage_subcommand(ctx):
-    defaultUsage = psutil.getloadavg()
     cpu = psutil.cpu_percent()
     memoryUsed = psutil.virtual_memory().percent
     cores = psutil.cpu_count(logical=False)
@@ -159,11 +158,10 @@ async def usage_subcommand(ctx):
     usageEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
     usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=False)
-    usageEmbed.add_field(name="CPU average usage", value=f"{defaultUsage}%", inline=False)
     usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=False)
     usageEmbed.add_field(name="Disk usage", value=f"{disk}%", inline=False)
-    usageEmbed.add_field(name="Cores", value=f"{cores}", inline=False)
-    usageEmbed.add_field(name="threads", value=f"{threads}", inline=False)
+    usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
+    usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
     await ctx.send(embed=usageEmbed)
 
 
