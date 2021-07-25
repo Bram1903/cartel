@@ -37,8 +37,8 @@ class Kick(commands.Cog):
 
         userDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        userDM.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)
-        userDM.add_field(name="Reason", value=f"{reason}", inline=True)
+        userDM.add_field(name="**Kicked by**", value=f"{ctx.author}", inline=True)
+        userDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
         if user:
             try:
                 await user.send(embed=userDM)
@@ -53,8 +53,8 @@ class Kick(commands.Cog):
                           colour=0xAE0808)
         embedKick.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        embedKick.add_field(name="Kicked by", value=f"{ctx.author}", inline=True)
-        embedKick.add_field(name="Reason", value=f"{reason}", inline=True)
+        embedKick.add_field(name="**Kicked by**", value=f"{ctx.author}", inline=True)
+        embedKick.add_field(name="**Reason**", value=f"{reason}", inline=True)
         await ctx.send(embed=embedKick)
 
 

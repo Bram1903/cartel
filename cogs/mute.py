@@ -63,8 +63,8 @@ class Mute(commands.Cog):
                         colour=0xAE0808)
         MutedDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        MutedDM.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
-        MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
+        MutedDM.add_field(name="**Muted by**", value=f"{ctx.author}", inline=True)
+        MutedDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
         MutedEmbed = Embed(title="CartelPvP | Moderation",
                            description=f"{user} has been muted in CartelPvP",
                            colour=0xAE0808)
@@ -90,15 +90,15 @@ class Mute(commands.Cog):
                              colour=0xAE0808)
         UnmutedEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnmutedEmbed.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
-        UnmutedEmbed.add_field(name="Reason", value="Expired", inline=True)
+        UnmutedEmbed.add_field(name="**Unmuted by**", value=f"{ctx.author}", inline=True)
+        UnmutedEmbed.add_field(name="**Reason**", value="Expired", inline=True)
         UnmutedDM = Embed(title="CartelPvP | Moderation",
                           description="You have been unmuted in CartelPvP",
                           colour=0xAE0808)
         UnmutedDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnmutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
-        UnmutedDM.add_field(name="Reason", value="Expired", inline=True)
+        UnmutedDM.add_field(name="**Unmuted by**", value=f"{ctx.author}", inline=True)
+        UnmutedDM.add_field(name="**Reason**", value="Expired", inline=True)
         if user:  # Is user is mentioned
             try:  # Try to send the embed in DM
                 await user.send(embed=UnmutedDM)

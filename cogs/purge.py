@@ -22,8 +22,8 @@ class Purge(commands.Cog):
                            colour=0xAE0808)
         purgeEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        purgeEmbed.add_field(name="Purged by", value=f"{ctx.author}", inline=True)
-        purgeEmbed.add_field(name="Amount", value=f"{limit}", inline=True)
+        purgeEmbed.add_field(name="**Purged by**", value=f"{ctx.author}", inline=True)
+        purgeEmbed.add_field(name="**Amount**", value=f"{limit}", inline=True)
         await ctx.send(embed=purgeEmbed)
 
 

@@ -24,8 +24,8 @@ class Slowmode(commands.Cog):
                           colour=0xAE0808)
         SlowEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        SlowEmbed.add_field(name="Delayed by", value=f"{ctx.author}", inline=True)
-        SlowEmbed.add_field(name="Delay", value=f"{int(amount)} seconds", inline=True)
+        SlowEmbed.add_field(name="**Delayed by**", value=f"{ctx.author}", inline=True)
+        SlowEmbed.add_field(name="**Delay**", value=f"{int(amount)} seconds", inline=True)
         await ctx.send(embed=SlowEmbed)
 
     @commands.command(pass_context=True)
@@ -38,8 +38,8 @@ class Slowmode(commands.Cog):
                             colour=0xAE0808)
         UnSlowEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnSlowEmbed.add_field(name="Disabled by", value=f"{ctx.author}", inline=True)
-        UnSlowEmbed.add_field(name="Delay", value="Disabled", inline=True)
+        UnSlowEmbed.add_field(name="**Disabled by**", value=f"{ctx.author}", inline=True)
+        UnSlowEmbed.add_field(name="**Delay**", value="Disabled", inline=True)
         await ctx.send(embed=UnSlowEmbed)
 
 

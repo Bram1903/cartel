@@ -52,8 +52,8 @@ class Ban(commands.Cog):
                          colour=0xAE0808)
         embedBan.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        embedBan.add_field(name="Banned by", value=f"{ctx.author}", inline=True)
-        embedBan.add_field(name="Reason", value=f"{reason}", inline=True)
+        embedBan.add_field(name="**Banned by**", value=f"{ctx.author}", inline=True)
+        embedBan.add_field(name="**Reason**", value=f"{reason}", inline=True)
         await ctx.send(embed=embedBan)
 
 
