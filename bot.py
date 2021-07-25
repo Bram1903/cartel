@@ -157,8 +157,8 @@ async def info_subcommand(ctx):
                        colour=0xAE0808)
     usageEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-    usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=False)
-    usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=False)
+    usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=True)
+    usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=True)
     usageEmbed.add_field(name="Disk usage", value=f"{disk}%", inline=False)
     usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
     usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
