@@ -19,9 +19,9 @@ class Latency(commands.Cog):
         before_ws = int(round(self.client.latency*1000, 1))
         message = await ctx.send("Pinging...")
         ping = (time.monotonic()-before)*1000
-        PingEmbed = Embed(title="CartePvP | Info",
-                          description=f"<a:speedtest:868948303218352178> **API latency**: {before_ws}ms\n"
-                                      f"<a:loading:868948800201453569> **Rest latency**: {int(ping)}ms\n",
+        PingEmbed = Embed(title="CartelPvP | Info",
+                          description=f"<a:speedtest:868948303218352178> **Websocket**: {before_ws}ms\n"
+                                      f"<a:loading:868948800201453569> **Rest**: {int(ping)}ms\n",
                           colour=0xAE0808)
         PingEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
