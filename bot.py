@@ -18,11 +18,14 @@ if not os.path.isfile("config.json"):
 # {
 #   "server_details": [
 #     {
-#       "announcements_id": "id of you announcement channel",
-#       "ticket_logs_id": "The id of the channel you wish your ticket logs go to",
-#       "ticket_category_id": "The id of the channel where the tickets will be created",
-#       "ticket_channel_id": "The channel where the create ticket embed will be created",
-#       "verified_role_id": "The default role all your members have. (This can be @everyone)"
+#       "announcements_id": "860117203683770399",
+#       "ticket_logs_id": "859442000255123476",
+#       "ticket_category_id": "859442055867793438",
+#       "ticket_channel_id": "859486071871111189",
+#       "verified_role_id": "859724691643039774",
+#       "configured_ip": "IP_configured",
+#       "welcome_channel_id": "859725386576953364",
+#       "admins": [574958028651233281, 373556761015353354, 426902176661635082]
 #     }
 #   ]
 # }
@@ -33,6 +36,7 @@ else:
             ticket_logs = value['ticket_logs_id']
             TICKET_CATEGORY_ID = value['ticket_category_id']
             TICKET_CHANNEL_ID = value['ticket_channel_id']
+            admins = value['admins']
 
 client = Bot(command_prefix="?",
              help_command=None,
@@ -51,118 +55,160 @@ async def system(ctx):
 @system.command(name='load')
 @has_permissions(administrator=True)
 async def load_subcommand(ctx, extension=None):
-    if not extension:
-        return await ctx.send("You must provide a module")
-    try:
-        client.load_extension(f'cogs.{extension}')
-        moduleLoaded = Embed(title=f" <:terminal:865853042472386561> Module {extension} has successfully been loaded.",
-                             colour=0x2F3136)
-        await ctx.send(embed=moduleLoaded)
-    except Exception as e:
-        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    if ctx.author.id in admins:
+        if not extension:
+            return await ctx.send("You must provide a module")
+        try:
+            client.load_extension(f'cogs.{extension}')
+            moduleLoaded = Embed(colour=0x2F3136)
+            moduleLoaded.set_author(name=f'Module {extension} has successfully been loaded.',
+                                    icon_url='https://i.imgur.com/pkfD5kS.png')
+            await ctx.send(embed=moduleLoaded)
+        except Exception as e:
+            await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 @system.command(name='unload')
 @has_permissions(administrator=True)
 async def unload_subcommand(ctx, extension=None):
-    if not extension:
-        return await ctx.send("You must provide a module")
-    try:
-        client.unload_extension(f'cogs.{extension}')
-        moduleUnloaded = Embed(title=f" <:terminal:865853042472386561> Module"
-                                     f" {extension} has successfully been unloaded.",
-                               colour=0x2F3136)
-        await ctx.send(embed=moduleUnloaded)
-    except Exception as e:
-        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    if ctx.author.id in admins:
+        if not extension:
+            return await ctx.send("You must provide a module")
+        try:
+            client.unload_extension(f'cogs.{extension}')
+            moduleUnloaded = Embed(colour=0x2F3136)
+            moduleUnloaded.set_author(name=f'Module {extension} has successfully been unloaded.',
+                                      icon_url='https://i.imgur.com/pkfD5kS.png')
+            await ctx.send(embed=moduleUnloaded)
+        except Exception as e:
+            await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 @system.command(name='reload')
 @has_permissions(administrator=True)
 async def reload_subcommand(ctx, extension=None):
-    if not extension:
-        return await ctx.send("You must provide a module")
-    try:
-        client.unload_extension(f'cogs.{extension}')
-        client.load_extension(f'cogs.{extension}')
-        moduleReloaded = Embed(title=f" <:terminal:865853042472386561> Module "
-                                     f"{extension} has successfully been reloaded.",
-                               colour=0x2F3136)
-        await ctx.send(embed=moduleReloaded)
-    except Exception as e:
-        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    if ctx.author.id in admins:
+        if not extension:
+            return await ctx.send("You must provide a module")
+        try:
+            client.unload_extension(f'cogs.{extension}')
+            client.load_extension(f'cogs.{extension}')
+            moduleReloaded = Embed(colour=0x2F3136)
+            moduleReloaded.set_author(name=f'Module {extension} has successfully been reloaded.',
+                                      icon_url='https://i.imgur.com/pkfD5kS.png')
+            await ctx.send(embed=moduleReloaded)
+        except Exception as e:
+            await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 @system.command(name='reloadall')
 @has_permissions(administrator=True)
 async def reloadall_subcommand(ctx):
-    loadedModules = ""
-    failedModules = ""
-    for file in os.listdir("./cogs"):
-        if file.endswith(".py"):
-            name = file[:-3]
-            try:
-                client.reload_extension(f"cogs.{name}")
-                loadedModules += file[:-3] + "\n"
-            except:
-                failedModules += file[:-3] + "\n"
-    try:
-        reload_List = Embed(title="CartelPvP | System",
-                            colour=0xAE0808)
-        reload_List.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        reload_List.add_field(name="Reloaded modules", value=f"```\n{loadedModules}```", inline=True)
-        reload_List.add_field(name="Failed", value=f"```\n{failedModules}```", inline=True)
-        await ctx.send(embed=reload_List)
-    except Exception as e:
-        print(e)
+    if ctx.author.id in admins:
+        loadedModules = ""
+        failedModules = ""
+        for file in os.listdir("./cogs"):
+            if file.endswith(".py"):
+                name = file[:-3]
+                try:
+                    client.reload_extension(f"cogs.{name}")
+                    loadedModules += file[:-3] + "\n"
+                except:
+                    failedModules += file[:-3] + "\n"
+        try:
+            reload_List = Embed(title="CartelPvP | System",
+                                colour=0xAE0808)
+            reload_List.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+            reload_List.add_field(name="Reloaded modules", value=f"```\n{loadedModules}```", inline=True)
+            reload_List.add_field(name="Failed", value=f"```\n{failedModules}```", inline=True)
+            await ctx.send(embed=reload_List)
+        except Exception as e:
+            print(e)
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 # noinspection PyShadowingBuiltins
 @system.command(name='list')
 @has_permissions(administrator=True)
 async def list_subcommand(ctx):
-    Module_List = ""
-    for file in os.listdir("./cogs"):
-        if file.endswith(".py"):
-            Module_List += file[:-3] + "\n"
-    module_list = Embed(title="CartelPvP | System",
-                        colour=0xAE0808)
-    module_list.set_thumbnail(
-        url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-    module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
-    await ctx.send(embed=module_list)
+    if ctx.author.id in admins:
+        Module_List = ""
+        for file in os.listdir("./cogs"):
+            if file.endswith(".py"):
+                Module_List += file[:-3] + "\n"
+        module_list = Embed(title="CartelPvP | System",
+                            colour=0xAE0808)
+        module_list.set_thumbnail(
+            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
+        await ctx.send(embed=module_list)
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 @system.command(name='logs')
 @has_permissions(administrator=True)
 async def logs_subcommand(ctx):
-    try:
-        await ctx.send("Full logs")
-        await ctx.send(file=discord.File(r'./commandlogger.txt'))
-    except discord.Forbidden:
-        pass
+    if ctx.author.id in admins:
+        try:
+            await ctx.send("Full logs")
+            await ctx.send(file=discord.File(r'./commandlogger.txt'))
+        except discord.Forbidden:
+            pass
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 @system.command(name='info')
-@has_permissions(administrator=True)
 async def info_subcommand(ctx):
-    cpu = psutil.cpu_percent()
-    memoryUsed = psutil.virtual_memory().percent
-    cores = psutil.cpu_count(logical=False)
-    threads = psutil.cpu_count()
-    disk = psutil.disk_usage('/')
-    usageEmbed = Embed(title="CartelPvP | System",
-                       description="System usage",
-                       colour=0xAE0808)
-    usageEmbed.set_thumbnail(
+    if ctx.author.id in admins:
+        cpu = psutil.cpu_percent()
+        memoryUsed = psutil.virtual_memory().percent
+        cores = psutil.cpu_count(logical=False)
+        threads = psutil.cpu_count()
+        disk = psutil.disk_usage('/')
+        usageEmbed = Embed(title="CartelPvP | System",
+                           description="System usage",
+                           colour=0xAE0808)
+        usageEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-    usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=True)
-    usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=True)
-    usageEmbed.add_field(name="Disk usage", value=f"{disk}%", inline=False)
-    usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
-    usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
-    await ctx.send(embed=usageEmbed)
+        usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=True)
+        usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=True)
+        usageEmbed.add_field(name="Disk usage", value=f"{disk}%", inline=False)
+        usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
+        usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
+        await ctx.send(embed=usageEmbed)
+    else:
+        NoPerm = Embed(title="CartelPvP | System",
+                       description="You are missing developer permissions.",
+                       colour=0xAE0808)
+        await ctx.send(embed=NoPerm)
 
 
 for filename in os.listdir('./cogs'):
