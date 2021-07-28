@@ -53,7 +53,6 @@ async def system(ctx):
 
 
 @system.command(name='load')
-@has_permissions(administrator=True)
 async def load_subcommand(ctx, extension=None):
     if ctx.author.id in admins:
         if not extension:
@@ -74,7 +73,6 @@ async def load_subcommand(ctx, extension=None):
 
 
 @system.command(name='unload')
-@has_permissions(administrator=True)
 async def unload_subcommand(ctx, extension=None):
     if ctx.author.id in admins:
         if not extension:
@@ -95,7 +93,6 @@ async def unload_subcommand(ctx, extension=None):
 
 
 @system.command(name='reload')
-@has_permissions(administrator=True)
 async def reload_subcommand(ctx, extension=None):
     if ctx.author.id in admins:
         if not extension:
@@ -117,7 +114,6 @@ async def reload_subcommand(ctx, extension=None):
 
 
 @system.command(name='reloadall')
-@has_permissions(administrator=True)
 async def reloadall_subcommand(ctx):
     if ctx.author.id in admins:
         loadedModules = ""
@@ -149,7 +145,6 @@ async def reloadall_subcommand(ctx):
 
 # noinspection PyShadowingBuiltins
 @system.command(name='list')
-@has_permissions(administrator=True)
 async def list_subcommand(ctx):
     if ctx.author.id in admins:
         Module_List = ""
@@ -170,7 +165,6 @@ async def list_subcommand(ctx):
 
 
 @system.command(name='logs')
-@has_permissions(administrator=True)
 async def logs_subcommand(ctx):
     if ctx.author.id in admins:
         try:
