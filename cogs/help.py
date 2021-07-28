@@ -73,7 +73,8 @@ class Invites(commands.Cog):
                                    "Load module    | ?system load (module)\n"
                                    "Reload module  | ?system reload (module)\n"
                                    "Reload all     | ?system reloadall\n"
-                                   "Command logs   | ?system logs```")
+                                   "Command logs   | ?system logs\n"
+                                   "System info    | ?system info```")
         await ctx.send(embed=moderation)
 
 
