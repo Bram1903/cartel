@@ -35,11 +35,9 @@ class Lockdown(commands.Cog):
             if ctx.channel != channel:  # When channel is mentioned send this
                 await ctx.send(f"I have put {channel.mention} on lockdown.")
             else:
-                await ctx.message.delete()  # Removes that executed command, and says the current channel is
-                # under lockdown.
-            embed1 = Embed(title="This channel is now under lockdown",
-                           colour=0xAE0808)
-            await channel.send(embed=embed1)
+                embed1 = Embed(title="This channel is now under lockdown",
+                               colour=0xAE0808)
+                await channel.send(embed=embed1)
         elif channel.overwrites[role].send_messages is True or \
                 channel.overwrites[role].send_messages is None:
             overwrites = channel.overwrites[role]
@@ -59,10 +57,9 @@ class Lockdown(commands.Cog):
             if ctx.channel != channel:
                 await ctx.send(f"I have removed {channel.mention} from lockdown.")
             else:
-                await ctx.message.delete()
-            embed3 = Embed(title="This channel is no longer under lockdown.",
-                           colour=0xAE0808)
-            await channel.send(embed=embed3)
+                embed3 = Embed(title="This channel is no longer under lockdown.",
+                               colour=0xAE0808)
+                await channel.send(embed=embed3)
 
 
 def setup(client):

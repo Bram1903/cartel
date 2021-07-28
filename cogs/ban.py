@@ -27,7 +27,6 @@ class Ban(commands.Cog):
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner = None, reason="Not specified"):
-        await ctx.message.delete()
         if not user:
             return await ctx.send("You must specify a user")
         userDM = Embed(title="CartelPvP | Moderation",

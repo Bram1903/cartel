@@ -56,7 +56,6 @@ class Mute(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def mute(self, ctx, user: Sinner, reason=None):
-        await ctx.message.delete()  # Removes the executed command
         await mute(ctx, user, reason or "Not specified")
         MutedDM = Embed(title="CartelPvP | Moderation",
                         description=f"You have been muted in CartelPvP",
@@ -82,7 +81,6 @@ class Mute(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def unmute(self, ctx, user: Redeemed):
-        await ctx.message.delete()  # Removes the executed command.
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))  # Unmutes the mentioned user, and
         # fetch the muted role.
         UnmutedEmbed = Embed(title="CartelPvP | Moderation",

@@ -17,7 +17,6 @@ class Slowmode(commands.Cog):
     async def slowmode(self, ctx, amount=None):
         if not amount:  # Checks if an amount is given.
             return await ctx.send("You must enter an amount.")  # Says to give an amount.
-        await ctx.message.delete()  # Deletes the command typed by the user.
         await ctx.channel.edit(slowmode_delay=int(amount))  # Applies slow chat counter with the given amount.
         SlowEmbed = Embed(title="CartePvP | Moderation",
                           description="Slowmode has been activated",
@@ -31,7 +30,6 @@ class Slowmode(commands.Cog):
     @commands.command(pass_context=True)
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def unslow(self, ctx):
-        await ctx.message.delete()  # Deletes the command typed by the user.
         await ctx.channel.edit(slowmode_delay=0)  # Sets the slowmode to 0 which means off.
         UnSlowEmbed = Embed(title="CartePvP | Moderation",
                             description="Slowmode has been deactivated",
