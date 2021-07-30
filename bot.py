@@ -71,9 +71,9 @@ async def load_subcommand(ctx, extension=None):
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -91,9 +91,9 @@ async def unload_subcommand(ctx, extension=None):
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -112,9 +112,9 @@ async def reload_subcommand(ctx, extension=None):
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -142,9 +142,9 @@ async def reloadall_subcommand(ctx):
         except Exception as e:
             print(e)
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -163,9 +163,9 @@ async def list_subcommand(ctx):
         module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
         await ctx.send(embed=module_list)
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -178,9 +178,9 @@ async def logs_subcommand(ctx):
         except discord.Forbidden:
             pass
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
@@ -207,9 +207,9 @@ async def info_subcommand(ctx):
         usageEmbed.set_footer(text=text, icon_url="https://i.imgur.com/28qrLRX.png")
         await ctx.send(embed=usageEmbed)
     else:
-        NoPerm = Embed(title="CartelPvP | System",
-                       description="You are missing developer permissions.",
-                       colour=0xAE0808)
+        NoPerm = Embed(colour=0xAE0808)
+        NoPerm.set_author(name='You are missing developer permissions.',
+                          icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
 
