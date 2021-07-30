@@ -30,8 +30,11 @@ class Invites(commands.Cog):
         info = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
         info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        info.add_field(name="Info commands", value="```Avatar  | ?avatar (user)\nInvites | ?invites\n"
-                                                   "Latency | ?ping\nWhois   | ?whois (user)```")
+        info.add_field(name="Info commands", value="```Avatar     | ?avatar (user)\n"
+                                                   "Invites    | ?invites\n"
+                                                   "Latency    | ?ping\n"
+                                                   "Whois      | ?whois (user)\n"
+                                                   "Serverinfo | ?serverinfo```")
         await ctx.send(embed=info)
 
     @help.command(name='ticket')

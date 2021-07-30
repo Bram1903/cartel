@@ -39,12 +39,16 @@ else:
             TICKET_CHANNEL_ID = value['ticket_channel_id']
             admins = value['admins']
 
+intents = discord.Intents.default()
+intents.members = True
+
 client = Bot(command_prefix=">",
              help_command=None,
              case_insensitive=True,
              max_messages=100,
              activity=Activity(type=ActivityType.watching,
-                               name=f"over Cartel."))
+                               name=f"over Cartel."),
+             intents=intents)
 
 
 @client.group(name='system', invoke_without_command=True)
@@ -188,6 +192,7 @@ async def info_subcommand(ctx):
         cores = psutil.cpu_count(logical=False)
         threads = psutil.cpu_count()
         python = platform.python_version()
+        text = "This bot is created by Bram#2698"
         usageEmbed = Embed(title="CartelPvP | System",
                            description="System usage",
                            colour=0xAE0808)
@@ -199,6 +204,7 @@ async def info_subcommand(ctx):
         usageEmbed.add_field(name="discord.py Version", value=discord.__version__, inline=False)
         usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
         usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
+        usageEmbed.set_footer(text=text, icon_url="https://i.imgur.com/28qrLRX.png")
         await ctx.send(embed=usageEmbed)
     else:
         NoPerm = Embed(title="CartelPvP | System",
