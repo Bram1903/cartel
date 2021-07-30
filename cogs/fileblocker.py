@@ -16,7 +16,7 @@ class fileblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        permission = discord.Permissions(manage_messages=True)
+        permission = message.author.guild_permissions.manage_messages
         if not permission:
             for file in message.attachments:
                 if file.filename.endswith((".exe", ".dll")):
