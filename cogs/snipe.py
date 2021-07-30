@@ -28,9 +28,9 @@ class Snipe(commands.Cog):
         author = self.last_msg.author
         content = self.last_msg.content
 
-        SnipeEmbed = discord.Embed(title="CartelPvP | Moderation",
-                                   description=content,
-                                   colour=0xAE0808)
+        SnipeEmbed = Embed(title="CartelPvP | Moderation",
+                           description=content,
+                           colour=0xAE0808)
         SnipeEmbed.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         SnipeEmbed.add_field(name="**Sniped by**", value=f"{ctx.author}", inline=True)

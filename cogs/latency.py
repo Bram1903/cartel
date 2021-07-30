@@ -17,9 +17,9 @@ class Latency(commands.Cog):
     @commands.guild_only()
     async def latency(self, ctx):
         before = time.monotonic()
-        before_ws = int(round(self.client.latency*1000, 1))
+        before_ws = int(round(self.client.latency * 1000, 1))
         message = await ctx.send("Pinging...")
-        ping = (time.monotonic()-before)*1000
+        ping = (time.monotonic() - before) * 1000
         PingEmbed = Embed(title="CartelPvP | Info",
                           description=f"<a:speedtest:868948303218352178> **Websocket**: {before_ws}ms\n"
                                       f"<a:loading:868948800201453569> **Rest**: {int(ping)}ms\n",

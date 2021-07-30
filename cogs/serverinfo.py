@@ -1,4 +1,5 @@
 import discord
+from discord import Embed
 from discord.ext import commands
 
 
@@ -17,7 +18,7 @@ class serverinfo(commands.Cog):
 
         role_count = len(server.roles)
         emoji_count = len(server.emojis)
-        em = discord.Embed(color=0xAE0808)
+        em = Embed(color=0xAE0808)
         em.add_field(name='Name', value=server.name, inline=True)
         em.add_field(name='Owner', value=server.owner, inline=True)
         em.add_field(name='Members', value=server.member_count, inline=True)
