@@ -12,7 +12,7 @@ class CommandErrorHandler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Error handler has successfully been initialized.')
+        print('Error handler has successfully been initialized.')
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
