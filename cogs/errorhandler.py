@@ -55,7 +55,7 @@ class CommandErrorHandler(commands.Cog):
                                 f"`{perms}`",
                     colour=discord.Colour.red(),
                 )
-                embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/qYyJ5cC.png')
+                embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/sFhjp83.png')
                 return await ctx.send(embed=embed)
             except Exception as e:
                 print(e)
