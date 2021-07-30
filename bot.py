@@ -38,7 +38,7 @@ else:
             TICKET_CHANNEL_ID = value['ticket_channel_id']
             admins = value['admins']
 
-client = Bot(command_prefix="?",
+client = Bot(command_prefix=">",
              help_command=None,
              case_insensitive=True,
              max_messages=100,

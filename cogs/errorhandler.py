@@ -12,7 +12,7 @@ class CommandErrorHandler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Error handler has successfully been initialized.')
+        print(f'Error handler has successfully been initialized.')
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -46,6 +46,24 @@ class CommandErrorHandler(commands.Cog):
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+        if isinstance(error, commands.MissingPermissions):
+            # generic error handler for commands from guilds without permissions
+            perms = str(error.missing_perms)[1:][:-1].title().replace("_", " ").replace("'", "")
+            try:
+                embed = discord.Embed(
+                    description=f"You are missing the following permissions: \n"
+                                f"`{perms}`",
+                    colour=discord.Colour.red(),
+                )
+                embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/qYyJ5cC.png')
+                return await ctx.send(embed=embed)
+            except Exception as e:
+                print(e)
+            except:
+                return await ctx.send(f"You are missing the following permissions:\n"
+                                      f"`{perms}`\n"
+                                      f"As this error is not in an embed, please enable the `embed links` permission, "
+                                      f"or else I cannot continue.")
 
 
 def setup(client):
