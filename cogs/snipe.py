@@ -19,6 +19,7 @@ class Snipe(commands.Cog):
 
     @commands.command(name="snipe")
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def snipe(self, ctx: commands.Context):
         if not self.last_msg:  # on_message_delete hasn't been triggered since the bot started

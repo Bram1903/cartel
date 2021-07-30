@@ -55,6 +55,7 @@ class Mute(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def mute(self, ctx, user: Sinner, reason=None):
         await mute(ctx, user, reason or "Not specified")

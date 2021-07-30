@@ -26,6 +26,7 @@ class Ban(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner = None, reason="Not specified"):
         if not user:

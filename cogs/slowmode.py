@@ -16,6 +16,7 @@ class Slowmode(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def slowmode(self, ctx, amount=None):
         if not amount:  # Checks if an amount is given.
@@ -32,6 +33,7 @@ class Slowmode(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def unslow(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)  # Sets the slowmode to 0 which means off.

@@ -15,6 +15,7 @@ class Latency(commands.Cog):
 
     @commands.command(aliases=['ping'])
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def latency(self, ctx):
         before = time.monotonic()
         before_ws = int(round(self.client.latency * 1000, 1))

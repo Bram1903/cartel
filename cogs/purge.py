@@ -13,6 +13,7 @@ class Purge(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)  # Checks for the permission.
     async def purge(self, ctx, limit: int = None):
         if not limit:  # Checks if a limit is given.

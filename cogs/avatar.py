@@ -12,6 +12,7 @@ class Avatar(commands.Cog):
 
     @commands.command(aliases=["av", "pfp"])
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def avatar(self, ctx, *, member: discord.Member = None):
         if not member:
             member = ctx.message.author

@@ -13,6 +13,7 @@ class Echo(commands.Cog):
 
     @commands.command(aliases=['mimic', 'paste', 'say'])
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @has_permissions(administrator=True)
     async def echo(self, ctx, *, sentence=None):
         if not sentence:

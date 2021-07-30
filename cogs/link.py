@@ -20,6 +20,7 @@ class Link(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def link(self, ctx, *, token):
         payload = {'token': token, 'userId': ctx.author.id}
         r = requests.post(configured_ip, json=payload)

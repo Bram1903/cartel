@@ -22,6 +22,7 @@ class Lockdown(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
         channel = channel or ctx.channel  # Channel is or the channel mentioned, or the channel written in.

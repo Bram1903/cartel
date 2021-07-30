@@ -12,6 +12,7 @@ class serverinfo(commands.Cog):
         print('Server info has successfully been initialized.')
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverinfo(self, ctx):
         server = ctx.message.guild
         channel_count = len([x for x in server.channels if type(x) == discord.channel.TextChannel])

@@ -27,6 +27,7 @@ class Kick(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, user: Sinner = None, reason="Not specified"):
         if not user:

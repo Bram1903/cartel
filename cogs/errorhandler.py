@@ -29,20 +29,6 @@ class CommandErrorHandler(commands.Cog):
 
         if isinstance(error, ignored):
             return
-
-        if isinstance(error, commands.DisabledCommand):
-            await ctx.send(f'{ctx.command} has been disabled.')
-
-        elif isinstance(error, commands.NoPrivateMessage):
-            try:
-                await ctx.author.send(f'{ctx.command} can not be used in Private Messages.')
-            except discord.HTTPException:
-                pass
-
-        elif isinstance(error, commands.BadArgument):
-            if ctx.command.qualified_name == 'tag list':
-                await ctx.send('I could not find that member. Please try again.')
-
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
@@ -53,13 +39,24 @@ class CommandErrorHandler(commands.Cog):
                 embed = discord.Embed(
                     description=f"You are missing the following permissions: \n"
                                 f"`{perms}`",
-                    colour=discord.Colour.red(),
+                    colour=0xAE0808,
                 )
                 embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/sFhjp83.png')
                 return await ctx.send(embed=embed)
             except:
                 return await ctx.send(f"You are missing the following permissions:\n"
                                       f"`{perms}`\n"
+                                      f"As this error is not in an embed, please enable the `embed links` permission, "
+                                      f"or else I cannot continue.")
+        if isinstance(error, commands.CommandOnCooldown):
+            try:
+                em = discord.Embed(color=0xAE0808)
+                em.set_author(name=f'You can use this command again in {round(error.retry_after, 2)}s'
+                          , icon_url='https://i.imgur.com/SR9wWm9.png')
+                await ctx.send(embed=em, delete_after=10)
+            except:
+                return await ctx.send(f"You are on cooldown.\n"
+                                      f"`You can use this again in {round(error.retry_after, 2)}s`\n"
                                       f"As this error is not in an embed, please enable the `embed links` permission, "
                                       f"or else I cannot continue.")
 

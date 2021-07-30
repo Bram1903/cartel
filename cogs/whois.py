@@ -15,6 +15,7 @@ class Whois(commands.Cog):
         print('Whois module has successfully been initialized.')  # Basic on_ready event, but designed to work in a cog.
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def whois(self, ctx, member: discord.Member = None):
         if not member:  # Checks if a member is given.

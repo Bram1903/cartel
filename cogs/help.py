@@ -14,6 +14,7 @@ class Invites(commands.Cog):
 
     @commands.group(name='help', invoke_without_command=True)
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def help(self, ctx):
         help = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
@@ -26,6 +27,7 @@ class Invites(commands.Cog):
 
     @help.command(name='info')
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def info_subcommand(self, ctx):
         info = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
@@ -39,6 +41,7 @@ class Invites(commands.Cog):
 
     @help.command(name='ticket')
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def ticket_subcommand(self, ctx):
         ticket = Embed(title="CartelPvP | Help",
                        colour=0xAE0808)
@@ -50,6 +53,7 @@ class Invites(commands.Cog):
 
     @help.command(name='moderation')
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @has_permissions(manage_messages=True)
     async def moderation_subcommand(self, ctx):
         moderation = Embed(title="CartelPvP | Help",
@@ -69,6 +73,7 @@ class Invites(commands.Cog):
 
     @help.command(name='system')
     @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     @has_permissions(manage_messages=True)
     async def system_subcommand(self, ctx):
         moderation = Embed(title="CartelPvP | Help",
