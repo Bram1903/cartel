@@ -52,7 +52,7 @@ class CommandErrorHandler(commands.Cog):
             try:
                 em = discord.Embed(color=0xAE0808)
                 em.set_author(name=f'You can use this command again in {round(error.retry_after, 2)}s'
-                          , icon_url='https://i.imgur.com/SR9wWm9.png')
+                              , icon_url='https://i.imgur.com/SR9wWm9.png')
                 await ctx.send(embed=em, delete_after=10)
             except:
                 return await ctx.send(f"You are on cooldown.\n"
