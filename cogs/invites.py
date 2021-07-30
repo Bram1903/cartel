@@ -12,6 +12,7 @@ class Invites(commands.Cog):
         print('Invite module has successfully been initialized.')
 
     @commands.command()
+    @commands.guild_only()
     async def invites(self, ctx, user:
     discord.Member = None):
         if user is None:

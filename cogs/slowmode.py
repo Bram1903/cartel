@@ -13,6 +13,7 @@ class Slowmode(commands.Cog):
         print('Slowmode module has successfully been initialized.')
 
     @commands.command(pass_context=True)
+    @commands.guild_only()
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def slowmode(self, ctx, amount=None):
         if not amount:  # Checks if an amount is given.
@@ -28,6 +29,7 @@ class Slowmode(commands.Cog):
         await ctx.send(embed=SlowEmbed)
 
     @commands.command(pass_context=True)
+    @commands.guild_only()
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def unslow(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)  # Sets the slowmode to 0 which means off.

@@ -54,7 +54,8 @@ class Mute(commands.Cog):
         print('Mute module has successfully been initialized.')
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
     async def mute(self, ctx, user: Sinner, reason=None):
         await mute(ctx, user, reason or "Not specified")
         MutedDM = Embed(title="CartelPvP | Moderation",
@@ -79,7 +80,8 @@ class Mute(commands.Cog):
             await ctx.send(embed=MutedEmbed)  # Sends the muted embed in the chat.
 
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
     async def unmute(self, ctx, user: Redeemed):
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))  # Unmutes the mentioned user, and
         # fetch the muted role.

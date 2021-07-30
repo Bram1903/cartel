@@ -14,6 +14,7 @@ class Latency(commands.Cog):
         print('Latency module has successfully been initialized.')
 
     @commands.command(aliases=['ping'])
+    @commands.guild_only()
     async def latency(self, ctx):
         before = time.monotonic()
         before_ws = int(round(self.client.latency*1000, 1))

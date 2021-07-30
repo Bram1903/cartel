@@ -13,6 +13,7 @@ class Invites(commands.Cog):
         print('Help module has successfully been initialized.')
 
     @commands.group(name='help', invoke_without_command=True)
+    @commands.guild_only()
     async def help(self, ctx):
         help = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
@@ -24,6 +25,7 @@ class Invites(commands.Cog):
         await ctx.send(embed=help)
 
     @help.command(name='info')
+    @commands.guild_only()
     async def info_subcommand(self, ctx):
         info = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
@@ -33,6 +35,7 @@ class Invites(commands.Cog):
         await ctx.send(embed=info)
 
     @help.command(name='ticket')
+    @commands.guild_only()
     async def ticket_subcommand(self, ctx):
         ticket = Embed(title="CartelPvP | Help",
                        colour=0xAE0808)
@@ -43,6 +46,7 @@ class Invites(commands.Cog):
         await ctx.send(embed=ticket)
 
     @help.command(name='moderation')
+    @commands.guild_only()
     @has_permissions(manage_messages=True)
     async def moderation_subcommand(self, ctx):
         moderation = Embed(title="CartelPvP | Help",
@@ -61,6 +65,7 @@ class Invites(commands.Cog):
         await ctx.send(embed=moderation)
 
     @help.command(name='system')
+    @commands.guild_only()
     @has_permissions(manage_messages=True)
     async def system_subcommand(self, ctx):
         moderation = Embed(title="CartelPvP | Help",

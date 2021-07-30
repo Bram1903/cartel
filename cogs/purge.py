@@ -12,6 +12,7 @@ class Purge(commands.Cog):
         print('Purge module has successfully been initialized.')
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_messages=True)  # Checks for the permission.
     async def purge(self, ctx, limit: int = None):
         if not limit:  # Checks if a limit is given.

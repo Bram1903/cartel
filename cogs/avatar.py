@@ -11,6 +11,7 @@ class Avatar(commands.Cog):
         print('Avatar module has successfully been initialized.')
 
     @commands.command(aliases=["av", "pfp"])
+    @commands.guild_only()
     async def avatar(self, ctx, *, member: discord.Member = None):
         if not member:
             member = ctx.message.author

@@ -25,6 +25,7 @@ class Ban(commands.Cog):
         print('Ban module has successfully been initialized.')
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner = None, reason="Not specified"):
         if not user:

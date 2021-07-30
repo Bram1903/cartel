@@ -19,6 +19,7 @@ class Link(commands.Cog):
         print('Linking module has successfully been initialized.')
 
     @commands.command()
+    @commands.guild_only()
     async def link(self, ctx, *, token):
         payload = {'token': token, 'userId': ctx.author.id}
         r = requests.post(configured_ip, json=payload)

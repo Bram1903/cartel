@@ -12,6 +12,7 @@ class Echo(commands.Cog):
         print('Echo module has successfully been initialized.')
 
     @commands.command(aliases=['mimic', 'paste', 'say'])
+    @commands.guild_only()
     @has_permissions(administrator=True)
     async def echo(self, ctx, *, sentence=None):
         if not sentence:

@@ -18,6 +18,7 @@ class Announcement(commands.Cog):
         print('Announcement module has successfully been initialized.')
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
     async def announcetitle(self, ctx, *, title):
         global annctitle
@@ -25,6 +26,7 @@ class Announcement(commands.Cog):
         await ctx.send("Announcement Title Set!")
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
     async def announcemessage(self, ctx, *, message):
         global anncmessage
@@ -32,6 +34,7 @@ class Announcement(commands.Cog):
         await ctx.send("Announcement Message Set!")
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
     async def announce(self, ctx):
         channel = self.client.get_channel(int(announce_id))
@@ -40,6 +43,7 @@ class Announcement(commands.Cog):
         await channel.send(embed=embedVar)
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
     async def serverannounce(self, ctx):
         for channel in ctx.guild.text_channels:
@@ -48,6 +52,7 @@ class Announcement(commands.Cog):
             await channel.send(embed=embedVar)
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
     async def previewannounce(self, ctx):
         embedVar = discord.Embed(title=f"**{annctitle}**", description=f"{anncmessage}",
