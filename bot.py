@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import platform
 from asyncio import sleep
 
 import discord
@@ -186,7 +187,7 @@ async def info_subcommand(ctx):
         memoryUsed = psutil.virtual_memory().percent
         cores = psutil.cpu_count(logical=False)
         threads = psutil.cpu_count()
-        disk = psutil.disk_usage('/')
+        python = platform.python_version()
         usageEmbed = Embed(title="CartelPvP | System",
                            description="System usage",
                            colour=0xAE0808)
@@ -194,7 +195,8 @@ async def info_subcommand(ctx):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         usageEmbed.add_field(name="CPU usage", value=f"{cpu}%", inline=True)
         usageEmbed.add_field(name="Memory usage", value=f"{memoryUsed}%", inline=True)
-        usageEmbed.add_field(name="Disk usage", value=f"{disk}%", inline=False)
+        usageEmbed.add_field(name="Python Version", value={python}, inline=False)
+        usageEmbed.add_field(name="discord.py Version", value=discord.__version__, inline=False)
         usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
         usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
         await ctx.send(embed=usageEmbed)
