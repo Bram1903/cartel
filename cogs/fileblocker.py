@@ -19,7 +19,7 @@ class fileblocker(commands.Cog):
             if file.filename.endswith((".exe", ".dll")):
                 await message.delete()
                 NoPerm = Embed(colour=0xAE0808)
-                NoPerm.set_author(name='You are not allowed to send that file type!',
+                NoPerm.set_author(name='You are not allowed to send that file type.',
                                   icon_url='https://i.imgur.com/uoq4zFS.png')
                 msg = await message.channel.send(embed=NoPerm)
                 await sleep(4.7)
