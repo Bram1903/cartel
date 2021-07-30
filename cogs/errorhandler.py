@@ -57,8 +57,6 @@ class CommandErrorHandler(commands.Cog):
                 )
                 embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/sFhjp83.png')
                 return await ctx.send(embed=embed)
-            except Exception as e:
-                print(e)
             except:
                 return await ctx.send(f"You are missing the following permissions:\n"
                                       f"`{perms}`\n"
