@@ -1,6 +1,15 @@
 from discord import Embed
 from discord.ext import commands
+import json
+import datetime
+from asyncio import sleep
 
+
+with open("./config.json") as configFile:  # Opens the file config.json as a config file
+    data = json.load(configFile)  # Var data is the value in the json.config file
+    for value in data["server_details"]:  # For the data in server_details
+        lockdown_mute_role = value['verified_role_id']  # Gets the specific data
+        logging_channel = value['logging_channel']
 
 # imports
 
@@ -22,14 +31,24 @@ class Slowmode(commands.Cog):
         if not amount:  # Checks if an amount is given.
             return await ctx.send("You must enter an amount.")  # Says to give an amount.
         await ctx.channel.edit(slowmode_delay=int(amount))  # Applies slow chat counter with the given amount.
-        SlowEmbed = Embed(title="CartePvP | Moderation",
-                          description="Slowmode has been activated",
-                          colour=0xAE0808)
-        SlowEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        SlowEmbed.add_field(name="**Delayed by**", value=f"{ctx.author}", inline=True)
-        SlowEmbed.add_field(name="**Delay**", value=f"{int(amount)} seconds", inline=True)
-        await ctx.send(embed=SlowEmbed)
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'Slowmode activated.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+        await ctx.send(embed=channel_embed)
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0xAE0808)
+        embed.set_author(name='Slowmode Activated',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Activated by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Amount", value=f"{amount}s",
+                        inline=False)
+        embed.add_field(name="Channel", value=f"{ctx.channel.mention}",
+                        inline=False)
+        embed.set_footer(text=f"Activated on {timestamp}"
+                         , icon_url=ctx.author.avatar_url)
+        logs = self.client.get_channel(int(logging_channel))
+        await logs.send(embed=embed)
 
     @commands.command(pass_context=True)
     @commands.guild_only()
@@ -37,14 +56,22 @@ class Slowmode(commands.Cog):
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def unslow(self, ctx):
         await ctx.channel.edit(slowmode_delay=0)  # Sets the slowmode to 0 which means off.
-        UnSlowEmbed = Embed(title="CartePvP | Moderation",
-                            description="Slowmode has been deactivated",
-                            colour=0xAE0808)
-        UnSlowEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnSlowEmbed.add_field(name="**Disabled by**", value=f"{ctx.author}", inline=True)
-        UnSlowEmbed.add_field(name="**Delay**", value="Disabled", inline=True)
-        await ctx.send(embed=UnSlowEmbed)
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'Slowmode deactivated.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+        await ctx.send(embed=channel_embed)
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0x57F287)
+        embed.set_author(name='Slowmode Deactivated',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Deactivated by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Channel", value=f"{ctx.channel.mention}",
+                        inline=False)
+        embed.set_footer(text=f"Deactivated on {timestamp}"
+                         , icon_url=ctx.author.avatar_url)
+        logs = self.client.get_channel(int(logging_channel))
+        await logs.send(embed=embed)
 
 
 def setup(client):
