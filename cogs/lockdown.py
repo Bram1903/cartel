@@ -1,4 +1,6 @@
 import json
+import datetime
+from asyncio import sleep
 
 import discord
 from discord import Embed
@@ -9,6 +11,7 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
     data = json.load(configFile)  # Var data is the value in the json.config file
     for value in data["server_details"]:  # For the data in server_details
         lockdown_mute_role = value['verified_role_id']  # Gets the specific data
+        logging_channel = value['logging_channel']
 
 
 class Lockdown(commands.Cog):
@@ -49,18 +52,55 @@ class Lockdown(commands.Cog):
                 await ctx.send(f"I have put {channel.mention} on lockdown.")
             else:
                 await ctx.message.delete()
+            timestamp = datetime.datetime.utcnow()
             embed2 = Embed(title="This channel is now under lockdown.",
                            colour=0xAE0808)
+            embed = Embed(description=f"Channel ID: {channel.id}", colour=0xAE0808)
+            embed.set_author(name='Channel Lockdown',
+                             icon_url='https://i.imgur.com/SR9wWm9.png')
+            embed.add_field(name="Lockdown by", value=f"{ctx.author.mention}",
+                            inline=False)
+            embed.add_field(name="Channel", value=f"{channel.mention}",
+                            inline=False)
+            embed.set_footer(text=f"Lockdown on {timestamp}"
+                             , icon_url=ctx.author.avatar_url)
+            logs = self.client.get_channel(int(logging_channel))
             await channel.send(embed=embed2)
+            await logs.send(embed=embed)
         else:
             overwrites = channel.overwrites[role]
             overwrites.send_messages = True
             await channel.set_permissions(role, overwrite=overwrites)
             if ctx.channel != channel:
+                timestamp = datetime.datetime.utcnow()
+                embed = Embed(description=f"Channel ID: {channel.id}", colour=0x57F287)
+                embed.set_author(name='Channel Lockdown Removed',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+                embed.add_field(name="Lockdown removed by", value=f"{ctx.author.mention}",
+                                inline=False)
+                embed.add_field(name="Channel", value=f"{channel.mention}",
+                                inline=False)
+                embed.set_footer(text=f"Lockdown removed on {timestamp}"
+                                 , icon_url=ctx.author.avatar_url)
+                logs = self.client.get_channel(int(logging_channel))
+                await logs.send(embed=embed)
                 await ctx.send(f"I have removed {channel.mention} from lockdown.")
             else:
                 embed3 = Embed(title="This channel is no longer under lockdown.",
                                colour=0xAE0808)
+
+                timestamp = datetime.datetime.utcnow()
+                embed = Embed(description=f"Channel ID: {channel.id}", colour=0x57F287)
+                embed.set_author(name='Channel Lockdown Removed',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+                embed.add_field(name="Lockdown removed by", value=f"{ctx.author.mention}",
+                                inline=False)
+                embed.add_field(name="Channel", value=f"{channel.mention}",
+                                inline=False)
+                embed.set_footer(text=f"Lockdown removed on {timestamp}"
+                                 , icon_url=ctx.author.avatar_url)
+                logs = self.client.get_channel(int(logging_channel))
+                await logs.send(embed=embed)
                 await channel.send(embed=embed3)
 
 
