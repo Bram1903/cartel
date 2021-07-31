@@ -1,6 +1,15 @@
 import discord
 from discord import Embed
 from discord.ext import commands
+from asyncio import sleep
+import datetime
+import json
+
+with open("./config.json") as configFile:  # Opens the file config.json as a config file
+    data = json.load(configFile)  # Var data is the value in the json.config file
+    for value in data["server_details"]:  # For the data in server_details
+        logging_channel = value['logging_channel']  # Gets the specific data
+        admins = value['admins']
 
 
 # This prevents staff members from being punished
@@ -29,34 +38,55 @@ class Kick(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user: Sinner = None, reason="Not specified"):
+    async def kick(self, ctx, user: Sinner = None, reason=None):
         if not user:
-            return await ctx.send("You must specify a user")
+            await ctx.message.delete()
+            msg = await ctx.send("You must specify a user.")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        if not reason:
+            await ctx.message.delete()
+            msg2 = await ctx.send("You must specify a reason.")
+            await sleep(4.7)
+            await msg2.delete()
+            return
         userDM = Embed(title="CartelPvP | Moderation",
                        description=f"You have been kicked from CartelPvP",
                        colour=0xAE0808)
 
         userDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        userDM.add_field(name="**Kicked by**", value=f"{ctx.author}", inline=True)
+        userDM.add_field(name="**Kicked by**", value=f"{ctx.author.display_name}", inline=True)
         userDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
+
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
+        embed.set_author(name='Member Kicked',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Kicked", value=f"{user.mention}",
+                        inline=False)
+        embed.add_field(name="Kicked by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Reason", value=f"{reason}",
+                        inline=False)
+        embed.set_footer(text=f"Kicked on {timestamp}"
+                         , icon_url=user.avatar_url)
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'{user.display_name} has been kicked.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
         if user:
             try:
+                logs = self.client.get_channel(int(logging_channel))
+                await ctx.channel.send(embed=channel_embed)
                 await user.send(embed=userDM)
+                await logs.send(embed=embed)
             except discord.Forbidden:
                 pass
         try:
             await user.kick(reason=reason)
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot")
-        embedKick = Embed(title="CartelPvP | Moderation",
-                          description=f"{user} has been kicked from CartelPvP.",
-                          colour=0xAE0808)
-        embedKick.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        embedKick.add_field(name="**Kicked by**", value=f"{ctx.author}", inline=True)
-        embedKick.add_field(name="**Reason**", value=f"{reason}", inline=True)
-        await ctx.send(embed=embedKick)
 
 
 def setup(client):
