@@ -1,8 +1,9 @@
-from discord import Embed
-from discord.ext import commands
 import datetime
 import json
 from asyncio import sleep
+
+from discord import Embed
+from discord.ext import commands
 
 with open("./config.json") as configFile:  # Opens the file config.json as a config file
     data = json.load(configFile)  # Var data is the value in the json.config file

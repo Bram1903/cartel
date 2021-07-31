@@ -1,10 +1,10 @@
+import datetime
+import json
+from asyncio import sleep
+
 import discord
 from discord import Embed
 from discord.ext import commands
-import datetime
-from asyncio import sleep
-import json
-
 
 with open("./config.json") as configFile:  # Opens the file config.json as a config file
     data = json.load(configFile)  # Var data is the value in the json.config file
@@ -73,7 +73,7 @@ class Ban(commands.Cog):
                          , icon_url=user.avatar_url)
         channel_embed = Embed(colour=0xAE0808)
         channel_embed.set_author(name=f'{user.display_name} has been banned.',
-                           icon_url='https://i.imgur.com/SR9wWm9.png')
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
         if user:
             try:
                 await user.send(embed=userDM)

@@ -25,7 +25,7 @@ class fileblocker(commands.Cog):
                         await message.delete()
                         no_perm = Embed(colour=0xAE0808)
                         no_perm.set_author(name='You are not allowed to send that file type.',
-                                       icon_url='https://i.imgur.com/uoq4zFS.png')
+                                           icon_url='https://i.imgur.com/uoq4zFS.png')
                         msg = await message.channel.send(embed=no_perm)
                         await sleep(4.7)
                         await msg.delete()
