@@ -76,14 +76,14 @@ class Ban(commands.Cog):
                            icon_url='https://i.imgur.com/SR9wWm9.png')
         if user:
             try:
-                logs = self.client.get_channel(int(logging_channel))
-                await ctx.channel.send(embed=channel_embed)
                 await user.send(embed=userDM)
-                await logs.send(embed=embed)
             except discord.Forbidden:
                 pass
         try:
             await user.ban(reason=reason)
+            logs = self.client.get_channel(int(logging_channel))
+            await ctx.channel.send(embed=channel_embed)
+            await logs.send(embed=embed)
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 

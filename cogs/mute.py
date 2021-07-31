@@ -1,6 +1,16 @@
 import discord
 from discord import Embed
 from discord.ext import commands
+from asyncio import sleep
+import datetime
+import json
+
+
+with open("./config.json") as configFile:  # Opens the file config.json as a config file
+    data = json.load(configFile)  # Var data is the value in the json.config file
+    for value in data["server_details"]:  # For the data in server_details
+        logging_channel = value['logging_channel']  # Gets the specific data
+        admins = value['admins']
 
 
 # This prevents staff members from being punished
@@ -28,7 +38,7 @@ class Redeemed(commands.Converter):  # Creates the class
             raise commands.BadArgument("The user was not muted.")
 
 
-async def mute(ctx, user, reason):
+async def mute(ctx, user, reason=None):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     if not role:
         try:
@@ -57,8 +67,19 @@ class Mute(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
-    async def mute(self, ctx, user: Sinner, reason=None):
-        await mute(ctx, user, reason or "Not specified")
+    async def mute(self, ctx, user: Sinner = None, reason=None):
+        if not user:
+            await ctx.message.delete()
+            msg = await ctx.send("You must specify a user.")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        if not reason:
+            await ctx.message.delete()
+            msg2 = await ctx.send("You must specify a reason.")
+            await sleep(4.7)
+            await msg2.delete()
+            return
         MutedDM = Embed(title="CartelPvP | Moderation",
                         description=f"You have been muted in CartelPvP",
                         colour=0xAE0808)
@@ -73,12 +94,36 @@ class Mute(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         MutedEmbed.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
         MutedEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
-        if user:  # Check again if a user is given.
-            try:  # Tries to send the user an embed.
-                await user.send(embed=MutedDM)
-            except discord.Forbidden:  # If the member has dm's disabled it will skip this part.
-                pass
-            await ctx.send(embed=MutedEmbed)  # Sends the muted embed in the chat.
+
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
+        embed.set_author(name='Member Muted',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Muted", value=f"{user.mention}",
+                        inline=False)
+        embed.add_field(name="Muted by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Reason", value=f"{reason}",
+                        inline=False)
+        embed.set_footer(text=f"Muted on {timestamp}"
+                         , icon_url=user.avatar_url)
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'{user.display_name} has been muted.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+        if user:
+            await mute(ctx, user, reason)
+        else:
+            return
+        try:
+            await user.send(embed=MutedDM)
+        except discord.Forbidden:
+            pass
+        try:
+            logs = self.client.get_channel(int(logging_channel))
+            await ctx.channel.send(embed=channel_embed)
+            await logs.send(embed=embed)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to kick someone higher than the bot")
 
     @commands.command()
     @commands.guild_only()
