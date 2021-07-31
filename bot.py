@@ -219,11 +219,11 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 #  Adjust to your likings
-GENERIC_ELEVATED_ROLES = ("cold support", "platform-admin", "senior-admin", "admin", "manager")
-ROLES1 = ("cold support", "manager", "platform-admin")
+GENERIC_ELEVATED_ROLES = ("cold support", "head-admin", "senior-admin", "admin", "manager")
+ROLES1 = ("cold support", "manager", "head-admin")
 ROLES2 = ("cold support", "trial-mod", "mod", "senior-mod", "support team")
-ROLES3 = ("cold support", "platform-admin", "senior-admin", "admin", "manager", "support team")
-ROLES4 = ("senior-mod", "platform-admin", "senior-admin", "admin", "manager")
+ROLES3 = ("cold support", "head-admin", "senior-admin", "admin", "manager", "support team")
+ROLES4 = ("senior-mod", "head-admin", "senior-admin", "admin", "manager")
 
 #  Ticket reactions, (inherit, description, roles)
 REACTIONS = {
