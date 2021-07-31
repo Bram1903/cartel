@@ -26,6 +26,7 @@ if not os.path.isfile("config.json"):
 #       "verified_role_id": "859724691643039774",
 #       "configured_ip": "IP_configured",
 #       "welcome_channel_id": "859725386576953364",
+#       "logging_channel": "865541976950833172",
 #       "admins": [574958028651233281, 373556761015353354, 426902176661635082]
 #     }
 #   ]
