@@ -379,7 +379,9 @@ async def appeal(ctx):
 @client.command()
 @cooldown(1, 5, BucketType.channel)  # Used in VOID; prevents 2 people closing ticket at once
 @only_tickets()  # This check/line is important. Do not change otherwise members might end up deleting channels
-async def close(ctx, *, reason="Not specified"):
+async def close(ctx, *, reason=None):
+    if not reason:
+        return await ctx.send("You must specify a reason.")
     ticket_closing = Embed(title="Closing this ticket in 5 seconds",
                            description="You can now forget this ticket ever existed",
                            colour=0xAE0808)
@@ -400,7 +402,7 @@ async def close(ctx, *, reason="Not specified"):
                       colour=0xAE0808)
 
     ticket_dm.set_thumbnail(url=user.avatar_url)
-    ticket_dm.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
+    ticket_dm.add_field(name="Closed by", value=f"{ctx.author.display_name}", inline=True)
     ticket_dm.add_field(name="Reason", value=f"{reason}", inline=True)
     if user:
         try:
@@ -414,7 +416,7 @@ async def close(ctx, *, reason="Not specified"):
                          colour=0xAE0808)
 
     ticket_staff.set_thumbnail(url=ctx.author.avatar_url)
-    ticket_staff.add_field(name="Closed by", value=f"{ctx.author}", inline=True)
+    ticket_staff.add_field(name="Closed by", value=f"{ctx.author.display_name}", inline=True)
     ticket_staff.add_field(name="Reason", value=f"{reason}", inline=True)
 
     channel = client.get_channel(int(ticket_logs))

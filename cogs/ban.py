@@ -2,6 +2,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 import datetime
+from asyncio import sleep
 import json
 
 
@@ -37,21 +38,30 @@ class Ban(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user: Sinner = None, reason="Not specified"):
+    async def ban(self, ctx, user: Sinner = None, reason=None):
         if not user:
-            return await ctx.send("You must specify a user")
-        mod = ctx.author
+            await ctx.message.delete()
+            msg = await ctx.send("You must specify a user.")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        if not reason:
+            await ctx.message.delete()
+            msg2 = await ctx.send("You must specify a reason.")
+            await sleep(4.7)
+            await msg2.delete()
+            return
         userDM = Embed(title="CartelPvP | Moderation",
                        description=f"You have been banned from CartelPvP",
                        colour=0xAE0808)
         userDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        userDM.add_field(name="Banned by", value=f"{ctx.author}", inline=True)
+        userDM.add_field(name="Banned by", value=f"{ctx.author.display_name}", inline=True)
         userDM.add_field(name="Reason", value=f"{reason}", inline=True)
 
         timestamp = datetime.datetime.utcnow()
         embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
-        embed.set_author(name='Member banned',
+        embed.set_author(name='Member Banned',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
         embed.add_field(name="Banned", value=f"{user.mention}",
                         inline=False)
