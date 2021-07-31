@@ -143,7 +143,7 @@ class Mute(commands.Cog):
         MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
 
         timestamp = datetime.datetime.utcnow()
-        embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
+        embed = Embed(description=f"Member ID: {user.id}", colour=0x57F287)
         embed.set_author(name='Member Unmuted',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
         embed.add_field(name="Unmuted", value=f"{user.mention}",

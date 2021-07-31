@@ -29,7 +29,7 @@ class logger(commands.Cog):
             if message.author.id not in admins:
                 try:
                     timestamp = datetime.datetime.utcnow()
-                    embed = Embed(description=f"Message ID: {message.id}", colour=0xAE0808)
+                    embed = Embed(description=f"Message ID: {message.id}", colour=0xE67E22)
                     embed.set_author(name='Message Deleted',
                                  icon_url='https://i.imgur.com/Jf565HJ.png')
                     embed.add_field(name="Content", value=message.content,
@@ -53,7 +53,7 @@ class logger(commands.Cog):
             if message_before.author.id not in admins:
                 try:
                     timestamp = message_after.edited_at
-                    embed = Embed(description=f"Message ID: {message_before.id}", colour=0xAE0808)
+                    embed = Embed(description=f"Message ID: {message_before.id}", colour=0xE67E22)
                     embed.set_author(name='Message Edited',
                                  icon_url='https://i.imgur.com/PV8yJN6.png')
                     embed.add_field(name="Before", value=message_before.content,
