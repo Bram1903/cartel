@@ -2,6 +2,16 @@ import discord
 from discord import Embed
 from discord.ext import commands
 
+import json
+import datetime
+from asyncio import sleep
+
+with open("./config.json") as configFile:  # Opens the file config.json as a config file
+    data = json.load(configFile)  # Var data is the value in the json.config file
+    for value in data["server_details"]:  # For the data in server_details
+        lockdown_mute_role = value['verified_role_id']  # Gets the specific data
+        logging_channel = value['logging_channel']
+
 
 class Snipe(commands.Cog):
 
@@ -28,15 +38,29 @@ class Snipe(commands.Cog):
 
         author = self.last_msg.author
         content = self.last_msg.content
+        channel = self.last_msg.channel
 
-        SnipeEmbed = Embed(title="CartelPvP | Moderation",
-                           description=content,
-                           colour=0xAE0808)
-        SnipeEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        SnipeEmbed.add_field(name="**Sniped by**", value=f"{ctx.author}", inline=True)
-        SnipeEmbed.add_field(name="**Sniped**", value=f"{author}", inline=True)
-        await ctx.send(embed=SnipeEmbed)
+        embed = Embed(colour=0xAE0808)
+        embed.set_author(name='This snipe has been send to the logs channel.',
+                           icon_url='https://i.imgur.com/uoq4zFS.png')
+        await channel.send(embed=embed)
+
+        timestamp = datetime.datetime.utcnow()
+        embed_logs = Embed(description=f"User ID: {author.id}", colour=0xE67E22)
+        embed_logs.set_author(name='Message Sniped',
+                         icon_url='https://i.imgur.com/uoq4zFS.png'),
+        embed_logs.add_field(name="Sniped", value=f"{author.mention}",
+                        inline=False)
+        embed_logs.add_field(name="Sniped by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed_logs.add_field(name="Content", value=f"{content}",
+                        inline=False)
+        embed_logs.add_field(name="Channel", value=f"{channel.mention}",
+                        inline=False)
+        embed_logs.set_footer(text=f"Sniped on {timestamp}"
+                         , icon_url=author.avatar_url)
+        logs = self.client.get_channel(int(logging_channel))
+        await logs.send(embed=embed_logs)
 
 
 def setup(client):
