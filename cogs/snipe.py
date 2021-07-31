@@ -11,6 +11,7 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
     for value in data["server_details"]:  # For the data in server_details
         lockdown_mute_role = value['verified_role_id']  # Gets the specific data
         logging_channel = value['logging_channel']
+        admins = value['admins']
 
 
 class Snipe(commands.Cog):
@@ -34,6 +35,15 @@ class Snipe(commands.Cog):
     async def snipe(self, ctx: commands.Context):
         if not self.last_msg:  # on_message_delete hasn't been triggered since the bot started
             await ctx.send("There is no message to snipe!")
+            return
+        if self.last_msg.author.id in admins:
+            await ctx.message.delete()
+            embed = Embed(colour=0xAE0808)
+            embed.set_author(name="I'm not allowed to snipe my creator.",
+                             icon_url='https://i.imgur.com/sFhjp83.png')
+            msg = await ctx.send(embed=embed)
+            await sleep(4.7)
+            await msg.delete()
             return
 
         author = self.last_msg.author
