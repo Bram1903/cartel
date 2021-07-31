@@ -50,8 +50,10 @@ class Purge(commands.Cog):
         try:
             logs = self.client.get_channel(int(logging_channel))
             await ctx.channel.purge(limit=limit)  # Starts purging the channel with the given limit.
-            await ctx.channel.send(embed=channel_embed)
+            msg = await ctx.channel.send(embed=channel_embed)
             await logs.send(embed=embed)
+            await sleep(4.7)
+            await msg.delete()
         except:
             pass
 
