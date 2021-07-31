@@ -15,10 +15,10 @@ class fileblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        permission = message.author.guild_permissions.manage_messages
         if message.author == self.client.user:
             return
         else:
+            permission = message.author.guild_permissions.manage_messages
             if not permission:
                 for file in message.attachments:
                     if file.filename.endswith((".exe", ".bat", ".vb", ".jar")):

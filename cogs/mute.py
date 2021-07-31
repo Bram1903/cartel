@@ -87,13 +87,6 @@ class Mute(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         MutedDM.add_field(name="**Muted by**", value=f"{ctx.author}", inline=True)
         MutedDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
-        MutedEmbed = Embed(title="CartelPvP | Moderation",
-                           description=f"{user} has been muted in CartelPvP",
-                           colour=0xAE0808)
-        MutedEmbed.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        MutedEmbed.add_field(name="Muted by", value=f"{ctx.author}", inline=True)
-        MutedEmbed.add_field(name="Reason", value=f"{reason}", inline=True)
 
         timestamp = datetime.datetime.utcnow()
         embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
@@ -128,29 +121,56 @@ class Mute(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
-    async def unmute(self, ctx, user: Redeemed):
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))  # Unmutes the mentioned user, and
-        # fetch the muted role.
-        UnmutedEmbed = Embed(title="CartelPvP | Moderation",
-                             description=f"{user} has been unmuted in CartelPvP",
-                             colour=0xAE0808)
-        UnmutedEmbed.set_thumbnail(
+    async def unmute(self, ctx, user: Redeemed = None, reason=None):
+        if not user:
+            await ctx.message.delete()
+            msg = await ctx.send("You must specify a user.")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        if not reason:
+            await ctx.message.delete()
+            msg2 = await ctx.send("You must specify a reason.")
+            await sleep(4.7)
+            await msg2.delete()
+            return
+        MutedDM = Embed(title="CartelPvP | Moderation",
+                        description=f"You have been unmuted in CartelPvP",
+                        colour=0xAE0808)
+        MutedDM.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnmutedEmbed.add_field(name="**Unmuted by**", value=f"{ctx.author}", inline=True)
-        UnmutedEmbed.add_field(name="**Reason**", value="Expired", inline=True)
-        UnmutedDM = Embed(title="CartelPvP | Moderation",
-                          description="You have been unmuted in CartelPvP",
-                          colour=0xAE0808)
-        UnmutedDM.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        UnmutedDM.add_field(name="**Unmuted by**", value=f"{ctx.author}", inline=True)
-        UnmutedDM.add_field(name="**Reason**", value="Expired", inline=True)
-        if user:  # Is user is mentioned
-            try:  # Try to send the embed in DM
-                await user.send(embed=UnmutedDM)
-            except discord.Forbidden:  # Else if the user has dm's disabled
-                pass  # Pass
-            await ctx.send(embed=UnmutedEmbed)
+        MutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
+        MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
+
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
+        embed.set_author(name='Member Unmuted',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Unmuted", value=f"{user.mention}",
+                        inline=False)
+        embed.add_field(name="Unmuted by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Reason", value=f"{reason}",
+                        inline=False)
+        embed.set_footer(text=f"Unmuted on {timestamp}"
+                         , icon_url=user.avatar_url)
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'{user.display_name} has been unmuted.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+        if user:
+            await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
+        else:
+            return
+        try:
+            await user.send(embed=MutedDM)
+        except discord.Forbidden:
+            pass
+        try:
+            logs = self.client.get_channel(int(logging_channel))
+            await ctx.channel.send(embed=channel_embed)
+            await logs.send(embed=embed)
+        except discord.Forbidden:
+            return await ctx.send("Are you trying to unmute someone higher than the bot")
 
 
 def setup(client):
