@@ -1,6 +1,5 @@
-import json
 import datetime
-from asyncio import sleep
+import json
 
 import discord
 from discord import Embed

@@ -68,7 +68,8 @@ class Invites(commands.Cog):
                                    "Lockdown  | ?lockdown (channel_id)\n"
                                    "Purge     | ?purge (amount)\n"
                                    "Slowmode  | ?slowmode (time)\n"
-                                   "Unslow    | ?unslow```")
+                                   "Unslow    | ?unslow\n"
+                                   "Snipe     | ?snipe```")
         await ctx.send(embed=moderation)
 
     @help.command(name='system')

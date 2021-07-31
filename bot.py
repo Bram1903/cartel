@@ -193,7 +193,7 @@ async def info_subcommand(ctx):
         cores = psutil.cpu_count(logical=False)
         threads = psutil.cpu_count()
         python = platform.python_version()
-        text = "This bot is created by Bram#2698"
+        text = "This bot is written by Bram#2698"
         usageEmbed = Embed(title="CartelPvP | System",
                            description="System usage",
                            colour=0xAE0808)

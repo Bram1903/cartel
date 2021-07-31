@@ -1,15 +1,15 @@
+import datetime
+import json
+
 from discord import Embed
 from discord.ext import commands
-import json
-import datetime
-from asyncio import sleep
-
 
 with open("./config.json") as configFile:  # Opens the file config.json as a config file
     data = json.load(configFile)  # Var data is the value in the json.config file
     for value in data["server_details"]:  # For the data in server_details
         lockdown_mute_role = value['verified_role_id']  # Gets the specific data
         logging_channel = value['logging_channel']
+
 
 # imports
 
