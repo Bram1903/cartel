@@ -15,21 +15,21 @@ class inviteblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        permission = message.author.guild_permissions.manage_messages
         if message.author == self.client.user:
             return
-        else:
-            if not permission:
-                if message.content.startswith('https://discord.gg'):
-                    await message.delete()
-                    no_perm = Embed(colour=0xAE0808)
-                    no_perm.set_author(name='You are not allowed to send invite links.',
+        if message.author.guild_permissions.manage_messages:
+            return
+        try:
+            if message.content.startswith('https://discord.gg'):
+                await message.delete()
+                no_perm = Embed(colour=0xAE0808)
+                no_perm.set_author(name='You are not allowed to send invite links.',
                                        icon_url='https://i.imgur.com/l2tL2kc.png')
-                    msg = await message.channel.send(embed=no_perm)
-                    await sleep(4.7)
-                    await msg.delete()
-            else:
-                return
+                msg = await message.channel.send(embed=no_perm)
+                await sleep(4.7)
+                await msg.delete()
+        except:
+            pass
 
 
 def setup(client):

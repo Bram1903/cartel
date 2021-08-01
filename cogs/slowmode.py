@@ -1,5 +1,6 @@
 import datetime
 import json
+from asyncio import sleep
 
 from discord import Embed
 from discord.ext import commands
@@ -29,12 +30,13 @@ class Slowmode(commands.Cog):
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def slowmode(self, ctx, amount=None):
         if not amount:  # Checks if an amount is given.
+            await ctx.message.delete()
             return await ctx.send("You must enter an amount.")  # Says to give an amount.
         await ctx.channel.edit(slowmode_delay=int(amount))  # Applies slow chat counter with the given amount.
         channel_embed = Embed(colour=0xAE0808)
         channel_embed.set_author(name=f'Slowmode activated.',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=channel_embed)
+        msg = await ctx.send(embed=channel_embed)
         timestamp = datetime.datetime.utcnow()
         embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0xAE0808)
         embed.set_author(name='Slowmode Activated',
@@ -49,6 +51,9 @@ class Slowmode(commands.Cog):
                          , icon_url=ctx.author.avatar_url)
         logs = self.client.get_channel(int(logging_channel))
         await logs.send(embed=embed)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
     @commands.command(pass_context=True)
     @commands.guild_only()
@@ -59,7 +64,7 @@ class Slowmode(commands.Cog):
         channel_embed = Embed(colour=0xAE0808)
         channel_embed.set_author(name=f'Slowmode deactivated.',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=channel_embed)
+        msg = await ctx.send(embed=channel_embed)
         timestamp = datetime.datetime.utcnow()
         embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0x57F287)
         embed.set_author(name='Slowmode Deactivated',
@@ -72,6 +77,9 @@ class Slowmode(commands.Cog):
                          , icon_url=ctx.author.avatar_url)
         logs = self.client.get_channel(int(logging_channel))
         await logs.send(embed=embed)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 def setup(client):

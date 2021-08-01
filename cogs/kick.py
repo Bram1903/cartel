@@ -39,7 +39,7 @@ class Kick(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user: Sinner = None, reason=None):
+    async def kick(self, ctx, user: Sinner = None, *, reason=None):
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
@@ -84,8 +84,11 @@ class Kick(commands.Cog):
         try:
             await user.kick(reason=reason)
             logs = self.client.get_channel(int(logging_channel))
-            await ctx.channel.send(embed=channel_embed)
+            msg = await ctx.channel.send(embed=channel_embed)
             await logs.send(embed=embed)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot")
 

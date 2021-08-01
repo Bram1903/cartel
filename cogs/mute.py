@@ -38,7 +38,7 @@ class Redeemed(commands.Converter):  # Creates the class
             raise commands.BadArgument("The user was not muted.")
 
 
-async def mute(ctx, user, reason=None):
+async def mute(ctx, user):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     if not role:
         try:
@@ -67,7 +67,7 @@ class Mute(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
-    async def mute(self, ctx, user: Sinner = None, reason=None):
+    async def mute(self, ctx, user: Sinner = None, *, reason=None):
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
@@ -113,15 +113,18 @@ class Mute(commands.Cog):
             pass
         try:
             logs = self.client.get_channel(int(logging_channel))
-            await ctx.channel.send(embed=channel_embed)
+            msg = await ctx.channel.send(embed=channel_embed)
             await logs.send(embed=embed)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot")
 
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
-    async def unmute(self, ctx, user: Redeemed = None, reason=None):
+    async def unmute(self, ctx, user: Redeemed = None, *, reason=None):
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
@@ -167,8 +170,11 @@ class Mute(commands.Cog):
             pass
         try:
             logs = self.client.get_channel(int(logging_channel))
-            await ctx.channel.send(embed=channel_embed)
+            msg = await ctx.channel.send(embed=channel_embed)
             await logs.send(embed=embed)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
         except discord.Forbidden:
             return await ctx.send("Are you trying to unmute someone higher than the bot")
 

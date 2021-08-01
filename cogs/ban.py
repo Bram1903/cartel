@@ -38,7 +38,7 @@ class Ban(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user: Sinner = None, reason=None):
+    async def ban(self, ctx, user: Sinner = None, *, reason=None):
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
@@ -82,8 +82,11 @@ class Ban(commands.Cog):
         try:
             await user.ban(reason=reason)
             logs = self.client.get_channel(int(logging_channel))
-            await ctx.channel.send(embed=channel_embed)
+            msg = await ctx.channel.send(embed=channel_embed)
             await logs.send(embed=embed)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 
