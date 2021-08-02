@@ -4,10 +4,14 @@ Cartel is a bot written in Python for the server CartelPvP
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install discord.py.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install discord.py, and other requirements.
 
 ```bash
 py -3 -m pip install -U discord.py
+pip install asyncio
+pip install python-dotenv
+python -m pip install requests
+pip install psutil
 ```
 
 ## config.json (example)
