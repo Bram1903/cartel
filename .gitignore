@@ -1,5 +1,4 @@
 .env
 **/cogs/__pycache__
 .idea
-config.json
 commandlogger.txt
