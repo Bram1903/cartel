@@ -114,16 +114,18 @@ class logger(commands.Cog):
             channel = self.client.get_channel(int(logging_channel))
             await channel.send(embed=embed)
         elif before.roles != after.roles:
-            embed = Embed(title="Role updates",
-                          colour=after.colour,
-                          timestamp=datetime.utcnow())
-
-            fields = [("Before", ", ".join([r.mention for r in before.roles]), False),
-                      ("After", ", ".join([r.mention for r in after.roles]), False)]
-
-            for name, value, inline in fields:
-                embed.add_field(name=name, value=value, inline=inline)
-
+            timestamp = datetime.datetime.utcnow()
+            embed = Embed(description=f"Member ID: {before.id}", colour=0xE67E22)
+            embed.set_author(name='Roles Updated',
+                             icon_url="https://i.imgur.com/0Lzd0go.png")
+            embed.add_field(name="Member", value=before.mention,
+                            inline=False)
+            embed.add_field(name="Roles before:", value=", ".join([r.mention for r in before.roles]),
+                            inline=False)
+            embed.add_field(name="Roles  after:", value=", ".join([r.mention for r in after.roles]),
+                            inline=False)
+            embed.set_footer(text=f"Updated on • {timestamp}"
+                             , icon_url=before.avatar_url)
             channel = self.client.get_channel(int(logging_channel))
             await channel.send(embed=embed)
 
