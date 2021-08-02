@@ -37,7 +37,7 @@ class Maliciousblocker(commands.Cog):
             no_perm.set_author(name=f'Do not send that, {message.author.display_name}.',
                                icon_url='https://i.imgur.com/l2tL2kc.png')
             for word in data:
-                if word in message.content:
+                if word in message.content.lower():
                     await message.delete()
                     msg = await message.channel.send(embed=no_perm)
                     await sleep(4.7)
