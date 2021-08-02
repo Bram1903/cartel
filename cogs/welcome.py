@@ -8,8 +8,8 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
     data = json.load(configFile)  # Var data is the value in the json.config file
     for value in data["server_details"]:  # For the data in server_details
         welcome_channel = value['welcome_channel_id']
-        logging_channel = value['logging_channel']
         member_role = value['verified_role_id']
+        logging_channel = value['logging_channel']
         admins = value['admins']
 
 
@@ -26,7 +26,8 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        role = member_role
+        role_id = (int(member_role))  # Gets the role which it should change the permissions of.
+        role = discord.utils.get(member.guild.roles, id=role_id)
         await member.add_roles(role)
         welcome_embed = Embed(colour=0x57F287)
         welcome_embed.set_author(name=f'Welcome to the server, {member.display_name}!',
