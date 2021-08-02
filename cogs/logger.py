@@ -70,6 +70,32 @@ class logger(commands.Cog):
             else:
                 pass
 
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {member.id}", colour=0x57F287)
+        embed.set_author(name='Member Joined',
+                         icon_url=member.avatar_url)
+        embed.add_field(name="Member", value=member.mention,
+                        inline=False)
+        embed.set_footer(text=f"Joined on • {timestamp}"
+                         , icon_url=member.avatar_url)
+        channel = self.client.get_channel(int(logging_channel))
+        await channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {member.id}", colour=0xAE0808)
+        embed.set_author(name='Member Left',
+                         icon_url=member.avatar_url)
+        embed.add_field(name="Member", value=member.mention,
+                        inline=False)
+        embed.set_footer(text=f"Left on • {timestamp}"
+                         , icon_url=member.avatar_url)
+        channel = self.client.get_channel(int(logging_channel))
+        await channel.send(embed=embed)
+
 
 def setup(client):
     client.add_cog(logger(client))
