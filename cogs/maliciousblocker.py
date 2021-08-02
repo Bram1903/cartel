@@ -1,10 +1,6 @@
-import datetime
 import json
-from json import loads
-import os
 from asyncio import sleep
 
-import discord
 from discord import Embed
 from discord.ext import commands
 
@@ -13,9 +9,12 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
     for value in data["server_details"]:  # For the data in server_details
         logging_channel = value['logging_channel']  # Gets the specific data
         admins = value['admins']
+        TICKET_CATEGORY_ID = value['ticket_category_id']
 
 with open("blacklist.json") as f:
     data = json.load(f)
+
+TICKET_CATEGORY = (int(TICKET_CATEGORY_ID))
 
 
 class Maliciousblocker(commands.Cog):
@@ -30,6 +29,8 @@ class Maliciousblocker(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author == self.client.user:
+            return
+        if message.channel.category_id == TICKET_CATEGORY:
             return
         try:
             no_perm = Embed(colour=0xAE0808)
