@@ -11,8 +11,8 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
         admins = value['admins']
         TICKET_CATEGORY_ID = value['ticket_category_id']
 
-with open("blacklist.json") as f:
-    data = json.load(f)
+with open('badwords.txt') as file:
+    bad_words = file.read()
 
 TICKET_CATEGORY = (int(TICKET_CATEGORY_ID))
 
@@ -36,12 +36,11 @@ class Maliciousblocker(commands.Cog):
             no_perm = Embed(colour=0xAE0808)
             no_perm.set_author(name=f'Do not send that, {message.author.display_name}.',
                                icon_url='https://i.imgur.com/l2tL2kc.png')
-            for word in data:
-                if word in message.content.lower():
-                    await message.delete()
-                    msg = await message.channel.send(embed=no_perm)
-                    await sleep(4.7)
-                    await msg.delete()
+            if any(bad_word in message.content.strip().lower() for bad_word in bad_words):
+                await message.delete()
+                msg = await message.channel.send(embed=no_perm)
+                await sleep(4.7)
+                await msg.delete()
         except:
             pass
 
