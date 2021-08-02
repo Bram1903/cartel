@@ -32,6 +32,8 @@ class Maliciousblocker(commands.Cog):
             return
         if message.channel.category_id == TICKET_CATEGORY:
             return
+        if message.author.guild_permissions.manage_messages:
+            return
         try:
             no_perm = Embed(colour=0xAE0808)
             no_perm.set_author(name=f'Do not send that, {message.author.display_name}.',

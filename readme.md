@@ -22,10 +22,23 @@ py -3 -m pip install -U discord.py
       "ticket_channel_id": "859486071871111189",
       "verified_role_id": "859724691643039774",
       "configured_ip": "IP_configured",
-      "welcome_channel_id": "859725386576953364",
+      "welcome_channel_id": "867422970791985183",
       "logging_channel": "865541976950833172",
-      "admins": [574958028651233281, 373556761015353354, 426902176661635082]
+      "admins": [
+        574958028651233281,
+        373556761015353354,
+        426902176661635082
+      ]
     }
   ]
 }
 ```
+
+## blacklist.json (example)
+
+
+```json
+[
+"badword1",
+"badword2
+]

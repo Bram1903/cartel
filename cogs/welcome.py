@@ -26,7 +26,7 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        role_id = (int(member_role))  # Gets the role which it should change the permissions of.
+        role_id = (int(member_role))
         role = discord.utils.get(member.guild.roles, id=role_id)
         await member.add_roles(role)
         welcome_embed = Embed(colour=0x57F287)
