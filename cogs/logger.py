@@ -31,6 +31,8 @@ class logger(commands.Cog):
                     embed = Embed(description=f"Message ID: {message.id}", colour=0xE67E22)
                     embed.set_author(name='Message Deleted',
                                      icon_url='https://i.imgur.com/Jf565HJ.png')
+                    embed.add_field(name="Message by", value=message.author.mention,
+                                    inline=False)
                     embed.add_field(name="Content", value=message.content,
                                     inline=False)
                     embed.add_field(name="Channel", value=message.channel.mention,
@@ -55,6 +57,8 @@ class logger(commands.Cog):
                     embed = Embed(description=f"Message ID: {message_before.id}", colour=0xE67E22)
                     embed.set_author(name='Message Edited',
                                      icon_url='https://i.imgur.com/PV8yJN6.png')
+                    embed.add_field(name="Message by", value=message_before.author.mention,
+                                    inline=False)
                     embed.add_field(name="Before", value=message_before.content,
                                     inline=False)
                     embed.add_field(name="After", value=message_after.content,

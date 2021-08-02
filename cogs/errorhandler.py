@@ -3,6 +3,7 @@ import traceback
 
 import discord
 from discord.ext import commands
+from asyncio import sleep
 
 
 class CommandErrorHandler(commands.Cog):
@@ -36,13 +37,17 @@ class CommandErrorHandler(commands.Cog):
             # generic error handler for commands from guilds without permissions
             perms = str(error.missing_perms)[1:][:-1].title().replace("_", " ").replace("'", "")
             try:
+                await ctx.message.delete()
                 embed = discord.Embed(
                     description=f"You are missing the following permissions: \n"
                                 f"`{perms}`",
                     colour=0xAE0808,
                 )
                 embed.set_author(name='Error | Permissions', icon_url='https://i.imgur.com/sFhjp83.png')
-                return await ctx.send(embed=embed)
+                msg = await ctx.send(embed=embed)
+                await sleep(4.7)
+                await msg.delete()
+                return
             except:
                 return await ctx.send(f"You are missing the following permissions:\n"
                                       f"`{perms}`\n"
