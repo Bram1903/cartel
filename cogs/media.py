@@ -13,6 +13,7 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
         role_media_admin = value['media-admin']
         role_youtuber = value['youtuber']
         role_famous = value['famous']
+        role_partner = value['partner']
         logging_channel = value['logging_channel']  # Gets the specific data
         admins = value['admins']
 
@@ -30,6 +31,7 @@ class Media(commands.Cog):
     async def grant(self, ctx, member: discord.Member=None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
+        await ctx.message.delete()
         if role in ctx.author.roles:
             if not member:
                 msg = await ctx.send('You must provide a user.')
@@ -44,9 +46,15 @@ class Media(commands.Cog):
             if rank.lower() == "youtuber":
                 youtuber_id = (int(role_youtuber))
                 youtuber = get(ctx.guild.roles, id=youtuber_id)
-                await member.add_roles(youtuber)
+                try:
+                    await member.add_roles(youtuber)
+                except:
+                    await ctx.send("Couldn't give the rank.")
                 nick = f"YouTuber | {member.display_name}"
-                await member.edit(nick=nick)
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't change the prefix.")
                 embed = Embed(colour=0x57F287)
                 embed.set_author(name=f'Granted YouTuber to {member.display_name}.',
                             icon_url='https://i.imgur.com/0Lzd0go.png')
@@ -56,11 +64,35 @@ class Media(commands.Cog):
             elif rank.lower() == "famous":
                 famous_id = (int(role_famous))
                 famous = get(ctx.guild.roles, id=famous_id)
-                await member.add_roles(famous)
+                try:
+                    await member.add_roles(famous)
+                except:
+                    await ctx.send("Couldn't give the rank.")
                 nick = f"Famous | {member.display_name}"
-                await member.edit(nick=nick)
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't change the prefix.")
                 embed = Embed(colour=0x57F287)
                 embed.set_author(name=f'Granted Famous to {member.display_name}.',
+                                 icon_url='https://i.imgur.com/0Lzd0go.png')
+                msg = await ctx.send(embed=embed)
+                await sleep(4.7)
+                await msg.delete()
+            elif rank.lower() == "partner":
+                partner_id = (int(role_partner))
+                partner = get(ctx.guild.roles, id=partner_id)
+                try:
+                    await member.add_roles(partner)
+                except:
+                    await ctx.send("Couldn't give the rank.")
+                nick = f"Partner | {member.display_name}"
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't change the prefix.")
+                embed = Embed(colour=0x57F287)
+                embed.set_author(name=f'Granted Partner to {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
                 await sleep(4.7)
@@ -87,6 +119,7 @@ class Media(commands.Cog):
     async def revoke(self, ctx, member: discord.Member = None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
+        await ctx.message.delete()
         if role in ctx.author.roles:
             if not member:
                 msg = await ctx.send('You must provide a user.')
@@ -101,9 +134,17 @@ class Media(commands.Cog):
             if rank.lower() == "youtuber":
                 youtuber_id = (int(role_youtuber))
                 youtuber = get(ctx.guild.roles, id=youtuber_id)
-                await member.remove_roles(youtuber)
+                try:
+                    await member.remove_roles(youtuber)
+                except:
+                    await ctx.send("Couldn't remove the rank.")
+                    return
                 nick = member.name
-                await member.edit(nick=nick)
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't remove the prefix.")
+                    return
                 embed = Embed(colour=0xAE0808)
                 embed.set_author(name=f'Revoked YouTuber from {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
@@ -113,11 +154,38 @@ class Media(commands.Cog):
             elif rank.lower() == "famous":
                 famous_id = (int(role_famous))
                 famous = get(ctx.guild.roles, id=famous_id)
-                await member.remove_roles(famous)
+                try:
+                    await member.remove_roles(famous)
+                except:
+                    await ctx.send("Couldn't remove the rank.")
                 nick = member.name
-                await member.edit(nick=nick)
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't remove the prefix.")
+                    return
                 embed = Embed(colour=0xAE0808)
                 embed.set_author(name=f'Revoked Famous from {member.display_name}.',
+                                 icon_url='https://i.imgur.com/0Lzd0go.png')
+                msg = await ctx.send(embed=embed)
+                await sleep(4.7)
+                await msg.delete()
+            elif rank.lower() == "partner":
+                partner_id = (int(role_partner))
+                partner = get(ctx.guild.roles, id=partner_id)
+                try:
+                    await member.remove_roles(partner)
+                except:
+                    await ctx.send("Couldn't remove the rank.")
+                    return
+                nick = member.name
+                try:
+                    await member.edit(nick=nick)
+                except:
+                    await ctx.send("Couldn't remove the prefix.")
+                    return
+                embed = Embed(colour=0xAE0808)
+                embed.set_author(name=f'Revoked partner from {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
                 await sleep(4.7)
