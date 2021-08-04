@@ -14,8 +14,7 @@ class Invites(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def invites(self, ctx, user:
-    discord.Member = None):
+    async def invites(self, ctx, user: discord.Member = None):
         if user is None:
             total_invites = 0
             for i in await ctx.guild.invites():

@@ -53,7 +53,6 @@ client = Bot(command_prefix=">",
 
 
 @client.group(name='system', invoke_without_command=True)
-@has_permissions(administrator=True)
 async def system(ctx):
     pass
 
@@ -73,7 +72,7 @@ async def load_subcommand(ctx, extension=None):
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -93,7 +92,7 @@ async def unload_subcommand(ctx, extension=None):
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -114,7 +113,7 @@ async def reload_subcommand(ctx, extension=None):
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -144,7 +143,7 @@ async def reloadall_subcommand(ctx):
             print(e)
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -165,7 +164,7 @@ async def list_subcommand(ctx):
         await ctx.send(embed=module_list)
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -180,7 +179,7 @@ async def logs_subcommand(ctx):
             pass
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
@@ -209,7 +208,7 @@ async def info_subcommand(ctx):
         await ctx.send(embed=usageEmbed)
     else:
         NoPerm = Embed(colour=0xAE0808)
-        NoPerm.set_author(name='You are missing developer permissions.',
+        NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
         await ctx.send(embed=NoPerm)
 
