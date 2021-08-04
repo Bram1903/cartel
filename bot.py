@@ -61,7 +61,7 @@ async def system(ctx):
 async def load_subcommand(ctx, extension=None):
     if ctx.author.id in admins:
         if not extension:
-            return await ctx.send("You must provide a module")
+            return await ctx.send("You must provide a module.")
         try:
             client.load_extension(f'cogs.{extension}')
             moduleLoaded = Embed(colour=0x2F3136)
