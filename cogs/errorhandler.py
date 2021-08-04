@@ -31,8 +31,7 @@ class CommandErrorHandler(commands.Cog):
         if isinstance(error, ignored):
             return
         else:
-            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            pass
         if isinstance(error, commands.MissingPermissions):
             # generic error handler for commands from guilds without permissions
             perms = str(error.missing_perms)[1:][:-1].title().replace("_", " ").replace("'", "")
