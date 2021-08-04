@@ -14,7 +14,7 @@ with open("./config.json") as configFile:  # Opens the file config.json as a con
         role_youtuber = value['youtuber']
         role_famous = value['famous']
         role_partner = value['partner']
-        logging_channel = value['logging_channel']  # Gets the specific data
+        media_logging = value['media_logging']
         admins = value['admins']
 
 
@@ -28,9 +28,21 @@ class Media(commands.Cog):
         print('Media has successfully been initialized.')
 
     @commands.command(pass_context=True)
-    async def grant(self, ctx, member: discord.Member=None, rank=None):
+    async def grant(self, ctx, member: discord.Member = None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
+        timestamp = datetime.datetime.utcnow()
+        granted = Embed(description=f"Media Admin: {ctx.author.id}", colour=0x57F287)
+        granted.set_author(name='Media Rank Granted',
+                           icon_url='https://i.imgur.com/0Lzd0go.png')
+        granted.add_field(name="Granted member", value=f"{member.mention}",
+                          inline=False)
+        granted.add_field(name="Granted by", value=f"{ctx.author.mention}",
+                          inline=False)
+        granted.add_field(name="Rank", value=f"{rank}",
+                          inline=False)
+        granted.set_footer(text=f"Granted on {timestamp}"
+                           , icon_url=member.avatar_url)
         await ctx.message.delete()
         if role in ctx.author.roles:
             if not member:
@@ -57,8 +69,10 @@ class Media(commands.Cog):
                     await ctx.send("Couldn't change the prefix.")
                 embed = Embed(colour=0x57F287)
                 embed.set_author(name=f'Granted YouTuber to {member.display_name}.',
-                            icon_url='https://i.imgur.com/0Lzd0go.png')
+                                 icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=granted)
                 await sleep(4.7)
                 await msg.delete()
             elif rank.lower() == "famous":
@@ -77,6 +91,8 @@ class Media(commands.Cog):
                 embed.set_author(name=f'Granted Famous to {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=granted)
                 await sleep(4.7)
                 await msg.delete()
             elif rank.lower() == "partner":
@@ -95,16 +111,18 @@ class Media(commands.Cog):
                 embed.set_author(name=f'Granted Partner to {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=granted)
                 await sleep(4.7)
                 await msg.delete()
             else:
                 embed = Embed(colour=0xAE0808)
                 embed.set_author(name='Invalid Rank',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
-                embed.add_field(name="Options", value="```\nyoutuber\nfamous```",
+                embed.add_field(name="Options", value="```\nYouTuber\nFamous\nPartner```",
                                 inline=False)
                 msg = await ctx.send(embed=embed)
-                await sleep(4.7)
+                await sleep(10)
                 await msg.delete()
         else:
             await ctx.message.delete()
@@ -119,6 +137,18 @@ class Media(commands.Cog):
     async def revoke(self, ctx, member: discord.Member = None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
+        timestamp = datetime.datetime.utcnow()
+        revoked = Embed(description=f"Media Admin: {ctx.author.id}", colour=0xAE0808)
+        revoked.set_author(name='Media Rank Revoked',
+                           icon_url='https://i.imgur.com/0Lzd0go.png')
+        revoked.add_field(name="Revoked member", value=f"{member.mention}",
+                          inline=False)
+        revoked.add_field(name="Revoked by", value=f"{ctx.author.mention}",
+                          inline=False)
+        revoked.add_field(name="Rank", value=f"{rank}",
+                          inline=False)
+        revoked.set_footer(text=f"Revoked on {timestamp}"
+                           , icon_url=member.avatar_url)
         await ctx.message.delete()
         if role in ctx.author.roles:
             if not member:
@@ -149,6 +179,8 @@ class Media(commands.Cog):
                 embed.set_author(name=f'Revoked YouTuber from {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=revoked)
                 await sleep(4.7)
                 await msg.delete()
             elif rank.lower() == "famous":
@@ -168,6 +200,8 @@ class Media(commands.Cog):
                 embed.set_author(name=f'Revoked Famous from {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=revoked)
                 await sleep(4.7)
                 await msg.delete()
             elif rank.lower() == "partner":
@@ -188,16 +222,18 @@ class Media(commands.Cog):
                 embed.set_author(name=f'Revoked partner from {member.display_name}.',
                                  icon_url='https://i.imgur.com/0Lzd0go.png')
                 msg = await ctx.send(embed=embed)
+                logs = self.client.get_channel(int(media_logging))
+                await logs.send(embed=revoked)
                 await sleep(4.7)
                 await msg.delete()
             else:
                 embed = Embed(colour=0xAE0808)
                 embed.set_author(name='Invalid Rank',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
-                embed.add_field(name="Options", value="```\nyoutuber\nfamous```",
+                embed.add_field(name="Options", value="```\nYouTuber\nFamous\nPartner```",
                                 inline=False)
                 msg = await ctx.send(embed=embed)
-                await sleep(4.7)
+                await sleep(10)
                 await msg.delete()
         else:
             await ctx.message.delete()
