@@ -1,5 +1,6 @@
 import datetime
 import json
+import time
 from asyncio import sleep
 
 from discord import Embed
@@ -22,6 +23,7 @@ class Slowmode(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Slowmode module has successfully been initialized.')
 
     @commands.command(pass_context=True)

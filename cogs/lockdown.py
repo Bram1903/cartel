@@ -1,5 +1,6 @@
 import datetime
 import json
+import time
 
 import discord
 from discord import Embed
@@ -20,6 +21,7 @@ class Lockdown(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Lockdown module has successfully been initialized.')
 
     @commands.command()

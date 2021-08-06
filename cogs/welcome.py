@@ -1,8 +1,9 @@
+import json
+import time
+
 import discord
 from discord import Embed
 from discord.ext import commands
-import json
-
 
 with open("./config.json") as configFile:  # Opens the file config.json as a config file
     data = json.load(configFile)  # Var data is the value in the json.config file
@@ -22,6 +23,7 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Welcome module has successfully been initialized.')
 
     @commands.Cog.listener()

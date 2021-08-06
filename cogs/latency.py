@@ -11,6 +11,7 @@ class Latency(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Latency module has successfully been initialized.')
 
     @commands.command(aliases=['ping'])

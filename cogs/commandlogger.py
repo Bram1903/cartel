@@ -10,6 +10,7 @@ class CommandLogger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Command logger has successfully been initialized.')
 
     @commands.Cog.listener()

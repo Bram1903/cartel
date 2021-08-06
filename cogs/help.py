@@ -1,8 +1,9 @@
+import json
+import time
+from asyncio import sleep
+
 from discord import Embed
 from discord.ext import commands
-from discord.ext.commands import has_permissions
-from asyncio import sleep
-import json
 from discord.utils import get
 
 with open("config.json") as configFile:
@@ -19,6 +20,7 @@ class Invites(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Help module has successfully been initialized.')
 
     @commands.group(name='help', invoke_without_command=True)

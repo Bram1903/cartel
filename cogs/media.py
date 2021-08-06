@@ -1,10 +1,11 @@
 import datetime
 import json
+import time
+from asyncio import sleep
 
 import discord
 from discord import Embed
 from discord.ext import commands
-from asyncio import sleep
 from discord.utils import get
 
 with open("./config.json") as configFile:  # Opens the file config.json as a config file
@@ -25,6 +26,7 @@ class Media(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Media has successfully been initialized.')
 
     @commands.command(pass_context=True)

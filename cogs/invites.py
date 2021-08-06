@@ -1,3 +1,5 @@
+import time
+
 import discord
 from discord.ext import commands
 
@@ -9,6 +11,7 @@ class Invites(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Invite module has successfully been initialized.')
 
     @commands.command()

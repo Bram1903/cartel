@@ -1,4 +1,5 @@
 import json
+import time
 
 import discord
 from discord.ext import commands
@@ -15,6 +16,7 @@ class Announcement(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Announcement module has successfully been initialized.')
 
     @commands.command()

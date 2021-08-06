@@ -1,5 +1,6 @@
 import datetime
 import json
+import time
 from asyncio import sleep
 
 import discord
@@ -32,6 +33,7 @@ class Ban(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Ban module has successfully been initialized.')
 
     @commands.command()

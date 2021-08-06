@@ -1,5 +1,6 @@
 import datetime
 import json
+import time
 from asyncio import sleep
 
 from discord import Embed
@@ -19,6 +20,7 @@ class Purge(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Purge module has successfully been initialized.')
 
     @commands.command()

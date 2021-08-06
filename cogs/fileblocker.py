@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import time
 from asyncio import sleep
 
 import discord
@@ -21,6 +22,7 @@ class fileblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Fileblocker has successfully been initialized.')
 
     @commands.Cog.listener()

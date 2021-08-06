@@ -1,5 +1,6 @@
 import datetime
 import json
+import time
 from asyncio import sleep
 
 import discord
@@ -22,6 +23,7 @@ class Snipe(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        time.sleep(0.5)
         print('Snipe module has successfully been initialized.')
 
     @commands.Cog.listener()
