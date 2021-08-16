@@ -93,7 +93,7 @@ class Ban(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_guild_permissions(ban_members=True)
-    async def unban(self, ctx, user: discord.User=None, *, reason=None):
+    async def unban(self, ctx, user: discord.User = None, *, reason=None):
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
