@@ -40,8 +40,6 @@ else:
             TICKET_CHANNEL_ID = value['ticket_channel_id']
             admins = value['admins']
 
-intents = discord.Intents.default()
-intents.members = True
 
 client = Bot(command_prefix=">",
              help_command=None,
@@ -49,7 +47,7 @@ client = Bot(command_prefix=">",
              max_messages=100,
              activity=Activity(type=ActivityType.watching,
                                name=f"over Cartel."),
-             intents=intents)
+             intents=discord.Intents.all())
 
 
 @client.group(name='system', invoke_without_command=True)

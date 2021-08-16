@@ -11,27 +11,34 @@ class serverinfo(commands.Cog):
     async def on_ready(self):
         print('Server info has successfully been initialized.')
 
-    @commands.command()
+    @commands.command(aliases=['si'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverinfo(self, ctx):
-        server = ctx.message.guild
-        channel_count = len([x for x in server.channels if type(x) == discord.channel.TextChannel])
+        em = discord.Embed(color=0xAE0808)
+        em.set_author(name='Server Info', icon_url='https://i.imgur.com/FgkMDGn.png')
+        em.set_thumbnail(url=ctx.guild.icon_url)
+        statues = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
+                   len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
+                   len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
+                   len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
 
-        role_count = len(server.roles)
-        emoji_count = len(server.emojis)
-        em = Embed(color=0xAE0808)
-        em.add_field(name='Name', value=server.name, inline=True)
-        em.add_field(name='Owner', value=server.owner, inline=True)
-        em.add_field(name='Members', value=server.member_count, inline=True)
-        em.add_field(name='Text Channels', value=str(channel_count))
-        em.add_field(name='Region', value=server.region, inline=True)
-        em.add_field(name='Verification Level', value=str(server.verification_level), inline=True)
-        em.add_field(name='Roles', value=str(role_count))
-        em.add_field(name='Emotes', value=str(emoji_count), inline=True)
-        em.add_field(name='Created At', value=server.created_at.__format__('%A, %d. %B %Y'), inline=True)
-        em.set_thumbnail(url=server.icon_url)
-        em.set_author(name='Server Info')
-        em.set_footer(text='Server ID: %s' % server.id)
+        fields = [("Guild ID", f"`{ctx.guild.id}`", True),
+                  ("Owner", ctx.guild.owner, True),
+                  ("Region", str(ctx.guild.region).title(), True),
+                  ("Text Channels", len(ctx.guild.text_channels), True),
+                  ("Voice Channels", len(ctx.guild.voice_channels), True),
+                  ("Categories", len(ctx.guild.categories), True),
+                  ("Roles", len(ctx.guild.roles), True),
+                  ("Bots", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
+                  ("Humans", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
+                  ("Total Members", len(ctx.guild.members), True),
+                  ("Statues",
+                   f"<:green_circle:876826681871069184> {statues[0]}\n <:orange_circle:876826879108206683> {statues[1]}\n <:red_circle:876827033164996669> {statues[2]}\n <:sleeping:876827253324021801> {statues[3]}",
+                   True)]
+
+        for name, value, inline in fields:
+            em.add_field(name=name, value=value, inline=inline)
+
         await ctx.send(embed=em)
 
 
