@@ -90,6 +90,53 @@ class Ban(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.has_guild_permissions(ban_members=True)
+    async def unban(self, ctx, user: discord.User=None, *, reason=None):
+        if not user:
+            await ctx.message.delete()
+            msg = await ctx.send("You must specify a user.")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        if not reason:
+            await ctx.message.delete()
+            msg2 = await ctx.send("You must specify a reason.")
+            await sleep(4.7)
+            await msg2.delete()
+            return
+        try:
+            guild = ctx.guild
+            await guild.unban(user=user)
+        except:
+            msg = await ctx.send("Is this user banned?")
+            await sleep(4.7)
+            await msg.delete()
+            return
+        channel_embed = Embed(colour=0xAE0808)
+        channel_embed.set_author(name=f'{user.display_name} has been unbanned.',
+                                 icon_url='https://i.imgur.com/SR9wWm9.png')
+
+        timestamp = datetime.datetime.utcnow()
+        embed = Embed(description=f"Member ID: {user.id}", colour=0x57F287)
+        embed.set_author(name='Member Unbanned',
+                         icon_url='https://i.imgur.com/SR9wWm9.png')
+        embed.add_field(name="Unbanned", value=f"{user.display_name}",
+                        inline=False)
+        embed.add_field(name="Unbanned by", value=f"{ctx.author.mention}",
+                        inline=False)
+        embed.add_field(name="Reason", value=f"{reason}",
+                        inline=False)
+        embed.set_footer(text=f"Unbanned on {timestamp}"
+                         , icon_url=user.avatar_url)
+        msg = await ctx.send(embed=channel_embed)
+        logs = self.client.get_channel(int(logging_channel))
+        await logs.send(embed=embed)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
+
 
 def setup(client):
     client.add_cog(Ban(client))
