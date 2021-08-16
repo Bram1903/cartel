@@ -1,5 +1,4 @@
 import json
-import time
 from asyncio import sleep
 
 from discord import Embed
@@ -20,7 +19,6 @@ class Invites(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Help module has successfully been initialized.')
 
     @commands.group(name='help', invoke_without_command=True)

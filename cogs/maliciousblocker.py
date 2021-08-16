@@ -1,5 +1,4 @@
 import json
-import time
 from asyncio import sleep
 
 from discord import Embed
@@ -25,11 +24,12 @@ class Maliciousblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Maliciousblocker has successfully been initialized.')
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if not message.guild:
+            return
         if message.author == self.client.user:
             return
         if message.channel.category_id == TICKET_CATEGORY:

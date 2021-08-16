@@ -1,5 +1,3 @@
-import time
-
 import discord
 from discord.ext import commands
 
@@ -10,7 +8,6 @@ class Avatar(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Avatar module has successfully been initialized.')
 
     @commands.command(aliases=["av", "pfp"])

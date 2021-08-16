@@ -1,5 +1,4 @@
 import json
-import time
 
 import requests
 from discord import Embed
@@ -17,7 +16,6 @@ class Link(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Linking module has successfully been initialized.')
 
     @commands.command()

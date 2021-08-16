@@ -1,5 +1,3 @@
-import time
-
 import discord
 from discord import Embed
 from discord.ext import commands
@@ -11,7 +9,6 @@ class serverinfo(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Server info has successfully been initialized.')
 
     @commands.command()

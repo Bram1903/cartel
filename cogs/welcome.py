@@ -1,5 +1,4 @@
 import json
-import time
 
 import discord
 from discord import Embed
@@ -23,7 +22,6 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Welcome module has successfully been initialized.')
 
     @commands.Cog.listener()

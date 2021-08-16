@@ -1,6 +1,5 @@
 import datetime
 import json
-import time
 
 from discord import Embed
 from discord.ext import commands
@@ -19,7 +18,6 @@ class logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Logger has successfully been initialized.')
 
     @commands.Cog.listener()

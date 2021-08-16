@@ -1,5 +1,3 @@
-import time
-
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 
@@ -11,7 +9,6 @@ class Echo(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Echo module has successfully been initialized.')
 
     @commands.command(aliases=['mimic', 'paste', 'say'])

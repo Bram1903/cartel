@@ -1,5 +1,3 @@
-import time
-
 import discord
 from discord import Embed
 from discord.ext import commands
@@ -14,7 +12,6 @@ class Whois(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Whois module has successfully been initialized.')  # Basic on_ready event, but designed to work in a cog.
 
     @commands.command()

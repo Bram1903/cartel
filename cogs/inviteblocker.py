@@ -1,4 +1,3 @@
-import time
 from asyncio import sleep
 
 from discord import Embed
@@ -12,11 +11,12 @@ class inviteblocker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        time.sleep(0.5)
         print('Fileblocker has successfully been initialized.')
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if not message.guild:
+            return
         if message.author == self.client.user:
             return
         if message.author.guild_permissions.manage_messages:
