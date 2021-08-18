@@ -1,4 +1,4 @@
-# Discord Cartel Bot
+# Discord Cartel Bot test
 
 Cartel is a bot written in Python for the server CartelPvP
 
