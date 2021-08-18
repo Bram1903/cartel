@@ -43,7 +43,7 @@ class Whois(commands.Cog):
             em.add_field(name=name, value=value, inline=inline)
         if ctx.author.id not in admins:
             channel = self.client.get_channel(int(botChannel))
-            if ctx.channel.id == channel:
+            if ctx.channel == channel:
                 await ctx.send(embed=em)
             else:
                 channel_embed = Embed(colour=0xAE0808)

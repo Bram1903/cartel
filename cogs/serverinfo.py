@@ -1,6 +1,14 @@
 import discord
 from discord import Embed
 from discord.ext import commands
+import json
+from asyncio import sleep
+
+with open("./config.json") as configFile:
+    data = json.load(configFile)
+    for value in data["server_details"]:
+        botChannel = value['bot-commands']
+        admins = value['admins']
 
 
 class serverinfo(commands.Cog):
@@ -39,7 +47,21 @@ class serverinfo(commands.Cog):
         for name, value, inline in fields:
             em.add_field(name=name, value=value, inline=inline)
 
-        await ctx.send(embed=em)
+        if ctx.author.id not in admins:
+            channel = self.client.get_channel(int(botChannel))
+            if ctx.channel == channel:
+                await ctx.send(embed=em)
+            else:
+                channel_embed = Embed(colour=0xAE0808)
+                channel_embed.set_author(name=f'Wrong channel',
+                                         icon_url='https://i.imgur.com/SR9wWm9.png')
+                channel_embed.add_field(name="Channel", value=channel.mention)
+                msg = await ctx.send(embed=channel_embed)
+                await ctx.message.delete()
+                await sleep(4.7)
+                await msg.delete()
+        else:
+            await ctx.send(embed=em)
 
 
 def setup(client):
