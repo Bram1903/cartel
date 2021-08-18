@@ -72,7 +72,10 @@ async def load_subcommand(ctx, extension=None):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 @system.command(name='unload')
@@ -92,7 +95,10 @@ async def unload_subcommand(ctx, extension=None):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 @system.command(name='reload')
@@ -113,7 +119,10 @@ async def reload_subcommand(ctx, extension=None):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 @system.command(name='reloadall')
@@ -143,7 +152,10 @@ async def reloadall_subcommand(ctx):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 # noinspection PyShadowingBuiltins
@@ -164,7 +176,10 @@ async def list_subcommand(ctx):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 @system.command(name='logs')
@@ -179,7 +194,10 @@ async def logs_subcommand(ctx):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 @system.command(name='info')
@@ -208,7 +226,10 @@ async def info_subcommand(ctx):
         NoPerm = Embed(colour=0xAE0808)
         NoPerm.set_author(name='You are not a system administrator.',
                           icon_url='https://i.imgur.com/SR9wWm9.png')
-        await ctx.send(embed=NoPerm)
+        msg = await ctx.send(embed=NoPerm)
+        await ctx.message.delete()
+        await sleep(4.7)
+        await msg.delete()
 
 
 for filename in os.listdir('./cogs'):

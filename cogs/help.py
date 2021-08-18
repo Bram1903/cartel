@@ -45,8 +45,8 @@ class Invites(commands.Cog):
         info.add_field(name="Info commands", value="```Avatar     | ?avatar (user)\n"
                                                    "Invites    | ?invites\n"
                                                    "Latency    | ?ping\n"
-                                                   "Whois      | ?whois (user)\n"
-                                                   "Serverinfo | ?serverinfo```")
+                                                   "Userinfo   | ?ui (user)\n"
+                                                   "Serverinfo | ?si```")
         await ctx.send(embed=info)
 
     @help.command(name='ticket')
