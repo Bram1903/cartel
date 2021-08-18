@@ -59,7 +59,7 @@ class Ban(commands.Cog):
         userDM.add_field(name="Banned by", value=f"{ctx.author.display_name}", inline=True)
         userDM.add_field(name="Reason", value=f"{reason}", inline=True)
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
         embed.set_author(name='Member Banned',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
@@ -118,7 +118,7 @@ class Ban(commands.Cog):
         channel_embed.set_author(name=f'{user.display_name} has been unbanned.',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {user.id}", colour=0x57F287)
         embed.set_author(name='Member Unbanned',
                          icon_url='https://i.imgur.com/SR9wWm9.png')

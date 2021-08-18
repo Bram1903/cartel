@@ -27,7 +27,7 @@ class logger(commands.Cog):
         else:
             if message.author.id not in admins:
                 try:
-                    timestamp = datetime.datetime.utcnow()
+                    timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
                     embed = Embed(description=f"Message ID: {message.id}", colour=0xE67E22)
                     embed.set_author(name='Message Deleted',
                                      icon_url='https://i.imgur.com/Jf565HJ.png')
@@ -53,7 +53,7 @@ class logger(commands.Cog):
         else:
             if message_before.author.id not in admins:
                 try:
-                    timestamp = message_after.edited_at
+                    timestamp = message_after.edited_at.strftime("%d/%m/%Y | %H:%M:%S")
                     embed = Embed(description=f"Message ID: {message_before.id}", colour=0xE67E22)
                     embed.set_author(name='Message Edited',
                                      icon_url='https://i.imgur.com/PV8yJN6.png')
@@ -76,12 +76,13 @@ class logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {member.id}", colour=0x57F287)
         embed.set_author(name='Member Joined',
-                         icon_url=member.avatar_url)
+                         icon_url='https://i.imgur.com/vCsoa2w.png')
         embed.add_field(name="Member", value=member.mention,
                         inline=False)
+        embed.add_field(name="Created at:", value=member.created_at.strftime("%d/%m/%Y | %H:%M:%S"))
         embed.set_footer(text=f"Joined on • {timestamp}"
                          , icon_url=member.avatar_url)
         channel = self.client.get_channel(int(logging_channel))
@@ -89,10 +90,10 @@ class logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {member.id}", colour=0xAE0808)
         embed.set_author(name='Member Left',
-                         icon_url=member.avatar_url)
+                         icon_url='https://i.imgur.com/2YR0yn7.png')
         embed.add_field(name="Member", value=member.mention,
                         inline=False)
         embed.set_footer(text=f"Left on • {timestamp}"
@@ -103,7 +104,7 @@ class logger(commands.Cog):
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
-            timestamp = datetime.datetime.utcnow()
+            timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
             embed = Embed(description=f"Member ID: {before.id}", colour=0xE67E22)
             embed.set_author(name='Nickname Updated',
                              icon_url="https://i.imgur.com/0Lzd0go.png")
@@ -118,7 +119,7 @@ class logger(commands.Cog):
             channel = self.client.get_channel(int(logging_channel))
             await channel.send(embed=embed)
         elif before.roles != after.roles:
-            timestamp = datetime.datetime.utcnow()
+            timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
             embed = Embed(description=f"Member ID: {before.id}", colour=0xE67E22)
             embed.set_author(name='Roles Updated',
                              icon_url="https://i.imgur.com/0Lzd0go.png")

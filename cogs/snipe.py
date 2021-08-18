@@ -55,7 +55,7 @@ class Snipe(commands.Cog):
                          icon_url='https://i.imgur.com/uoq4zFS.png')
         await channel.send(embed=embed)
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed_logs = Embed(description=f"User ID: {author.id}", colour=0xE67E22)
         embed_logs.set_author(name='Message Sniped',
                               icon_url='https://i.imgur.com/uoq4zFS.png'),

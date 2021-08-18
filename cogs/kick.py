@@ -61,7 +61,7 @@ class Kick(commands.Cog):
         userDM.add_field(name="**Kicked by**", value=f"{ctx.author.display_name}", inline=True)
         userDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
         embed.set_author(name='Member Kicked',
                          icon_url='https://i.imgur.com/SR9wWm9.png')

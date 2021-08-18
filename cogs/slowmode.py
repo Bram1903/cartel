@@ -37,7 +37,7 @@ class Slowmode(commands.Cog):
         channel_embed.set_author(name=f'Slowmode activated.',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
         msg = await ctx.send(embed=channel_embed)
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0xAE0808)
         embed.set_author(name='Slowmode Activated',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
@@ -65,7 +65,7 @@ class Slowmode(commands.Cog):
         channel_embed.set_author(name=f'Slowmode deactivated.',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
         msg = await ctx.send(embed=channel_embed)
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Channel ID: {ctx.channel.id}", colour=0x57F287)
         embed.set_author(name='Slowmode Deactivated',
                          icon_url='https://i.imgur.com/SR9wWm9.png')

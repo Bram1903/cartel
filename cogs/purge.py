@@ -32,7 +32,7 @@ class Purge(commands.Cog):
             await sleep(4.7)
             await msg.delete()
             return
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {ctx.author.id}", colour=0xAE0808)
         embed.set_author(name='Chat Purged',
                          icon_url='https://i.imgur.com/uoq4zFS.png')

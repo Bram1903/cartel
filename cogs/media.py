@@ -31,7 +31,7 @@ class Media(commands.Cog):
     async def grant(self, ctx, member: discord.Member = None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         granted = Embed(description=f"Media Admin: {ctx.author.id}", colour=0x57F287)
         granted.set_author(name='Media Rank Granted',
                            icon_url='https://i.imgur.com/0Lzd0go.png')
@@ -137,7 +137,7 @@ class Media(commands.Cog):
     async def revoke(self, ctx, member: discord.Member = None, rank=None):
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         revoked = Embed(description=f"Media Admin: {ctx.author.id}", colour=0xAE0808)
         revoked.set_author(name='Media Rank Revoked',
                            icon_url='https://i.imgur.com/0Lzd0go.png')

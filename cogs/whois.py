@@ -1,9 +1,9 @@
-import discord
-from discord import Embed
-from discord.ext import commands
 import json
 from asyncio import sleep
 
+import discord
+from discord import Embed
+from discord.ext import commands
 
 with open("./config.json") as configFile:
     data = json.load(configFile)

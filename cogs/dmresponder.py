@@ -36,7 +36,7 @@ class dmresponder(commands.Cog):
             except discord.forbidden:
                 pass
             try:
-                timestamp = datetime.datetime.utcnow()
+                timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
                 embed = Embed(description=f"User ID: {message.author.id}", colour=0xE67E22)
                 embed.set_author(name='Bot DM',
                                  icon_url='https://i.imgur.com/sFhjp83.png')

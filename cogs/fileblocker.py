@@ -40,7 +40,7 @@ class fileblocker(commands.Cog):
                         no_perm.set_author(name='You are not allowed to send that file type.',
                                            icon_url='https://i.imgur.com/uoq4zFS.png')
                         msg = await message.channel.send(embed=no_perm)
-                        timestamp = datetime.datetime.utcnow()
+                        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
                         embed_logs = Embed(description=f"User ID: {message.author.id}", colour=0xE67E22)
                         embed_logs.set_author(name='File Removed',
                                               icon_url='https://i.imgur.com/uoq4zFS.png'),

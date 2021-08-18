@@ -51,7 +51,7 @@ class Lockdown(commands.Cog):
                 await ctx.send(f"I have put {channel.mention} on lockdown.")
             else:
                 await ctx.message.delete()
-            timestamp = datetime.datetime.utcnow()
+            timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
             embed2 = Embed(title="This channel is now under lockdown.",
                            colour=0xAE0808)
             embed = Embed(description=f"Channel ID: {channel.id}", colour=0xAE0808)
@@ -71,7 +71,7 @@ class Lockdown(commands.Cog):
             overwrites.send_messages = True
             await channel.set_permissions(role, overwrite=overwrites)
             if ctx.channel != channel:
-                timestamp = datetime.datetime.utcnow()
+                timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
                 embed = Embed(description=f"Channel ID: {channel.id}", colour=0x57F287)
                 embed.set_author(name='Channel Lockdown Removed',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')
@@ -88,7 +88,7 @@ class Lockdown(commands.Cog):
                 embed3 = Embed(title="This channel is no longer under lockdown.",
                                colour=0xAE0808)
 
-                timestamp = datetime.datetime.utcnow()
+                timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
                 embed = Embed(description=f"Channel ID: {channel.id}", colour=0x57F287)
                 embed.set_author(name='Channel Lockdown Removed',
                                  icon_url='https://i.imgur.com/SR9wWm9.png')

@@ -88,7 +88,7 @@ class Mute(commands.Cog):
         MutedDM.add_field(name="**Muted by**", value=f"{ctx.author}", inline=True)
         MutedDM.add_field(name="**Reason**", value=f"{reason}", inline=True)
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {user.id}", colour=0xAE0808)
         embed.set_author(name='Member Muted',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
@@ -145,7 +145,7 @@ class Mute(commands.Cog):
         MutedDM.add_field(name="Unmuted by", value=f"{ctx.author}", inline=True)
         MutedDM.add_field(name="Reason", value=f"{reason}", inline=True)
 
-        timestamp = datetime.datetime.utcnow()
+        timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed = Embed(description=f"Member ID: {user.id}", colour=0x57F287)
         embed.set_author(name='Member Unmuted',
                          icon_url='https://i.imgur.com/SR9wWm9.png')
