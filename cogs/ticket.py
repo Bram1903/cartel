@@ -106,7 +106,7 @@ class ticket(commands.Cog):
             await self.create_ticket(guild, author, ticket_category, 0xAE0808, metadata['description'], True)
         else:
             await self.create_ticket(guild, author, ticket_category, 0xAE0808, metadata['description'], False,
-                                metadata['roles'])
+                                     metadata['roles'])
 
         message = await channel.fetch_message(payload.message_id)
         await message.remove_reaction(payload.emoji, author)
