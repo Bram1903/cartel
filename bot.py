@@ -373,7 +373,7 @@ async def setup(ctx):
 
 @client.command()
 @only_tickets()  # This check/line is important, because otherwise they can type >appeal in an other chat.
-async def appeal(ctx):
+async def createappeal(ctx):
     ticket_appeal = Embed(title="CartelPvP | Appeals",
                           colour=0xAE0808)
 
