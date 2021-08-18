@@ -83,6 +83,7 @@ class logger(commands.Cog):
         embed.add_field(name="Member", value=member.mention,
                         inline=False)
         embed.add_field(name="Created at:", value=member.created_at.strftime("%d/%m/%Y | %H:%M:%S"))
+        embed.set_thumbnail(url=member.avatar_url)
         embed.set_footer(text=f"Joined on • {timestamp}"
                          , icon_url=member.avatar_url)
         channel = self.client.get_channel(int(logging_channel))
@@ -96,6 +97,7 @@ class logger(commands.Cog):
                          icon_url='https://i.imgur.com/2YR0yn7.png')
         embed.add_field(name="Member", value=member.mention,
                         inline=False)
+        embed.set_thumbnail(url=member.avatar_url)
         embed.set_footer(text=f"Left on • {timestamp}"
                          , icon_url=member.avatar_url)
         channel = self.client.get_channel(int(logging_channel))
