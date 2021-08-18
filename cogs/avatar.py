@@ -1,5 +1,15 @@
+import json
+from asyncio import sleep
+
 import discord
+from discord import Embed
 from discord.ext import commands
+
+with open("./config.json") as configFile:
+    data = json.load(configFile)
+    for value in data["server_details"]:
+        botChannel = value['bot-commands']
+        admins = value['admins']
 
 
 class Avatar(commands.Cog):
@@ -17,10 +27,23 @@ class Avatar(commands.Cog):
         if not member:
             member = ctx.message.author
 
-        message = discord.Embed(title=str(member), color=0xAE0808)
-        message.set_image(url=member.avatar_url)
-
-        await ctx.send(embed=message)
+        em = Embed(title=str(member), color=0xAE0808)
+        em.set_image(url=member.avatar_url)
+        if ctx.author.id not in admins:
+            channel = self.client.get_channel(int(botChannel))
+            if ctx.channel == channel:
+                await ctx.send(embed=em)
+            else:
+                channel_embed = Embed(colour=0xAE0808)
+                channel_embed.set_author(name=f'Wrong channel',
+                                         icon_url='https://i.imgur.com/SR9wWm9.png')
+                channel_embed.add_field(name="Channel", value=channel.mention)
+                msg = await ctx.send(embed=channel_embed)
+                await ctx.message.delete()
+                await sleep(4.7)
+                await msg.delete()
+        else:
+            await ctx.send(embed=em)
 
 
 def setup(client):
