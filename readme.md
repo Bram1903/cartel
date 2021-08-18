@@ -1,6 +1,6 @@
 # Discord Cartel Bot
 
-Cartel is a bot written in Python for the server CartelPvP
+Cartel is a bot written in Python for the server CartelPvP.
 
 ## Installation
 
