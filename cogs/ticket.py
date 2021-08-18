@@ -17,7 +17,7 @@ with open("config.json") as configFile:
         TICKET_CHANNEL_ID = value['ticket_channel_id']
         admins = value['admins']
 
-#  Adjust to your likings
+#  Adjust to your likings, but ONLY use lowercase even if the role in the server has Uppercase!
 GENERIC_ELEVATED_ROLES = ("cold support", "head-admin", "senior-admin", "admin", "manager")
 ROLES1 = ("cold support", "manager", "head-admin")
 ROLES2 = ("cold support", "trial-mod", "mod", "senior-mod", "support team")
@@ -164,8 +164,8 @@ class ticket(commands.Cog):
         ticket_appeal.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         ticket_appeal.add_field(name="Use the following format",
-                                value="Once you fill out your appeal using the following format please be patient while we "
-                                      "look into your punishment.",
+                                value="Once you fill out your appeal using the following format please"
+                                      " be patient while we look into your punishment.",
                                 inline=False)
         ticket_appeal.add_field(name="• IGN", value="Your in-game username.", inline=False)
         ticket_appeal.add_field(name="• Ban Reason", value="The reason you got banned.", inline=False)
@@ -173,8 +173,13 @@ class ticket(commands.Cog):
         ticket_appeal.add_field(name="• Ban date", value="When did you get banned?", inline=False)
         ticket_appeal.add_field(name="• Unban reason", value="Why should we unban you?", inline=False)
         ticket_appeal.set_footer(text="CartelPvP | Appeals")
-
-        await ctx.send(embed=ticket_appeal)
+        if ctx.author.guild_permissions.manage_messages:
+            await ctx.send(embed=ticket_appeal)
+        else:
+            no_perm = Embed(colour=0xAE0808)
+            no_perm.set_author(name=f'Wait for staff to open your appeal.',
+                               icon_url='https://i.imgur.com/l2tL2kc.png')
+            await ctx.send(embed=no_perm)
 
     @commands.command()
     @cooldown(1, 5, BucketType.channel)  # Used in VOID; prevents 2 people closing ticket at once

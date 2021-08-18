@@ -28,11 +28,12 @@ class Invites(commands.Cog):
         help = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
         help.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        help.add_field(name="Sub commands", value="```Info           | ?help info\n"
-                                                  "Ticket         | ?help ticket\n"
-                                                  "Media          | ?help media\n"
-                                                  "Moderation     | ?help moderation\n"
-                                                  "System         | ?help system```")
+        help.add_field(name="Sub commands", value="```Info         | ?help info\n"
+                                                  "Support      | ?help support\n" 
+                                                  "Ticket       | ?help ticket\n"
+                                                  "Media        | ?help media\n"
+                                                  "Moderation   | ?help moderation\n"
+                                                  "System       | ?help system```")
         await ctx.send(embed=help)
 
     @help.command(name='info')
@@ -49,6 +50,17 @@ class Invites(commands.Cog):
                                                    "Serverinfo | ?si```")
         await ctx.send(embed=info)
 
+    @help.command(name='support')
+    @commands.guild_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def support_subcommand(self, ctx):
+        info = Embed(title="CartelPvP | Help",
+                     colour=0xAE0808)
+        info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+        info.add_field(name="Support commands", value="```Appeal   | ?appeal\n"
+                                                      "Report   | ?report```")
+        await ctx.send(embed=info)
+
     @help.command(name='ticket')
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -57,8 +69,9 @@ class Invites(commands.Cog):
                        colour=0xAE0808)
         ticket.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        ticket.add_field(name="Ticket commands (ticket channels only)", value="```Close  | ?close (reason)\nAppeal | "
-                                                                              "?appeal```")
+        ticket.add_field(name="Ticket commands (ticket channels only)",
+                         value="```Close  | ?close (reason)\n"
+                               "Appeal | ?createappeal (staff only)```")
         await ctx.send(embed=ticket)
 
     @help.command(name='media')
