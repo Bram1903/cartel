@@ -70,8 +70,7 @@ class Invites(commands.Cog):
         ticket.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         ticket.add_field(name="Ticket commands (ticket channels only)",
-                         value="```Close  | ?close (reason)\n"
-                               "Appeal | ?createappeal (staff only)```")
+                         value="```Close  | ?close (reason)```")
         await ctx.send(embed=ticket)
 
     @help.command(name='media')

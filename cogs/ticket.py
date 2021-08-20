@@ -138,6 +138,23 @@ class ticket(commands.Cog):
                                                  category=category,
                                                  topic=author.id, overwrites=overwrites)
         await ticket.send(f"{author.mention} Staff will be with you shortly", embed=ticket_created)
+        if message == "Appeal a ban":
+            ticket_appeal = Embed(title="CartelPvP | Appeals",
+                                  colour=0xAE0808)
+
+            ticket_appeal.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
+            ticket_appeal.add_field(name="Use the following format",
+                                    value="Once you fill out your appeal using the following format please"
+                                          " be patient while we look into your punishment.",
+                                    inline=False)
+            ticket_appeal.add_field(name="• IGN", value="Your in-game username.", inline=False)
+            ticket_appeal.add_field(name="• Ban Reason", value="The reason you got banned.", inline=False)
+            ticket_appeal.add_field(name="• Guilty", value="Do you plead guilty?", inline=False)
+            ticket_appeal.add_field(name="• Ban date", value="When did you get banned?", inline=False)
+            ticket_appeal.add_field(name="• Unban reason", value="Why should we unban you?", inline=False)
+            ticket_appeal.set_footer(text="CartelPvP | Appeals")
+            await ticket.send(embed=ticket_appeal)
 
     @commands.command()
     @has_permissions(mention_everyone=True)  # Good enough, I mean, what Admin can't mention everyone
@@ -154,32 +171,6 @@ class ticket(commands.Cog):
         ticket_panel.set_footer(text="CartelPvP Ticket System")
         message = await ctx.send(embed=ticket_panel)
         await recreate_reactions(message)
-
-    @commands.command()
-    @only_tickets()  # This check/line is important, because otherwise they can type >appeal in an other chat.
-    async def createappeal(self, ctx):
-        ticket_appeal = Embed(title="CartelPvP | Appeals",
-                              colour=0xAE0808)
-
-        ticket_appeal.set_thumbnail(
-            url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
-        ticket_appeal.add_field(name="Use the following format",
-                                value="Once you fill out your appeal using the following format please"
-                                      " be patient while we look into your punishment.",
-                                inline=False)
-        ticket_appeal.add_field(name="• IGN", value="Your in-game username.", inline=False)
-        ticket_appeal.add_field(name="• Ban Reason", value="The reason you got banned.", inline=False)
-        ticket_appeal.add_field(name="• Guilty", value="Do you plead guilty?", inline=False)
-        ticket_appeal.add_field(name="• Ban date", value="When did you get banned?", inline=False)
-        ticket_appeal.add_field(name="• Unban reason", value="Why should we unban you?", inline=False)
-        ticket_appeal.set_footer(text="CartelPvP | Appeals")
-        if ctx.author.guild_permissions.manage_messages:
-            await ctx.send(embed=ticket_appeal)
-        else:
-            no_perm = Embed(colour=0xAE0808)
-            no_perm.set_author(name=f'Wait for staff to open your appeal.',
-                               icon_url='https://i.imgur.com/l2tL2kc.png')
-            await ctx.send(embed=no_perm)
 
     @commands.command()
     @cooldown(1, 5, BucketType.channel)  # Used in VOID; prevents 2 people closing ticket at once
@@ -201,7 +192,6 @@ class ticket(commands.Cog):
         await ctx.channel.delete(reason=f"Closed by {ctx.author}, reason: {reason}")
         channel = ctx.channel
         user = await self.client.fetch_user(channel.topic)
-        file = discord.File(fileName)
         ticket_dm = Embed(title=f"CartelPvP | Tickets",
                           description="Your ticket in CartelPvP has been closed.",
                           colour=0xAE0808)
@@ -212,7 +202,6 @@ class ticket(commands.Cog):
         if user:
             try:
                 await user.send(embed=ticket_dm)
-                await user.send(file=file)
             except discord.Forbidden:
                 pass
 
