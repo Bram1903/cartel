@@ -25,6 +25,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def invites(self, ctx, user: discord.Member = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not user:  # Checks if a member is given.
             user = ctx.message.author  # If member is not given set the ctx.author as member.
         total_invites = 0

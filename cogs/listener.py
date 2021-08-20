@@ -27,12 +27,20 @@ class Listener(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def appeal(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         channel = self.client.get_channel(int(TICKET_CHANNEL_ID))
         await ctx.send(f"If you want to create an appeal you can do it here {channel.mention}.")
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def report(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         channel = self.client.get_channel(int(TICKET_CHANNEL_ID))
         await ctx.send(f"If you want to report someone you can do it here {channel.mention}.")
 

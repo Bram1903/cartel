@@ -25,6 +25,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def help(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         help = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
         help.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
@@ -40,6 +44,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def info_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         info = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
         info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
@@ -54,6 +62,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def support_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         info = Embed(title="CartelPvP | Help",
                      colour=0xAE0808)
         info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
@@ -65,6 +77,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def ticket_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         ticket = Embed(title="CartelPvP | Help",
                        colour=0xAE0808)
         ticket.set_thumbnail(
@@ -77,6 +93,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def media_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
         if role not in ctx.author.roles:
@@ -99,6 +119,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def moderation_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         permission = ctx.author.guild_permissions.manage_messages
         if not permission:
             await ctx.message.delete()
@@ -129,6 +153,10 @@ class Invites(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def system_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id not in admins:
             await ctx.message.delete()
             no_perm = Embed(colour=0xAE0808)

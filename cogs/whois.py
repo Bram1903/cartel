@@ -27,6 +27,10 @@ class Whois(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def whois(self, ctx, user: discord.Member = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not user:  # Checks if a member is given.
             user = ctx.message.author  # If member is not given set the ctx.author as member.
         em = Embed(color=0xAE0808)

@@ -25,6 +25,10 @@ class dmresponder(commands.Cog):
     async def on_message(self, message):
         if message.author == self.client.user:
             return
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if message.author.id in users:
+                return
         if not message.guild:
             try:
                 embed = Embed(colour=0xAE0808)

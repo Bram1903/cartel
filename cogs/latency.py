@@ -25,6 +25,10 @@ class Latency(commands.Cog):
     @commands.guild_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def latency(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id not in admins:
             channel = self.client.get_channel(int(botChannel))
             if ctx.channel == channel:

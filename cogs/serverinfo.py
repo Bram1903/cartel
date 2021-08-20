@@ -23,6 +23,10 @@ class serverinfo(commands.Cog):
     @commands.command(aliases=['si'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def serverinfo(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         em = discord.Embed(color=0xAE0808)
         em.set_author(name='Server Info', icon_url='https://i.imgur.com/FgkMDGn.png')
         em.set_thumbnail(url=ctx.guild.icon_url)
