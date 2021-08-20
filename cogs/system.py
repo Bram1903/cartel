@@ -241,6 +241,17 @@ class System(commands.Cog):
         if ctx.author.id not in admins:
             await ctx.send("You are not a bot administrator.")
             return
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            try:
+                index_of_user: int = users.index(user.id)
+            except ValueError:
+                await ctx.send("User is not blacklisted")
+            else:
+                del users[index_of_user]
+                with open("botblacklist.json", "w+") as write_file:
+                    write_file.write(json.dumps(users))
+                await ctx.send("User is unblacklisted.")
 
 
 def setup(client):
