@@ -263,6 +263,9 @@ class System(commands.Cog):
             await sleep(4.7)
             await msg.delete()
             return
+        if not user:
+            await ctx.send("You must provide a user.")
+            return
         if user.id in admins:
             channel_embed = Embed(colour=0xAE0808)
             channel_embed.set_author(name=f'You cannot blacklist an admin.',
@@ -301,6 +304,9 @@ class System(commands.Cog):
             await ctx.message.delete()
             await sleep(4.7)
             await msg.delete()
+            return
+        if not user:
+            await ctx.send("You must provide a user.")
             return
         if user.id in admins:
             channel_embed = Embed(colour=0xAE0808)
