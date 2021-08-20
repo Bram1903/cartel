@@ -33,6 +33,10 @@ class Snipe(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def snipe(self, ctx: commands.Context):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not self.last_msg:  # on_message_delete hasn't been triggered since the bot started
             await ctx.send("There is no message to snipe!")
             return

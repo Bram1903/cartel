@@ -29,6 +29,10 @@ class Slowmode(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)  # Permission check
     async def slowmode(self, ctx, amount=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not amount:  # Checks if an amount is given.
             await ctx.message.delete()
             return await ctx.send("You must enter an amount.")  # Says to give an amount.

@@ -26,6 +26,10 @@ class Purge(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)  # Checks for the permission.
     async def purge(self, ctx, limit: int = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not limit:  # Checks if a limit is given.
             await ctx.message.delete()
             msg = await ctx.send("You must specify an amount.")

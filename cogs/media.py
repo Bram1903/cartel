@@ -29,6 +29,10 @@ class Media(commands.Cog):
 
     @commands.command(pass_context=True)
     async def grant(self, ctx, member: discord.Member = None, rank=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
         timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
@@ -135,6 +139,10 @@ class Media(commands.Cog):
 
     @commands.command(pass_context=True)
     async def revoke(self, ctx, member: discord.Member = None, rank=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         media_role_id = (int(role_media_admin))
         role = get(ctx.guild.roles, id=media_role_id)
         timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")

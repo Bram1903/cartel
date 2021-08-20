@@ -27,6 +27,10 @@ class Lockdown(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def lockdown(self, ctx, channel: discord.TextChannel = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         channel = channel or ctx.channel  # Channel is or the channel mentioned, or the channel written in.
         role_id = (int(lockdown_mute_role))  # Gets the role which it should change the permissions of.
         role = get(ctx.guild.roles, id=role_id)  # Fetches the role.

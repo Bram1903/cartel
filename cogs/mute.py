@@ -68,6 +68,10 @@ class Mute(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def mute(self, ctx, user: Sinner = None, *, reason=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")
@@ -125,6 +129,10 @@ class Mute(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
     async def unmute(self, ctx, user: Redeemed = None, *, reason=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not user:
             await ctx.message.delete()
             msg = await ctx.send("You must specify a user.")

@@ -1,5 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import has_permissions
+import json
 
 
 class Echo(commands.Cog):
@@ -16,6 +17,10 @@ class Echo(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @has_permissions(administrator=True)
     async def echo(self, ctx, *, sentence=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if not sentence:
             return await ctx.send("You must provide a word or sentence.")
         await ctx.send(await commands.clean_content().convert(ctx=ctx, argument=sentence))

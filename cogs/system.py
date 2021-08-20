@@ -30,6 +30,10 @@ class System(commands.Cog):
 
     @system.command(name='load')
     async def load_subcommand(self, ctx, extension=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             if not extension:
                 return await ctx.send("You must provide a module.")
@@ -52,6 +56,10 @@ class System(commands.Cog):
 
     @system.command(name='unload')
     async def unload_subcommand(self, ctx, extension=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             if not extension:
                 return await ctx.send("You must provide a module")
@@ -83,6 +91,10 @@ class System(commands.Cog):
 
     @system.command(name='reload')
     async def reload_subcommand(self, ctx, extension=None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             if not extension:
                 return await ctx.send("You must provide a module")
@@ -115,6 +127,10 @@ class System(commands.Cog):
 
     @system.command(name='reloadall')
     async def reloadall_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             loadedModules = ""
             failedModules = ""
@@ -148,6 +164,10 @@ class System(commands.Cog):
     # noinspection PyShadowingBuiltins
     @system.command(name='list')
     async def list_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             Module_List = ""
             for file in os.listdir("./cogs"):
@@ -170,6 +190,10 @@ class System(commands.Cog):
 
     @system.command(name='logs')
     async def logs_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             try:
                 await ctx.send("Full logs")
@@ -187,6 +211,10 @@ class System(commands.Cog):
 
     @system.command(name='info')
     async def info_subcommand(self, ctx):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id in admins:
             cpu = psutil.cpu_percent()
             memoryUsed = psutil.virtual_memory().percent
@@ -222,24 +250,50 @@ class System(commands.Cog):
 
     @blacklist.command(name='add')
     async def add_subcommand(self, ctx, user: discord.Member = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id not in admins:
-            await ctx.send("You are not a bot administrator.")
+            channel_embed = Embed(colour=0xAE0808)
+            channel_embed.set_author(name=f'You are not an bot administrator.',
+                                     icon_url='https://i.imgur.com/SR9wWm9.png')
+            await ctx.send(embed=channel_embed)
+            return
+        if user.id in admins:
+            channel_embed = Embed(colour=0xAE0808)
+            channel_embed.set_author(name=f'You cannot blacklist an admin.',
+                                     icon_url='https://i.imgur.com/SR9wWm9.png')
+            await ctx.send(embed=channel_embed)
             return
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
             if user.id in users:
-                await ctx.send("This user is already blacklisted.")
+                channel_embed = Embed(colour=0xAE0808)
+                channel_embed.set_author(name=f'{user.display_name} is already blacklisted.',
+                                         icon_url='https://i.imgur.com/SR9wWm9.png')
+                await ctx.send(embed=channel_embed)
                 return
             users.append(user.id)
             f.seek(0)
             json.dump(users, f)
             f.truncate()
-            await ctx.send(f"{user.mention} has successfully been blacklisted.")
+            channel_embed = Embed(colour=0xAE0808)
+            channel_embed.set_author(name=f'{user.display_name} has been blacklisted.',
+                                     icon_url='https://i.imgur.com/SR9wWm9.png')
+            await ctx.send(embed=channel_embed)
 
     @blacklist.command(name='remove')
     async def remove_subcommand(self, ctx, user: discord.Member = None):
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if ctx.author.id in users:
+                return
         if ctx.author.id not in admins:
             await ctx.send("You are not a bot administrator.")
+            return
+        if user.id in admins:
+            await ctx.send("You cannot unblacklist an admin.")
             return
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
