@@ -33,7 +33,7 @@ class Invites(commands.Cog):
                      colour=0xAE0808)
         help.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         help.add_field(name="Sub commands", value="```Info         | ?help info\n"
-                                                  "Support      | ?help support\n" 
+                                                  "Support      | ?help support\n"
                                                   "Ticket       | ?help ticket\n"
                                                   "Media        | ?help media\n"
                                                   "Moderation   | ?help moderation\n"

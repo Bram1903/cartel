@@ -1,10 +1,6 @@
 import json
-import os
-import platform
 from asyncio import sleep
 
-import discord
-import psutil
 from discord import Embed
 from discord.ext import commands
 

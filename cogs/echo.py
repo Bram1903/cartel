@@ -1,6 +1,7 @@
+import json
+
 from discord.ext import commands
 from discord.ext.commands import has_permissions
-import json
 
 
 class Echo(commands.Cog):

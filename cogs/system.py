@@ -287,7 +287,7 @@ class System(commands.Cog):
             channel_embed = Embed(colour=0xAE0808,
                                   description="This user is blocked from all commands.")
             channel_embed.set_author(name=f'{user.display_name} has been blacklisted.',
-                                     icon_url='https://i.imgur.com/SR9wWm9.png',)
+                                     icon_url='https://i.imgur.com/SR9wWm9.png')
             await ctx.send(embed=channel_embed)
 
     @blacklist.command(name='remove')
