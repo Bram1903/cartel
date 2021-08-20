@@ -216,6 +216,32 @@ class System(commands.Cog):
             await sleep(4.7)
             await msg.delete()
 
+    @commands.group(name='blacklist', invoke_without_command=True)
+    async def blacklist(self, ctx):
+        pass
+
+    @blacklist.command(name='add')
+    async def add_subcommand(self, ctx, user: discord.Member = None):
+        if ctx.author.id not in admins:
+            await ctx.send("You are not a bot administrator.")
+            return
+        with open('botblacklist.json', 'r+') as f:
+            users = json.load(f)
+            if user.id in users:
+                await ctx.send("This user is already blacklisted.")
+                return
+            users.append(user.id)
+            f.seek(0)
+            json.dump(users, f)
+            f.truncate()
+            await ctx.send(f"{user.mention} has successfully been blacklisted.")
+
+    @blacklist.command(name='remove')
+    async def remove_subcommand(self, ctx, user: discord.Member = None):
+        if ctx.author.id not in admins:
+            await ctx.send("You are not a bot administrator.")
+            return
+
 
 def setup(client):
     client.add_cog(System(client))
