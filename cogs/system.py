@@ -255,10 +255,13 @@ class System(commands.Cog):
             if ctx.author.id in users:
                 return
         if ctx.author.id not in admins:
-            channel_embed = Embed(colour=0xAE0808)
-            channel_embed.set_author(name=f'You are not an bot administrator.',
-                                     icon_url='https://i.imgur.com/SR9wWm9.png')
-            await ctx.send(embed=channel_embed)
+            NoPerm = Embed(colour=0xAE0808)
+            NoPerm.set_author(name='You are not a system administrator.',
+                              icon_url='https://i.imgur.com/SR9wWm9.png')
+            msg = await ctx.send(embed=NoPerm)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
             return
         if user.id in admins:
             channel_embed = Embed(colour=0xAE0808)
@@ -278,9 +281,10 @@ class System(commands.Cog):
             f.seek(0)
             json.dump(users, f)
             f.truncate()
-            channel_embed = Embed(colour=0xAE0808)
+            channel_embed = Embed(colour=0xAE0808,
+                                  description="This user is blocked from all commands.")
             channel_embed.set_author(name=f'{user.display_name} has been blacklisted.',
-                                     icon_url='https://i.imgur.com/SR9wWm9.png')
+                                     icon_url='https://i.imgur.com/SR9wWm9.png',)
             await ctx.send(embed=channel_embed)
 
     @blacklist.command(name='remove')
@@ -290,22 +294,38 @@ class System(commands.Cog):
             if ctx.author.id in users:
                 return
         if ctx.author.id not in admins:
-            await ctx.send("You are not a bot administrator.")
+            NoPerm = Embed(colour=0xAE0808)
+            NoPerm.set_author(name='You are not a system administrator.',
+                              icon_url='https://i.imgur.com/SR9wWm9.png')
+            msg = await ctx.send(embed=NoPerm)
+            await ctx.message.delete()
+            await sleep(4.7)
+            await msg.delete()
             return
         if user.id in admins:
-            await ctx.send("You cannot unblacklist an admin.")
+            channel_embed = Embed(colour=0xAE0808)
+            channel_embed.set_author(name=f'You cannot unblacklist an admin.',
+                                     icon_url='https://i.imgur.com/SR9wWm9.png')
+            await ctx.send(embed=channel_embed)
             return
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
             try:
                 index_of_user: int = users.index(user.id)
             except ValueError:
-                await ctx.send("User is not blacklisted")
+                channel_embed = Embed(colour=0xAE0808)
+                channel_embed.set_author(name=f'User is not blacklisted.',
+                                         icon_url='https://i.imgur.com/SR9wWm9.png')
+                await ctx.send(embed=channel_embed)
             else:
                 del users[index_of_user]
                 with open("botblacklist.json", "w+") as write_file:
                     write_file.write(json.dumps(users))
-                await ctx.send("User is unblacklisted.")
+                channel_embed = Embed(colour=0x57F287,
+                                      description="This user is unblocked from all commands.")
+                channel_embed.set_author(name=f'{user.display_name} is unblacklisted.',
+                                         icon_url='https://i.imgur.com/SR9wWm9.png')
+                await ctx.send(embed=channel_embed)
 
 
 def setup(client):

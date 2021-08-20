@@ -171,13 +171,15 @@ class Invites(commands.Cog):
         moderation.set_thumbnail(
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         moderation.add_field(name="System commands",
-                             value="```Module list    | ?system list\n"
-                                   "Unload module  | ?system unload (module)\n"
-                                   "Load module    | ?system load (module)\n"
-                                   "Reload module  | ?system reload (module)\n"
-                                   "Reload all     | ?system reloadall\n"
-                                   "Command logs   | ?system logs\n"
-                                   "System info    | ?system info```")
+                             value="```Module list      | ?system list\n"
+                                   "Unload module    | ?system unload (module)\n"
+                                   "Load module      | ?system load (module)\n"
+                                   "Reload module    | ?system reload (module)\n"
+                                   "Reload all       | ?system reloadall\n"
+                                   "Command logs     | ?system logs\n"
+                                   "System info      | ?system info\n"
+                                   "Blacklist add    | ?blacklist add (user)\n"
+                                   "Blacklist remove | ?blacklist remove (user)```")
         await ctx.send(embed=moderation)
 
 
