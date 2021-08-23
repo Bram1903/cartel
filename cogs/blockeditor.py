@@ -40,7 +40,7 @@ class blockeditor(commands.Cog):
             await msg.delete()
             return
         if not word:
-            await ctx.send("You must provide a word.")
+            await ctx.reply("You must provide a word.", mention_author=False)
             return
         with open('blacklist.json', 'r+') as f:
             words = json.load(f)
@@ -48,7 +48,7 @@ class blockeditor(commands.Cog):
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'{word} is already blocked.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(embed=channel_embed, mention_author=False)
                 return
             words.append(word)
             f.seek(0)
@@ -59,7 +59,7 @@ class blockeditor(commands.Cog):
             channel_embed = Embed(colour=0xAE0808, )
             channel_embed.set_author(name=f'{word} has been blacklisted.',
                                      icon_url='https://i.imgur.com/SR9wWm9.png', )
-            await ctx.send(embed=channel_embed)
+            await ctx.reply(embed=channel_embed, mention_author=False)
 
     @blocker.command(name='remove')
     async def remove_subcommand(self, ctx, word=None, extension="maliciousblocker"):
@@ -77,7 +77,7 @@ class blockeditor(commands.Cog):
             await msg.delete()
             return
         if not word:
-            await ctx.send("You must provide a word.")
+            await ctx.reply("You must provide a word.", mention_author=False)
             return
         with open('blacklist.json', 'r+') as f:
             words = json.load(f)
@@ -87,7 +87,7 @@ class blockeditor(commands.Cog):
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'{word} is not blacklisted.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(embed=channel_embed, mention_author=False)
             else:
                 del words[index_of_word]
                 with open("blacklist.json", "w+") as write_file:
@@ -97,7 +97,7 @@ class blockeditor(commands.Cog):
                 channel_embed = Embed(colour=0x57F287)
                 channel_embed.set_author(name=f'{word} is unblacklisted.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(embed=channel_embed, mention_author=False)
 
 
 def setup(client):

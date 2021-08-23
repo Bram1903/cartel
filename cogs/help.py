@@ -38,7 +38,7 @@ class Invites(commands.Cog):
                                                   "Media        | ?help media\n"
                                                   "Moderation   | ?help moderation\n"
                                                   "System       | ?help system```")
-        await ctx.send(embed=help)
+        await ctx.reply(embed=help, mention_author=False)
 
     @help.command(name='info')
     @commands.guild_only()
@@ -56,7 +56,7 @@ class Invites(commands.Cog):
                                                    "Latency    | ?ping\n"
                                                    "Userinfo   | ?ui (user)\n"
                                                    "Serverinfo | ?si```")
-        await ctx.send(embed=info)
+        await ctx.reply(embed=info, mention_author=False)
 
     @help.command(name='support')
     @commands.guild_only()
@@ -71,7 +71,7 @@ class Invites(commands.Cog):
         info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         info.add_field(name="Support commands", value="```Appeal   | ?appeal\n"
                                                       "Report   | ?report```")
-        await ctx.send(embed=info)
+        await ctx.reply(embed=info, mention_author=False)
 
     @help.command(name='ticket')
     @commands.guild_only()
@@ -87,7 +87,7 @@ class Invites(commands.Cog):
             url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         ticket.add_field(name="Ticket commands (ticket channels only)",
                          value="```Close  | ?close (reason)```")
-        await ctx.send(embed=ticket)
+        await ctx.reply(embed=ticket, mention_author=False)
 
     @help.command(name='media')
     @commands.guild_only()
@@ -113,7 +113,7 @@ class Invites(commands.Cog):
         info.set_thumbnail(url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
         info.add_field(name="Media commands", value="```Grant     | ?grant (user) <rank>\n"
                                                     "Revoke    | ?revoke (user) <rank>```")
-        await ctx.send(embed=info)
+        await ctx.reply(embed=info, mention_author=False)
 
     @help.command(name='moderation')
     @commands.guild_only()
@@ -147,7 +147,7 @@ class Invites(commands.Cog):
                                    "Slowmode  | ?slowmode (time)\n"
                                    "Unslow    | ?unslow\n"
                                    "Snipe     | ?snipe```")
-        await ctx.send(embed=moderation)
+        await ctx.reply(embed=moderation, mention_author=False)
 
     @help.command(name='system')
     @commands.guild_only()
@@ -180,7 +180,7 @@ class Invites(commands.Cog):
                                    "System info      | ?system info\n"
                                    "Blacklist add    | ?blacklist add (user)\n"
                                    "Blacklist remove | ?blacklist remove (user)```")
-        await ctx.send(embed=moderation)
+        await ctx.reply(embed=moderation, mention_author=False)
 
 
 def setup(client):

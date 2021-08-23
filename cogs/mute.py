@@ -23,9 +23,7 @@ class Sinner(commands.Converter):  # Creates the class
         else:  # Else if the member does have manage messages as permission it will give a return.
             await ctx.send("You cannot punish other staff members.")  # Sends a message in the channel of the command
             # given.
-            raise commands.BadArgument(  # Raises an error otherwise the console gets flood and mister pizza in your ass
-                # gets angry
-                "You cannot punish other staff members")
+            raise commands.BadArgument("You cannot punish other staff members")
 
 
 class Redeemed(commands.Converter):  # Creates the class

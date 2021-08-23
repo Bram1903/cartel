@@ -23,7 +23,7 @@ class Echo(commands.Cog):
             if ctx.author.id in users:
                 return
         if not sentence:
-            return await ctx.send("You must provide a word or sentence.")
+            return await ctx.reply("You must provide a word or sentence.", mention_author=False)
         await ctx.send(await commands.clean_content().convert(ctx=ctx, argument=sentence))
         await ctx.message.delete()
 

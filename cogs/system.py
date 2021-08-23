@@ -36,15 +36,15 @@ class System(commands.Cog):
                 return
         if ctx.author.id in admins:
             if not extension:
-                return await ctx.send("You must provide a module.")
+                return await ctx.reply("You must provide a module.", mention_author=False)
             try:
                 self.client.load_extension(f'cogs.{extension}')
                 moduleLoaded = Embed(colour=0x2F3136)
                 moduleLoaded.set_author(name=f'Module {extension} has successfully been loaded.',
                                         icon_url='https://i.imgur.com/pkfD5kS.png')
-                await ctx.send(embed=moduleLoaded)
+                await ctx.reply(mention_author=False, embed=moduleLoaded)
             except Exception as e:
-                await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+                await ctx.reply(f'**`ERROR:`** {type(e).__name__} - {e}', mention_author=False)
         else:
             NoPerm = Embed(colour=0xAE0808)
             NoPerm.set_author(name='You are not a system administrator.',
@@ -62,7 +62,7 @@ class System(commands.Cog):
                 return
         if ctx.author.id in admins:
             if not extension:
-                return await ctx.send("You must provide a module")
+                return await ctx.reply("You must provide a module", mention_author=False)
             if extension == 'system':
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'You cannot unload the main system.',
@@ -77,9 +77,9 @@ class System(commands.Cog):
                 moduleUnloaded = Embed(colour=0x2F3136)
                 moduleUnloaded.set_author(name=f'Module {extension} has successfully been unloaded.',
                                           icon_url='https://i.imgur.com/pkfD5kS.png')
-                await ctx.send(embed=moduleUnloaded)
+                await ctx.reply(mention_author=False, embed=moduleUnloaded)
             except Exception as e:
-                await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+                await ctx.reply(f'**`ERROR:`** {type(e).__name__} - {e}', mention_author=False)
         else:
             NoPerm = Embed(colour=0xAE0808)
             NoPerm.set_author(name='You are not a system administrator.',
@@ -97,12 +97,12 @@ class System(commands.Cog):
                 return
         if ctx.author.id in admins:
             if not extension:
-                return await ctx.send("You must provide a module")
+                return await ctx.reply("You must provide a module", mention_author=False)
             if extension == 'system':
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'You cannot reload the main system.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                msg = await ctx.send(embed=channel_embed)
+                msg = await ctx.send(mention_author=False)
                 await ctx.message.delete()
                 await sleep(4.7)
                 await msg.delete()
@@ -113,9 +113,9 @@ class System(commands.Cog):
                 moduleReloaded = Embed(colour=0x2F3136)
                 moduleReloaded.set_author(name=f'Module {extension} has successfully been reloaded.',
                                           icon_url='https://i.imgur.com/pkfD5kS.png')
-                await ctx.send(embed=moduleReloaded)
+                await ctx.reply(mention_author=False, embed=moduleReloaded)
             except Exception as e:
-                await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+                await ctx.reply(f'**`ERROR:`** {type(e).__name__} - {e}', mention_author=False)
         else:
             NoPerm = Embed(colour=0xAE0808)
             NoPerm.set_author(name='You are not a system administrator.',
@@ -149,7 +149,7 @@ class System(commands.Cog):
                     url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
                 reload_List.add_field(name="Reloaded modules", value=f"```\n{loadedModules}```", inline=True)
                 reload_List.add_field(name="Failed", value=f"```\n{failedModules}```", inline=True)
-                await ctx.send(embed=reload_List)
+                await ctx.reply(mention_author=False, embed=reload_List)
             except Exception as e:
                 print(e)
         else:
@@ -178,7 +178,7 @@ class System(commands.Cog):
             module_list.set_thumbnail(
                 url="https://cdn.discordapp.com/attachments/807568994202025996/854995835154202644/lg-1.png")
             module_list.add_field(name="Module List", value=f"```\n{Module_List}```")
-            await ctx.send(embed=module_list)
+            await ctx.reply(mention_author=False, embed=module_list)
         else:
             NoPerm = Embed(colour=0xAE0808)
             NoPerm.set_author(name='You are not a system administrator.',
@@ -196,8 +196,8 @@ class System(commands.Cog):
                 return
         if ctx.author.id in admins:
             try:
-                await ctx.send("Full logs")
-                await ctx.send(file=discord.File(r'./commandlogger.txt'))
+                await ctx.reply("Full logs", mention_author=False)
+                await ctx.reply(file=discord.File(r'./commandlogger.txt'), mention_author=False)
             except discord.Forbidden:
                 pass
         else:
@@ -234,7 +234,7 @@ class System(commands.Cog):
             usageEmbed.add_field(name="Cores", value=f"{cores}", inline=True)
             usageEmbed.add_field(name="Threads", value=f"{threads}", inline=True)
             usageEmbed.set_footer(text=text, icon_url="https://i.imgur.com/28qrLRX.png")
-            await ctx.send(embed=usageEmbed)
+            await ctx.reply(embed=usageEmbed, mention_author=False)
         else:
             NoPerm = Embed(colour=0xAE0808)
             NoPerm.set_author(name='You are not a system administrator.',
@@ -264,13 +264,13 @@ class System(commands.Cog):
             await msg.delete()
             return
         if not user:
-            await ctx.send("You must provide a user.")
+            await ctx.reply("You must provide a user.", mention_author=False)
             return
         if user.id in admins:
             channel_embed = Embed(colour=0xAE0808)
             channel_embed.set_author(name=f'You cannot blacklist an admin.',
                                      icon_url='https://i.imgur.com/SR9wWm9.png')
-            await ctx.send(embed=channel_embed)
+            await ctx.reply(mention_author=False, embed=channel_embed)
             return
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
@@ -278,7 +278,7 @@ class System(commands.Cog):
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'{user.display_name} is already blacklisted.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(mention_author=False, embed=channel_embed)
                 return
             users.append(user.id)
             f.seek(0)
@@ -288,7 +288,7 @@ class System(commands.Cog):
                                   description="This user is blocked from all commands.")
             channel_embed.set_author(name=f'{user.display_name} has been blacklisted.',
                                      icon_url='https://i.imgur.com/SR9wWm9.png')
-            await ctx.send(embed=channel_embed)
+            await ctx.reply(embed=channel_embed, mention_author=False)
 
     @blacklist.command(name='remove')
     async def remove_subcommand(self, ctx, user: discord.Member = None):
@@ -306,13 +306,13 @@ class System(commands.Cog):
             await msg.delete()
             return
         if not user:
-            await ctx.send("You must provide a user.")
+            await ctx.reply("You must provide a user.", mention_author=False)
             return
         if user.id in admins:
             channel_embed = Embed(colour=0xAE0808)
             channel_embed.set_author(name=f'You cannot unblacklist an admin.',
                                      icon_url='https://i.imgur.com/SR9wWm9.png')
-            await ctx.send(embed=channel_embed)
+            await ctx.reply(mention_author=False, embed=channel_embed)
             return
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
@@ -322,7 +322,7 @@ class System(commands.Cog):
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'User is not blacklisted.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(embed=channel_embed, mention_author=False)
             else:
                 del users[index_of_user]
                 with open("botblacklist.json", "w+") as write_file:
@@ -331,7 +331,7 @@ class System(commands.Cog):
                                       description="This user is unblocked from all commands.")
                 channel_embed.set_author(name=f'{user.display_name} is unblacklisted.',
                                          icon_url='https://i.imgur.com/SR9wWm9.png')
-                await ctx.send(embed=channel_embed)
+                await ctx.reply(embed=channel_embed, mention_author=False)
 
 
 def setup(client):

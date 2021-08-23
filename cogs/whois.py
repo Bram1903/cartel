@@ -48,7 +48,7 @@ class Whois(commands.Cog):
         if ctx.author.id not in admins:
             channel = self.client.get_channel(int(botChannel))
             if ctx.channel == channel:
-                await ctx.send(embed=em)
+                await ctx.reply(mention_author=False, embed=em)
             else:
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'Wrong channel',
@@ -59,7 +59,7 @@ class Whois(commands.Cog):
                 await sleep(4.7)
                 await msg.delete()
         else:
-            await ctx.send(embed=em)
+            await ctx.reply(mention_author=False, embed=em)
 
 
 def setup(client):

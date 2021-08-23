@@ -38,7 +38,7 @@ class Snipe(commands.Cog):
             if ctx.author.id in users:
                 return
         if not self.last_msg:  # on_message_delete hasn't been triggered since the bot started
-            await ctx.send("There is no message to snipe!")
+            await ctx.reply("There is no message to snipe!", mention_author=False)
             return
         if self.last_msg.author.id in admins:
             await ctx.message.delete()
@@ -57,7 +57,7 @@ class Snipe(commands.Cog):
         embed = Embed(colour=0xAE0808)
         embed.set_author(name='This snipe has been send to the logs channel.',
                          icon_url='https://i.imgur.com/uoq4zFS.png')
-        await channel.send(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
         timestamp = datetime.datetime.utcnow().strftime("%d/%m/%Y | %H:%M:%S")
         embed_logs = Embed(description=f"User ID: {author.id}", colour=0xE67E22)

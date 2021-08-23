@@ -55,7 +55,7 @@ class serverinfo(commands.Cog):
         if ctx.author.id not in admins:
             channel = self.client.get_channel(int(botChannel))
             if ctx.channel == channel:
-                await ctx.send(embed=em)
+                await ctx.reply(embed=em, mention_author=False)
             else:
                 channel_embed = Embed(colour=0xAE0808)
                 channel_embed.set_author(name=f'Wrong channel',
@@ -66,7 +66,7 @@ class serverinfo(commands.Cog):
                 await sleep(4.7)
                 await msg.delete()
         else:
-            await ctx.send(embed=em)
+            await ctx.reply(embed=em, mention_author=False)
 
 
 def setup(client):
