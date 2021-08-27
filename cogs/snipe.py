@@ -33,11 +33,19 @@ class Snipe(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.has_permissions(manage_messages=True)
     async def snipe(self, ctx: commands.Context):
+        author = self.last_msg.author
+        content = self.last_msg.content
+        channel = self.last_msg.channel
+        contentguild = self.last_msg.guild
+        guild = ctx.guild
         with open('botblacklist.json', 'r+') as f:
             users = json.load(f)
             if ctx.author.id in users:
                 return
         if not self.last_msg:  # on_message_delete hasn't been triggered since the bot started
+            await ctx.reply("There is no message to snipe!", mention_author=False)
+            return
+        if contentguild.id != guild.id:
             await ctx.reply("There is no message to snipe!", mention_author=False)
             return
         if self.last_msg.author.id in admins:
@@ -49,10 +57,6 @@ class Snipe(commands.Cog):
             await sleep(4.7)
             await msg.delete()
             return
-
-        author = self.last_msg.author
-        content = self.last_msg.content
-        channel = self.last_msg.channel
 
         embed = Embed(colour=0xAE0808)
         embed.set_author(name='This snipe has been send to the logs channel.',
